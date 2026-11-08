@@ -24,10 +24,10 @@ export const AboutSection: React.FC = () => {
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: 35, scale: 0.98 }}
+        initial={{ opacity: 0, y: 16, scale: 0.99 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: false, amount: 0.2 }}
-        transition={{ duration: 0.45 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
         className="rounded-3xl p-8 sm:p-12 bg-white dark:bg-gradient-to-br dark:from-[#0b172a] dark:via-[#07101e] dark:to-[#040810] border border-slate-200 dark:border-blue-500/20 shadow-md dark:shadow-xl space-y-8"
       >
         <div className="space-y-4 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">

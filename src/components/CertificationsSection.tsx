@@ -72,11 +72,11 @@ export const CertificationsSection: React.FC = () => {
           return (
             <motion.div
               key={cert.id}
-              initial={{ opacity: 0, y: 35, scale: 0.98 }}
+              initial={{ opacity: 0, y: 16, scale: 0.99 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: false, amount: 0.15 }}
-              whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, amount: 0.1 }}
+              whileHover={{ y: -4, transition: { duration: 0.15 } }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={() => setHoveredCertId(cert.id)}
               onMouseLeave={() => setHoveredCertId(null)}
               className={`p-6 sm:p-7 rounded-3xl border transition-all duration-200 flex flex-col justify-between relative overflow-hidden group shadow-md ${cardBgClass}`}

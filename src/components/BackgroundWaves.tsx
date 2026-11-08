@@ -3,14 +3,32 @@ import React from 'react';
 export const BackgroundWaves: React.FC = () => {
   return (
     <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-      {/* Ambient Radial Top Glow */}
-      <div className="absolute top-[-10%] left-[20%] w-[600px] h-[600px] rounded-full bg-blue-600/10 dark:bg-blue-500/10 blur-[130px]" />
+      {/* 100% Zero-Lag Hardware-Accelerated Ambient Radial Ellipses */}
+      <div
+        className="absolute top-[-10%] left-[20%] w-[650px] h-[650px] rounded-full pointer-events-none transform-gpu"
+        style={{
+          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.14) 0%, rgba(59, 130, 246, 0.04) 45%, transparent 70%)',
+          willChange: 'transform',
+        }}
+      />
       
       {/* Secondary Ambient Accent Glow */}
-      <div className="absolute top-[40%] right-[-5%] w-[500px] h-[500px] rounded-full bg-indigo-600/10 dark:bg-purple-500/8 blur-[120px]" />
+      <div
+        className="absolute top-[35%] right-[-10%] w-[550px] h-[550px] rounded-full pointer-events-none transform-gpu"
+        style={{
+          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(99, 102, 241, 0.03) 45%, transparent 70%)',
+          willChange: 'transform',
+        }}
+      />
       
       {/* Subtle Bottom Ambient Glow */}
-      <div className="absolute bottom-[-10%] left-[10%] w-[600px] h-[600px] rounded-full bg-sky-600/10 dark:bg-blue-600/8 blur-[140px]" />
+      <div
+        className="absolute bottom-[-10%] left-[5%] w-[650px] h-[650px] rounded-full pointer-events-none transform-gpu"
+        style={{
+          background: 'radial-gradient(circle, rgba(14, 165, 233, 0.12) 0%, rgba(14, 165, 233, 0.03) 45%, transparent 70%)',
+          willChange: 'transform',
+        }}
+      />
 
       {/* Grid Pattern */}
       <div 

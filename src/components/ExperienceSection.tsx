@@ -27,11 +27,11 @@ export const ExperienceSection: React.FC = () => {
         {experienceList.map((exp) => (
           <motion.div
             key={exp.id}
-            initial={{ opacity: 0, y: 35, scale: 0.98 }}
+            initial={{ opacity: 0, y: 16, scale: 0.99 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: false, amount: 0.15 }}
-            whileHover={{ y: -5, transition: { duration: 0.2 } }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.1 }}
+            whileHover={{ y: -4, transition: { duration: 0.15 } }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             className={`rounded-3xl p-7 sm:p-9 border transition-all ${
               exp.isCurrent
                 ? 'bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:bg-gradient-to-br dark:from-[#0f2240] dark:via-[#0a182e] dark:to-[#06101f] border-blue-400 dark:border-blue-500/50 shadow-lg'

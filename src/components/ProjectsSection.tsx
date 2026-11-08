@@ -96,11 +96,11 @@ export const ProjectsSection: React.FC = () => {
             {featuredProjects.map((project: ProjectItem) => (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, y: 35, scale: 0.98 }}
+                initial={{ opacity: 0, y: 16, scale: 0.99 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: false, amount: 0.15 }}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                viewport={{ once: true, amount: 0.1 }}
+                whileHover={{ y: -4, transition: { duration: 0.15 } }}
+                transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
               >
                 <SpotlightCard
                   spotlightColor="rgba(6, 182, 212, 0.25)"
@@ -188,11 +188,11 @@ export const ProjectsSection: React.FC = () => {
           {otherProjects.map((project: ProjectItem) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 30, scale: 0.98 }}
+              initial={{ opacity: 0, y: 16, scale: 0.99 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: false, amount: 0.15 }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, amount: 0.1 }}
+              whileHover={{ y: -4, transition: { duration: 0.15 } }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
               className="flex"
             >
               <SpotlightCard

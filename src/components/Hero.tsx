@@ -189,12 +189,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRecruiter, onOpenResume }) => 
           className="lg:col-span-5 flex justify-center order-1 lg:order-2"
         >
           <motion.div
-            animate={{ y: [0, -8, 0] }}
+            animate={{ y: [0, -6, 0] }}
             transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut' }}
-            className="relative w-80 sm:w-96 lg:w-[420px]"
+            className="relative w-80 sm:w-96 lg:w-[420px] transform-gpu"
+            style={{ willChange: 'transform' }}
           >
             {/* Glowing Backdrop Border */}
-            <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-600 opacity-20 dark:opacity-40 blur-xl group-hover:opacity-100 transition duration-1000" />
+            <div
+              className="absolute -inset-1 rounded-3xl opacity-30 dark:opacity-50 pointer-events-none transform-gpu"
+              style={{
+                background: 'linear-gradient(135deg, rgba(37,99,235,0.4), rgba(56,189,248,0.4), rgba(99,102,241,0.4))',
+                filter: 'blur(14px)',
+              }}
+            />
             
             {/* Main Image Container */}
             <div className="relative rounded-3xl overflow-hidden border-2 border-blue-500/30 dark:border-blue-500/40 bg-white dark:bg-slate-950 shadow-2xl">

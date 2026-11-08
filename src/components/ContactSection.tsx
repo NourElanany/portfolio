@@ -33,11 +33,11 @@ export const ContactSection: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* WhatsApp */}
         <motion.a
-          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          initial={{ opacity: 0, y: 16, scale: 0.99 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: false, amount: 0.15 }}
-          whileHover={{ y: -6, transition: { duration: 0.2 } }}
-          transition={{ duration: 0.45 }}
+          viewport={{ once: true, amount: 0.1 }}
+          whileHover={{ y: -4, transition: { duration: 0.15 } }}
+          transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
           href={personalData.contacts.whatsapp}
           target="_blank"
           rel="noopener noreferrer"
@@ -56,11 +56,11 @@ export const ContactSection: React.FC = () => {
 
         {/* Email */}
         <motion.a
-          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          initial={{ opacity: 0, y: 16, scale: 0.99 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: false, amount: 0.15 }}
-          whileHover={{ y: -6, transition: { duration: 0.2 } }}
-          transition={{ duration: 0.45, delay: 0.05 }}
+          viewport={{ once: true, amount: 0.1 }}
+          whileHover={{ y: -4, transition: { duration: 0.15 } }}
+          transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1], delay: 0.04 }}
           href={`mailto:${personalData.contacts.email}`}
           className="p-7 rounded-3xl bg-white dark:bg-gradient-to-br dark:from-[#091a33] dark:via-[#061224] dark:to-[#030913] border border-slate-200 dark:border-blue-500/25 hover:border-blue-500/60 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between"
         >
@@ -77,11 +77,11 @@ export const ContactSection: React.FC = () => {
 
         {/* LinkedIn */}
         <motion.a
-          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          initial={{ opacity: 0, y: 16, scale: 0.99 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: false, amount: 0.15 }}
-          whileHover={{ y: -6, transition: { duration: 0.2 } }}
-          transition={{ duration: 0.45, delay: 0.1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          whileHover={{ y: -4, transition: { duration: 0.15 } }}
+          transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
           href={personalData.contacts.linkedin}
           target="_blank"
           rel="noopener noreferrer"
@@ -100,11 +100,11 @@ export const ContactSection: React.FC = () => {
 
         {/* GitHub */}
         <motion.a
-          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          initial={{ opacity: 0, y: 16, scale: 0.99 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: false, amount: 0.15 }}
-          whileHover={{ y: -6, transition: { duration: 0.2 } }}
-          transition={{ duration: 0.45, delay: 0.15 }}
+          viewport={{ once: true, amount: 0.1 }}
+          whileHover={{ y: -4, transition: { duration: 0.15 } }}
+          transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
           href={personalData.contacts.github}
           target="_blank"
           rel="noopener noreferrer"

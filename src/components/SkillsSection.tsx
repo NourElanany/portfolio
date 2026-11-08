@@ -97,11 +97,11 @@ export const SkillsSection: React.FC = () => {
           return (
             <motion.div
               key={group.id}
-              initial={{ opacity: 0, y: 30, scale: 0.98 }}
+              initial={{ opacity: 0, y: 16, scale: 0.99 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: false, amount: 0.15 }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, amount: 0.1 }}
+              whileHover={{ y: -4, transition: { duration: 0.15 } }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
               className={`rounded-3xl p-7 sm:p-9 border transition-all ${
                 group.isPrimary
                   ? 'bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:bg-gradient-to-br dark:from-[#131d3d] dark:via-[#0e162f] dark:to-[#080d1d] border-blue-300 dark:border-indigo-500/40 shadow-lg md:col-span-2'
