@@ -46,47 +46,72 @@ export const CertificationsSection: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
         {certificationsList.map((cert) => {
           const isHovered = hoveredCertId === cert.id;
+          const isNti = cert.id === 'nti-cv-cert';
+          const isGenAi = cert.id === 'genai-achievement';
           const isNvidia = cert.issuer.includes('NVIDIA');
-          const isNti = cert.issuer.includes('NTI');
+          const isUdemy = cert.issuer.includes('Udemy');
+
+          // Tailored dark theme gradients ranging between deep cyan/navy and obsidian
+          const cardBgClass = isNti
+            ? (isHovered
+                ? 'bg-blue-50/90 dark:bg-gradient-to-br dark:from-[#122852] dark:via-[#0c1c3c] dark:to-[#071126] border-blue-500 shadow-xl ring-2 ring-blue-500/30'
+                : 'bg-white dark:bg-gradient-to-br dark:from-[#0c1e40] dark:via-[#08152e] dark:to-[#050d1e] border-blue-500/40 hover:border-blue-400')
+            : isGenAi
+            ? (isHovered
+                ? 'bg-cyan-50/90 dark:bg-gradient-to-br dark:from-[#0e2c45] dark:via-[#091f32] dark:to-[#051320] border-cyan-400 shadow-xl ring-2 ring-cyan-500/30'
+                : 'bg-white dark:bg-gradient-to-br dark:from-[#092135] dark:via-[#071726] dark:to-[#040e18] border-cyan-500/40 hover:border-cyan-400')
+            : isNvidia
+            ? (isHovered
+                ? 'bg-emerald-50/90 dark:bg-gradient-to-br dark:from-[#0d2a1f] dark:via-[#091f16] dark:to-[#05110d] border-emerald-400 shadow-xl ring-2 ring-emerald-500/30'
+                : 'bg-white dark:bg-gradient-to-br dark:from-[#092017] dark:via-[#061610] dark:to-[#030d09] border-emerald-500/40 hover:border-emerald-400')
+            : (isHovered
+                ? 'bg-purple-50/90 dark:bg-gradient-to-br dark:from-[#1c1833] dark:via-[#141026] dark:to-[#0a0814] border-purple-400 shadow-xl ring-2 ring-purple-500/30'
+                : 'bg-white dark:bg-gradient-to-br dark:from-[#141026] dark:via-[#0e0b1c] dark:to-[#07060f] border-slate-700/60 hover:border-purple-500/40');
 
           return (
             <div
               key={cert.id}
               onMouseEnter={() => setHoveredCertId(cert.id)}
               onMouseLeave={() => setHoveredCertId(null)}
-              className={`p-6 sm:p-7 rounded-3xl border transition-all duration-200 flex flex-col justify-between relative overflow-hidden group ${
-                isHovered
-                  ? 'bg-white dark:bg-slate-900 border-blue-500 dark:border-blue-400 shadow-xl ring-2 ring-blue-500/20'
-                  : 'bg-white dark:bg-slate-900/80 border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700'
-              }`}
+              className={`p-6 sm:p-7 rounded-3xl border transition-all duration-200 flex flex-col justify-between relative overflow-hidden group shadow-md ${cardBgClass}`}
             >
               {/* Top Accent Stripe */}
               <div className={`absolute top-0 inset-x-0 h-1 transition-all ${
-                isHovered
-                  ? 'bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-600 opacity-100'
+                isNti
+                  ? 'bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-500'
+                  : isGenAi
+                  ? 'bg-gradient-to-r from-cyan-400 via-teal-400 to-blue-500'
                   : isNvidia
-                  ? 'bg-emerald-500/80'
-                  : isNti
-                  ? 'bg-blue-500/80'
-                  : 'bg-slate-300 dark:bg-slate-700'
+                  ? 'bg-gradient-to-r from-emerald-500 via-green-400 to-teal-500'
+                  : 'bg-gradient-to-r from-slate-400 via-purple-400 to-indigo-400'
               }`} />
 
               <div>
                 {/* Top Row: Icon + Badge */}
                 <div className="flex items-center justify-between mb-4">
                   <span className={`p-3 rounded-2xl transition-colors ${
-                    isHovered
-                      ? 'bg-blue-600 text-white shadow-md'
+                    isNti
+                      ? 'bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300'
+                      : isGenAi
+                      ? 'bg-cyan-100 dark:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300'
                       : isNvidia
-                      ? 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
-                      : 'bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400'
+                      ? 'bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300'
+                      : 'bg-slate-100 dark:bg-purple-500/20 text-slate-700 dark:text-purple-300'
                   }`}>
                     <ShieldCheck className="w-6 h-6" />
                   </span>
 
                   <div className="flex items-center gap-1.5">
                     {cert.badgeText && (
-                      <span className="px-3 py-1 rounded-full text-xs font-bold font-mono bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                      <span className={`px-3 py-1 rounded-full text-xs font-bold font-mono border ${
+                        isNti
+                          ? 'bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800'
+                          : isGenAi
+                          ? 'bg-cyan-50 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800'
+                          : isNvidia
+                          ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800'
+                          : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
+                      }`}>
                         {cert.badgeText}
                       </span>
                     )}
@@ -96,7 +121,7 @@ export const CertificationsSection: React.FC = () => {
                 {/* Title */}
                 <h3 className={`text-base sm:text-lg font-bold mb-2 leading-snug transition-colors ${
                   isHovered
-                    ? 'text-blue-600 dark:text-blue-400'
+                    ? (isGenAi ? 'text-cyan-600 dark:text-cyan-300' : isNvidia ? 'text-emerald-600 dark:text-emerald-300' : 'text-blue-600 dark:text-blue-400')
                     : 'text-slate-900 dark:text-slate-100'
                 }`}>
                   {cert.title}
@@ -158,20 +183,24 @@ export const CertificationsSection: React.FC = () => {
                 )}
               </AnimatePresence>
 
-              {/* Bottom Direct Zoom Button (100% Reliable Click) */}
-              <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              {/* Bottom Clean Action Button - No Text Collision */}
+              <div className="mt-5 pt-3 border-t border-slate-200/50 dark:border-slate-800/80">
                 <button
                   type="button"
                   onClick={() => setSelectedFullCert(cert)}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-pointer"
+                  className={`w-full py-2 px-3 rounded-xl border flex items-center justify-center gap-2 text-xs font-bold transition-all cursor-pointer shadow-xs group/btn ${
+                    isNti
+                      ? 'bg-blue-50/80 hover:bg-blue-100 dark:bg-blue-950/50 dark:hover:bg-blue-900/60 border-blue-200/80 dark:border-blue-800/60 text-blue-700 dark:text-blue-300'
+                      : isGenAi
+                      ? 'bg-cyan-50/80 hover:bg-cyan-100 dark:bg-cyan-950/50 dark:hover:bg-cyan-900/60 border-cyan-200/80 dark:border-cyan-800/60 text-cyan-700 dark:text-cyan-300'
+                      : isNvidia
+                      ? 'bg-emerald-50/80 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:hover:bg-emerald-900/60 border-emerald-200/80 dark:border-emerald-800/60 text-emerald-700 dark:text-emerald-300'
+                      : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
+                  }`}
                 >
-                  <Eye className="w-3.5 h-3.5" />
+                  <Eye className="w-3.5 h-3.5 group-hover/btn:scale-110 transition-transform" />
                   <span>{language === 'ar' ? 'معاينة الشهادة الكاملة' : 'View Full Certificate'}</span>
                 </button>
-
-                <span className="text-2xs font-mono text-slate-400">
-                  {cert.badgeText}
-                </span>
               </div>
             </div>
           );

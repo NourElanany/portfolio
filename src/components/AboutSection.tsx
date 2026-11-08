@@ -21,7 +21,7 @@ export const AboutSection: React.FC = () => {
         </h2>
       </div>
 
-      <div className="rounded-3xl p-8 sm:p-12 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-md dark:shadow-xl space-y-8">
+      <div className="rounded-3xl p-8 sm:p-12 bg-white dark:bg-gradient-to-br dark:from-[#0b172a] dark:via-[#07101e] dark:to-[#040810] border border-slate-200 dark:border-blue-500/20 shadow-md dark:shadow-xl space-y-8">
         <div className="space-y-4 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
           <p>
             {language === 'ar'
@@ -36,7 +36,7 @@ export const AboutSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-6 border-t border-slate-200 dark:border-slate-800">
-          <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800">
+          <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-50 dark:bg-[#050b14] border border-slate-200 dark:border-slate-800">
             <GraduationCap className="w-6 h-6 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
             <div>
               <div className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-slate-100">
@@ -48,7 +48,7 @@ export const AboutSection: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800">
+          <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-50 dark:bg-[#050b14] border border-slate-200 dark:border-slate-800">
             <CheckCircle2 className="w-6 h-6 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
             <div>
               <div className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-slate-100">

@@ -97,8 +97,8 @@ export const SkillsSection: React.FC = () => {
               key={group.id}
               className={`rounded-3xl p-7 sm:p-9 border transition-all ${
                 group.isPrimary
-                  ? 'bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-blue-950/40 dark:via-slate-900 dark:to-indigo-950/40 border-blue-300 dark:border-blue-500/50 shadow-md md:col-span-2'
-                  : 'bg-white dark:bg-slate-900/90 border-slate-200 dark:border-slate-800 shadow-sm'
+                  ? 'bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:bg-gradient-to-br dark:from-[#131d3d] dark:via-[#0e162f] dark:to-[#080d1d] border-blue-300 dark:border-indigo-500/40 shadow-lg md:col-span-2'
+                  : 'bg-white dark:bg-gradient-to-br dark:from-[#0d142b] dark:via-[#090e1f] dark:to-[#050812] border-slate-200 dark:border-indigo-900/30 shadow-sm'
               }`}
             >
               <div className="flex items-center gap-3.5 mb-6">

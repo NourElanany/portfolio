@@ -27,8 +27,8 @@ export const ExperienceSection: React.FC = () => {
             key={exp.id}
             className={`rounded-3xl p-7 sm:p-9 border transition-all ${
               exp.isCurrent
-                ? 'bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-blue-950/40 dark:via-slate-900 dark:to-indigo-950/40 border-blue-400 dark:border-blue-500/50 shadow-lg'
-                : 'bg-white dark:bg-slate-900/90 border-slate-200 dark:border-slate-800 shadow-md'
+                ? 'bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:bg-gradient-to-br dark:from-[#0f2240] dark:via-[#0a182e] dark:to-[#06101f] border-blue-400 dark:border-blue-500/50 shadow-lg'
+                : 'bg-white dark:bg-gradient-to-br dark:from-[#0a1628] dark:via-[#07101e] dark:to-[#040912] border-slate-200 dark:border-slate-800/80 shadow-md'
             }`}
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">

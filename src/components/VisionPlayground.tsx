@@ -428,7 +428,7 @@ export const VisionPlayground: React.FC = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 p-6 sm:p-10 shadow-lg dark:shadow-2xl space-y-8"
+          className="rounded-3xl border border-slate-200 dark:border-emerald-500/30 bg-white dark:bg-gradient-to-br dark:from-[#06171a] dark:via-[#041012] dark:to-[#02090a] p-6 sm:p-10 shadow-lg dark:shadow-2xl space-y-8"
         >
           {/* Header & Badges */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
@@ -690,7 +690,7 @@ export const VisionPlayground: React.FC = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 p-6 sm:p-10 shadow-lg dark:shadow-2xl space-y-8"
+          className="rounded-3xl border border-slate-200 dark:border-purple-500/30 bg-white dark:bg-gradient-to-br dark:from-[#130f24] dark:via-[#0d0a1a] dark:to-[#070510] p-6 sm:p-10 shadow-lg dark:shadow-2xl space-y-8"
         >
           {/* Header & Badges */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
@@ -927,7 +927,7 @@ export const VisionPlayground: React.FC = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 p-6 sm:p-10 shadow-lg dark:shadow-2xl space-y-8"
+          className="rounded-3xl border border-slate-200 dark:border-cyan-500/30 bg-white dark:bg-gradient-to-br dark:from-[#081829] dark:via-[#05111c] dark:to-[#030910] p-6 sm:p-10 shadow-lg dark:shadow-2xl space-y-8"
         >
           {/* Header & Badges */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">

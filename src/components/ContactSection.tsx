@@ -34,7 +34,7 @@ export const ContactSection: React.FC = () => {
           href={personalData.contacts.whatsapp}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-7 rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between"
+          className="p-7 rounded-3xl bg-white dark:bg-gradient-to-br dark:from-[#081f18] dark:via-[#051510] dark:to-[#030d0a] border border-slate-200 dark:border-emerald-500/25 hover:border-emerald-500/60 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between"
         >
           <div className="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 w-fit mb-5 group-hover:scale-110 transition-transform">
             <MessageCircle className="w-7 h-7" />
@@ -50,7 +50,7 @@ export const ContactSection: React.FC = () => {
         {/* Email */}
         <a
           href={`mailto:${personalData.contacts.email}`}
-          className="p-7 rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 hover:border-blue-500/50 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between"
+          className="p-7 rounded-3xl bg-white dark:bg-gradient-to-br dark:from-[#091a33] dark:via-[#061224] dark:to-[#030913] border border-slate-200 dark:border-blue-500/25 hover:border-blue-500/60 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between"
         >
           <div className="p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 w-fit mb-5 group-hover:scale-110 transition-transform">
             <Mail className="w-7 h-7" />
@@ -68,14 +68,14 @@ export const ContactSection: React.FC = () => {
           href={personalData.contacts.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-7 rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 hover:border-[#0077B5]/60 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between"
+          className="p-7 rounded-3xl bg-white dark:bg-gradient-to-br dark:from-[#08182f] dark:via-[#051122] dark:to-[#030a14] border border-slate-200 dark:border-sky-500/25 hover:border-sky-400/60 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between"
         >
-          <div className="p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-500/15 text-[#0077B5] w-fit mb-5 group-hover:scale-110 transition-transform">
+          <div className="p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-500/15 text-[#0077B5] dark:text-[#38bdf8] w-fit mb-5 group-hover:scale-110 transition-transform">
             <LinkedinIcon className="w-7 h-7 fill-current" />
           </div>
           <div>
             <div className="text-xs font-bold text-slate-500 dark:text-slate-400">LinkedIn</div>
-            <div className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-[#0077B5] transition-colors mt-1 font-mono">
+            <div className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-[#0077B5] dark:group-hover:text-[#38bdf8] transition-colors mt-1 font-mono">
               nour-eldin-elanany
             </div>
           </div>
@@ -86,9 +86,9 @@ export const ContactSection: React.FC = () => {
           href={personalData.contacts.github}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-7 rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 hover:border-purple-500/50 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between"
+          className="p-7 rounded-3xl bg-white dark:bg-gradient-to-br dark:from-[#141221] dark:via-[#0e0c17] dark:to-[#07060b] border border-slate-200 dark:border-purple-500/25 hover:border-purple-400/60 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between"
         >
-          <div className="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 w-fit mb-5 group-hover:scale-110 transition-transform">
+          <div className="p-3.5 rounded-2xl bg-slate-100 dark:bg-purple-500/15 text-slate-900 dark:text-purple-300 w-fit mb-5 group-hover:scale-110 transition-transform">
             <GithubIcon className="w-7 h-7 fill-current" />
           </div>
           <div>

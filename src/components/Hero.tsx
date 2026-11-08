@@ -166,7 +166,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRecruiter, onOpenResume }) => 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: 0.1 + idx * 0.05 }}
-                className="relative p-4 rounded-2xl bg-white dark:bg-slate-900/80 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-500/50 transition-all text-center group"
+                className="relative p-4 rounded-2xl bg-white dark:bg-gradient-to-br dark:from-[#0c1833] dark:via-[#081226] dark:to-[#050c19] backdrop-blur-md border border-slate-200 dark:border-blue-500/25 shadow-sm hover:border-blue-500/50 transition-all text-center group"
               >
                 <div className="text-xl sm:text-2xl font-extrabold text-blue-600 dark:text-blue-400 font-mono group-hover:scale-105 transition-transform">
                   {stat.value}

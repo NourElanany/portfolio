@@ -126,7 +126,7 @@ export const SkillRadarSection: React.FC = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 p-6 sm:p-10 shadow-md dark:shadow-xl">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center rounded-3xl border border-slate-200 dark:border-indigo-500/30 bg-white dark:bg-gradient-to-br dark:from-[#111936] dark:via-[#0c1228] dark:to-[#070b1a] p-6 sm:p-10 shadow-md dark:shadow-2xl">
         
         {/* SVG Interactive Radar Chart */}
         <div className="lg:col-span-6 flex flex-col items-center justify-center select-none">
@@ -250,7 +250,7 @@ export const SkillRadarSection: React.FC = () => {
             <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 block">
               {language === 'ar' ? 'المشروع التطبيقي الأبرز على GitHub:' : 'Flagship Applied Project on GitHub:'}
             </span>
-            <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-800 dark:text-slate-200 font-medium flex items-center justify-between">
+            <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#070d1c] border border-slate-200 dark:border-indigo-900/40 text-xs sm:text-sm text-slate-800 dark:text-slate-200 font-medium flex items-center justify-between">
               <span>{activeAxis.keyProject[language]}</span>
               <ChevronRight className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 rtl:rotate-180" />
             </div>

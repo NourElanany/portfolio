@@ -543,6 +543,22 @@ export const experienceList: ExperienceItem[] = [
 
 export const certificationsList: CertificationItem[] = [
   {
+    id: 'nti-cv-cert',
+    title: 'Computer Vision Training (Score: 98% Excellent)',
+    issuer: 'National Telecommunication Institute (NTI) & ITIDA',
+    badgeText: 'Jul–Aug 2025',
+    credentialId: 'Student ID: 230351 • 120 Hours',
+    image: '/images/certificates/nti-cv.png',
+  },
+  {
+    id: 'genai-achievement',
+    title: 'Generative AI & LLMs Applied Engineering (90 Hours)',
+    issuer: 'Certificate of Achievement',
+    badgeText: 'Summer 2025',
+    credentialId: '3 Production RAG Projects (Milvus & Zilliz)',
+    image: '/images/certificates/genai-achievement.png',
+  },
+  {
     id: 'nvidia-llm',
     title: 'Rapid Application Development with Large Language Models (LLMs)',
     issuer: 'NVIDIA',
@@ -565,22 +581,6 @@ export const certificationsList: CertificationItem[] = [
     badgeText: 'Aug 21, 2025',
     credentialId: 'xdIqRIVRSx6oak0MIOFfMQ',
     image: '/images/certificates/nvidia-prompt-engineering.png',
-  },
-  {
-    id: 'nti-cv-cert',
-    title: 'Computer Vision Training (Score: 98% Excellent)',
-    issuer: 'National Telecommunication Institute (NTI) & ITIDA',
-    badgeText: 'Jul–Aug 2025',
-    credentialId: 'Student ID: 230351 • 120 Hours',
-    image: '/images/certificates/nti-cv.png',
-  },
-  {
-    id: 'genai-achievement',
-    title: 'Generative AI & LLMs Applied Engineering (90 Hours)',
-    issuer: 'Certificate of Achievement',
-    badgeText: 'LangChain4j, Milvus, Zilliz',
-    credentialId: '3 Production RAG Projects',
-    image: '/images/certificates/genai-achievement.png',
   },
   {
     id: 'udemy-python-az',
