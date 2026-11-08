@@ -17,7 +17,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenRecruiter, onOpenResume })
 
   const navLinks = [
     { href: '#vision-specialty', label: language === 'ar' ? 'الرؤية الحاسوبية' : 'Computer Vision' },
-    { href: '#cv-playground', label: language === 'ar' ? 'مختبر الـ CV' : 'CV Sandbox' },
+    { href: '#cv-playground', label: language === 'ar' ? 'المعمل التفاعلي' : 'AI Sandbox' },
     { href: '#projects', label: language === 'ar' ? 'المشاريع' : 'Projects' },
     { href: '#tech-radar', label: language === 'ar' ? 'مصفوفة المهارات' : 'Radar' },
     { href: '#experience', label: language === 'ar' ? 'الخبرات' : 'Experience' },
