@@ -551,6 +551,22 @@ export const certificationsList: CertificationItem[] = [
     image: '/images/certificates/nvidia-llm.png',
   },
   {
+    id: 'nvidia-dl',
+    title: 'Getting Started with Deep Learning',
+    issuer: 'NVIDIA',
+    badgeText: 'Aug 23, 2025',
+    credentialId: 'etKar9diTCytwki9TmGvgA',
+    image: '/images/certificates/nvidia-deep-learning.png',
+  },
+  {
+    id: 'nvidia-prompt',
+    title: 'Building LLM Applications With Prompt Engineering',
+    issuer: 'NVIDIA',
+    badgeText: 'Aug 21, 2025',
+    credentialId: 'xdIqRIVRSx6oak0MIOFfMQ',
+    image: '/images/certificates/nvidia-prompt-engineering.png',
+  },
+  {
     id: 'nti-cv-cert',
     title: 'Computer Vision Training (Score: 98% Excellent)',
     issuer: 'National Telecommunication Institute (NTI) & ITIDA',
