@@ -51,7 +51,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
             <div className="flex items-center gap-2">
               <a
-                href="/Noureldin_Elanany_CV.pdf"
+                href="./Noureldin_Elanany_CV.pdf"
                 download="Noureldin_Elanany_CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"

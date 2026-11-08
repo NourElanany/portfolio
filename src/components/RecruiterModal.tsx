@@ -58,7 +58,7 @@ export const RecruiterModal: React.FC<RecruiterModalProps> = ({
             {/* Header Profile Summary */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pb-5 border-b border-slate-200 dark:border-slate-800">
               <img
-                src="/images/profile.jpg"
+                src="./images/profile.jpg"
                 alt={personalData.name[language]}
                 className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover object-top border-2 border-blue-500/40 shadow-md shrink-0"
               />

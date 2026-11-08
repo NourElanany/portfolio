@@ -174,7 +174,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRecruiter, onOpenResume }) => 
               {/* Clean, Refined Portrait Frame (No Clutter, No Cutoffs) */}
               <div className="relative rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800/80 bg-slate-950 shadow-2xl transition-all hover:border-blue-500/40 group">
                 <img
-                  src="/images/profile.jpg"
+                  src="./images/profile.jpg"
                   alt={personalData.name[language]}
                   className="w-full h-auto aspect-[4/5] object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
                 />

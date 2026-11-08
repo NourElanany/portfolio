@@ -548,7 +548,7 @@ export const certificationsList: CertificationItem[] = [
     issuer: 'NVIDIA Deep Learning Institute (DLI)',
     badgeText: 'Aug 23, 2025',
     credentialId: 'szVIDKH8Qty0uNZQ-XoS1w',
-    image: '/images/certificates/nvidia-llm.png',
+    image: './images/certificates/nvidia-llm.png',
   },
   {
     id: 'nvidia-dl',
@@ -556,7 +556,7 @@ export const certificationsList: CertificationItem[] = [
     issuer: 'NVIDIA Deep Learning Institute (DLI)',
     badgeText: 'Aug 23, 2025',
     credentialId: 'etKar9diTCytwki9TmGvgA',
-    image: '/images/certificates/nvidia-deep-learning.png',
+    image: './images/certificates/nvidia-deep-learning.png',
   },
   {
     id: 'nti-cv-cert',
@@ -564,7 +564,7 @@ export const certificationsList: CertificationItem[] = [
     issuer: 'National Telecommunication Institute (NTI) & ITIDA',
     badgeText: 'Jul–Aug 2025',
     credentialId: 'Student ID: 230351 • 120 Hours',
-    image: '/images/certificates/nti-cv.png',
+    image: './images/certificates/nti-cv.png',
   },
   {
     id: 'nvidia-prompt',
@@ -572,7 +572,7 @@ export const certificationsList: CertificationItem[] = [
     issuer: 'NVIDIA Deep Learning Institute (DLI)',
     badgeText: 'Aug 21, 2025',
     credentialId: 'xdIqRIVRSx6oak0MIOFfMQ',
-    image: '/images/certificates/nvidia-prompt-engineering.png',
+    image: './images/certificates/nvidia-prompt-engineering.png',
   },
   {
     id: 'genai-achievement',
@@ -580,7 +580,7 @@ export const certificationsList: CertificationItem[] = [
     issuer: 'Certificate of Achievement',
     badgeText: 'Summer 2025',
     credentialId: '3 Production RAG Projects (Milvus & Zilliz)',
-    image: '/images/certificates/genai-achievement.png',
+    image: './images/certificates/genai-achievement.png',
   },
   {
     id: 'udemy-python-az',
@@ -588,7 +588,7 @@ export const certificationsList: CertificationItem[] = [
     issuer: 'Udemy • SDE Arts',
     badgeText: 'Feb 9, 2025',
     credentialId: 'UC-b1d5e03e-68ce-4939-ae7f-3b976c3ebf00',
-    image: '/images/certificates/udemy-python-az.png',
+    image: './images/certificates/udemy-python-az.png',
   },
   {
     id: 'udemy-fundamentals',
@@ -596,7 +596,7 @@ export const certificationsList: CertificationItem[] = [
     issuer: 'Udemy • MTF Institute',
     badgeText: 'Aug 28, 2025',
     credentialId: 'UC-3d38dcf0-860e-4d1b-9cb7-d599c09af47b',
-    image: '/images/certificates/udemy-fundamentals.png',
+    image: './images/certificates/udemy-fundamentals.png',
   },
 ];
 
