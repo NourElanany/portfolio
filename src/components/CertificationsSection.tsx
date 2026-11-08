@@ -79,7 +79,8 @@ export const CertificationsSection: React.FC = () => {
               transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={() => setHoveredCertId(cert.id)}
               onMouseLeave={() => setHoveredCertId(null)}
-              className={`p-6 sm:p-7 rounded-3xl border transition-all duration-200 flex flex-col justify-between relative overflow-hidden group shadow-md ${cardBgClass}`}
+              onClick={() => setSelectedFullCert(cert)}
+              className={`p-6 sm:p-7 rounded-3xl border transition-all duration-200 flex flex-col justify-between relative overflow-hidden group shadow-md cursor-pointer select-none ${cardBgClass}`}
             >
               {/* Top Accent Stripe */}
               <div className={`absolute top-0 inset-x-0 h-1 transition-all ${

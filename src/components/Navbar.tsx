@@ -62,26 +62,26 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenRecruiter, onOpenResume })
         </nav>
 
         {/* Controls - Guaranteed Single Line, No Wrapping */}
-        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-          {/* Recruiter Quick Pitch - Shown on XL+ */}
+        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 flex-nowrap">
+          {/* Recruiter Quick Pitch - Shown on Medium+ */}
           {onOpenRecruiter && (
             <button
               onClick={onOpenRecruiter}
-              className="hidden xl:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 text-blue-600 dark:text-blue-400 text-xs font-bold hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-colors cursor-pointer whitespace-nowrap shrink-0"
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 text-blue-600 dark:text-blue-400 text-xs font-bold hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-colors cursor-pointer whitespace-nowrap shrink-0 leading-none select-none"
             >
               <Sparkles className="w-3.5 h-3.5 shrink-0" />
-              <span>{language === 'ar' ? 'ملخص التوظيف (30s)' : '30s Pitch'}</span>
+              <span className="whitespace-nowrap">{language === 'ar' ? 'ملخص التوظيف (30s)' : '30s Pitch'}</span>
             </button>
           )}
 
-          {/* ATS Resume Button - Always Single Line */}
+          {/* Clean CV Button - Single Line, Strictly "CV" */}
           {onOpenResume && (
             <button
               onClick={onOpenResume}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 text-xs font-bold transition-all shadow-xs cursor-pointer whitespace-nowrap shrink-0"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 text-xs font-bold transition-all shadow-xs cursor-pointer whitespace-nowrap shrink-0 leading-none select-none"
             >
               <FileText className="w-3.5 h-3.5 shrink-0" />
-              <span>{language === 'ar' ? 'السيرة الذاتية' : 'ATS CV'}</span>
+              <span className="whitespace-nowrap">{language === 'ar' ? 'استعراض الـ CV' : 'View CV'}</span>
             </button>
           )}
 
@@ -162,7 +162,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenRecruiter, onOpenResume })
                   className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-bold"
                 >
                   <FileText className="w-3.5 h-3.5" />
-                  <span>{language === 'ar' ? 'السيرة الذاتية' : 'ATS CV'}</span>
+                  <span className="whitespace-nowrap">{language === 'ar' ? 'استعراض الـ CV' : 'View CV'}</span>
                 </button>
               )}
             </div>

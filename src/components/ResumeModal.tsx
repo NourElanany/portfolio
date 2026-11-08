@@ -45,7 +45,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
             <div className="flex items-center gap-2.5">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
               <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-slate-100">
-                {language === 'ar' ? 'السيرة الذاتية الرسمية المعتمدة (ATS-Compliant CV)' : 'Official ATS-Compliant Resume'}
+                {language === 'ar' ? 'السيرة الذاتية الرسمية المعتمدة (CV)' : 'Official Resume (CV)'}
               </h3>
             </div>
 

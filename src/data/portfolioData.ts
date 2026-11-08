@@ -543,6 +543,22 @@ export const experienceList: ExperienceItem[] = [
 
 export const certificationsList: CertificationItem[] = [
   {
+    id: 'nvidia-llm',
+    title: 'Rapid Application Development with Large Language Models (LLMs)',
+    issuer: 'NVIDIA Deep Learning Institute (DLI)',
+    badgeText: 'Aug 23, 2025',
+    credentialId: 'szVIDKH8Qty0uNZQ-XoS1w',
+    image: '/images/certificates/nvidia-llm.png',
+  },
+  {
+    id: 'nvidia-dl',
+    title: 'Getting Started with Deep Learning',
+    issuer: 'NVIDIA Deep Learning Institute (DLI)',
+    badgeText: 'Aug 23, 2025',
+    credentialId: 'etKar9diTCytwki9TmGvgA',
+    image: '/images/certificates/nvidia-deep-learning.png',
+  },
+  {
     id: 'nti-cv-cert',
     title: 'Computer Vision Training (Score: 98% Excellent)',
     issuer: 'National Telecommunication Institute (NTI) & ITIDA',
@@ -551,36 +567,20 @@ export const certificationsList: CertificationItem[] = [
     image: '/images/certificates/nti-cv.png',
   },
   {
+    id: 'nvidia-prompt',
+    title: 'Building LLM Applications With Prompt Engineering',
+    issuer: 'NVIDIA Deep Learning Institute (DLI)',
+    badgeText: 'Aug 21, 2025',
+    credentialId: 'xdIqRIVRSx6oak0MIOFfMQ',
+    image: '/images/certificates/nvidia-prompt-engineering.png',
+  },
+  {
     id: 'genai-achievement',
     title: 'Generative AI & LLMs Applied Engineering (90 Hours)',
     issuer: 'Certificate of Achievement',
     badgeText: 'Summer 2025',
     credentialId: '3 Production RAG Projects (Milvus & Zilliz)',
     image: '/images/certificates/genai-achievement.png',
-  },
-  {
-    id: 'nvidia-llm',
-    title: 'Rapid Application Development with Large Language Models (LLMs)',
-    issuer: 'NVIDIA',
-    badgeText: 'Aug 23, 2025',
-    credentialId: 'szVIDKH8Qty0uNZQ-XoS1w',
-    image: '/images/certificates/nvidia-llm.png',
-  },
-  {
-    id: 'nvidia-dl',
-    title: 'Getting Started with Deep Learning',
-    issuer: 'NVIDIA',
-    badgeText: 'Aug 23, 2025',
-    credentialId: 'etKar9diTCytwki9TmGvgA',
-    image: '/images/certificates/nvidia-deep-learning.png',
-  },
-  {
-    id: 'nvidia-prompt',
-    title: 'Building LLM Applications With Prompt Engineering',
-    issuer: 'NVIDIA',
-    badgeText: 'Aug 21, 2025',
-    credentialId: 'xdIqRIVRSx6oak0MIOFfMQ',
-    image: '/images/certificates/nvidia-prompt-engineering.png',
   },
   {
     id: 'udemy-python-az',
