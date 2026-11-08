@@ -8,11 +8,17 @@ export const VisionShowcase: React.FC = () => {
   const { language } = useLanguage();
 
   return (
-    <section id="vision-specialty" className="relative w-full py-16 sm:py-24 bg-slate-50 dark:bg-[#09152b] border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+    <section id="vision-specialty" className="relative w-full py-16 sm:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Specialty Highlight Banner */}
-      <div className="relative rounded-3xl p-8 sm:p-12 bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:bg-gradient-to-br dark:from-[#0d2242] dark:via-[#091830] dark:to-[#061021] border border-blue-200 dark:border-sky-500/35 backdrop-blur-xl mb-12 shadow-xl dark:shadow-2xl overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 0.45 }}
+        className="relative rounded-3xl p-8 sm:p-12 bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:bg-gradient-to-br dark:from-[#0d2242] dark:via-[#091830] dark:to-[#061021] border border-blue-200 dark:border-sky-500/35 backdrop-blur-xl mb-12 shadow-xl dark:shadow-2xl overflow-hidden"
+      >
         <div className="absolute top-0 end-0 -mt-10 -me-10 w-60 h-60 rounded-full bg-blue-500/10 dark:bg-sky-500/15 blur-3xl pointer-events-none" />
 
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 relative z-10">
@@ -58,17 +64,18 @@ export const VisionShowcase: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* 4 Pillars Grid - Spacious & Modern */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
         {aiPillars.map((pillar) => (
           <motion.div
             key={pillar.id}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: 30, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.15 }}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            transition={{ duration: 0.45 }}
             className="rounded-3xl p-7 sm:p-9 bg-white dark:bg-gradient-to-br dark:from-[#0c1e3a] dark:via-[#08152b] dark:to-[#050e1d] border border-slate-200 dark:border-sky-500/25 hover:border-sky-400/60 dark:hover:border-sky-400/60 transition-all shadow-md dark:shadow-xl flex flex-col justify-between group"
           >
             <div>

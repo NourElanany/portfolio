@@ -22,7 +22,7 @@ export const CertificationsSection: React.FC = () => {
   }, []);
 
   return (
-    <section id="certifications" className="relative w-full py-16 sm:py-24 bg-white dark:bg-[#091730] border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+    <section id="certifications" className="relative w-full py-16 sm:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Header */}
@@ -70,8 +70,13 @@ export const CertificationsSection: React.FC = () => {
                 : 'bg-white dark:bg-gradient-to-br dark:from-[#141026] dark:via-[#0e0b1c] dark:to-[#07060f] border-slate-700/60 hover:border-purple-500/40');
 
           return (
-            <div
+            <motion.div
               key={cert.id}
+              initial={{ opacity: 0, y: 35, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, amount: 0.15 }}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               onMouseEnter={() => setHoveredCertId(cert.id)}
               onMouseLeave={() => setHoveredCertId(null)}
               className={`p-6 sm:p-7 rounded-3xl border transition-all duration-200 flex flex-col justify-between relative overflow-hidden group shadow-md ${cardBgClass}`}
@@ -203,7 +208,7 @@ export const CertificationsSection: React.FC = () => {
                   <span>{language === 'ar' ? 'معاينة الشهادة الكاملة' : 'View Full Certificate'}</span>
                 </button>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>

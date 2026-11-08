@@ -27,7 +27,7 @@ export const ProjectsSection: React.FC = () => {
   const otherProjects = filteredProjects.filter((p) => !p.isFeatured);
 
   return (
-    <section id="projects" className="relative w-full py-16 sm:py-24 bg-white dark:bg-[#071626] border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+    <section id="projects" className="relative w-full py-16 sm:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Header */}
@@ -94,11 +94,18 @@ export const ProjectsSection: React.FC = () => {
         {featuredProjects.length > 0 && (
           <div className="space-y-6">
             {featuredProjects.map((project: ProjectItem) => (
-              <SpotlightCard
+              <motion.div
                 key={project.id}
-                spotlightColor="rgba(6, 182, 212, 0.25)"
-                className="group rounded-3xl p-7 sm:p-10 bg-white dark:bg-gradient-to-br dark:from-[#092235] dark:via-[#061724] dark:to-[#030d15] border border-slate-200 dark:border-cyan-500/35 hover:border-cyan-400/60 dark:hover:border-cyan-400/60 shadow-md dark:shadow-2xl transition-all"
+                initial={{ opacity: 0, y: 35, scale: 0.98 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: false, amount: 0.15 }}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               >
+                <SpotlightCard
+                  spotlightColor="rgba(6, 182, 212, 0.25)"
+                  className="group rounded-3xl p-7 sm:p-10 bg-white dark:bg-gradient-to-br dark:from-[#092235] dark:via-[#061724] dark:to-[#030d15] border border-slate-200 dark:border-cyan-500/35 hover:border-cyan-400/60 dark:hover:border-cyan-400/60 shadow-md dark:shadow-2xl transition-all"
+                >
                 <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-6">
                   <div className="space-y-2">
                     <div className="flex flex-wrap items-center gap-3">
@@ -170,18 +177,27 @@ export const ProjectsSection: React.FC = () => {
                   )}
                 </div>
               </SpotlightCard>
-            ))}
-          </div>
-        )}
+            </motion.div>
+          ))}
+        </div>
+      )}
 
-        {/* Other Projects - Spacious 2-Column Grid */}
-        {otherProjects.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-            {otherProjects.map((project: ProjectItem) => (
+      {/* Other Projects - Spacious 2-Column Grid */}
+      {otherProjects.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+          {otherProjects.map((project: ProjectItem) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 30, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, amount: 0.15 }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="flex"
+            >
               <SpotlightCard
-                key={project.id}
                 spotlightColor="rgba(6, 182, 212, 0.2)"
-                className="group rounded-3xl p-7 bg-white dark:bg-gradient-to-br dark:from-[#071926] dark:via-[#05121c] dark:to-[#03090e] border border-slate-200 dark:border-cyan-500/25 hover:border-cyan-400/50 dark:hover:border-cyan-400/50 shadow-sm dark:shadow-xl transition-all flex flex-col justify-between"
+                className="w-full group rounded-3xl p-7 bg-white dark:bg-gradient-to-br dark:from-[#071926] dark:via-[#05121c] dark:to-[#03090e] border border-slate-200 dark:border-cyan-500/25 hover:border-cyan-400/50 dark:hover:border-cyan-400/50 shadow-sm dark:shadow-xl transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between gap-3 mb-3">
@@ -244,8 +260,9 @@ export const ProjectsSection: React.FC = () => {
                   )}
                 </div>
               </SpotlightCard>
-            ))}
-          </div>
+            </motion.div>
+          ))}
+        </div>
         )}
       </motion.div>
       </div>

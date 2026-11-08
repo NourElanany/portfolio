@@ -2,12 +2,13 @@ import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { experienceList } from '../data/portfolioData';
 import { Briefcase, Calendar, MapPin, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export const ExperienceSection: React.FC = () => {
   const { language } = useLanguage();
 
   return (
-    <section id="experience" className="relative w-full py-16 sm:py-24 bg-slate-100/70 dark:bg-[#061021] border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+    <section id="experience" className="relative w-full py-16 sm:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Header */}
@@ -24,8 +25,13 @@ export const ExperienceSection: React.FC = () => {
 
       <div className="space-y-6">
         {experienceList.map((exp) => (
-          <div
+          <motion.div
             key={exp.id}
+            initial={{ opacity: 0, y: 35, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.15 }}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             className={`rounded-3xl p-7 sm:p-9 border transition-all ${
               exp.isCurrent
                 ? 'bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:bg-gradient-to-br dark:from-[#0f2240] dark:via-[#0a182e] dark:to-[#06101f] border-blue-400 dark:border-blue-500/50 shadow-lg'
@@ -80,7 +86,7 @@ export const ExperienceSection: React.FC = () => {
                 </span>
               ))}
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
       </div>

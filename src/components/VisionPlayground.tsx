@@ -361,7 +361,7 @@ export const VisionPlayground: React.FC = () => {
   }, [activeTab, selectedGesture]);
 
   return (
-    <section id="cv-playground" className="relative w-full py-16 sm:py-24 bg-slate-100/70 dark:bg-[#040812] border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+    <section id="cv-playground" className="relative w-full py-16 sm:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Section Header */}
@@ -426,9 +426,10 @@ export const VisionPlayground: React.FC = () => {
       {/* ========================================================= */}
       {activeTab === 'rag-pipeline' && (
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.1 }}
+          transition={{ duration: 0.4 }}
           className="rounded-3xl border border-slate-200 dark:border-emerald-500/30 bg-white dark:bg-gradient-to-br dark:from-[#06171a] dark:via-[#041012] dark:to-[#02090a] p-6 sm:p-10 shadow-lg dark:shadow-2xl space-y-8"
         >
           {/* Header & Badges */}
@@ -688,9 +689,10 @@ export const VisionPlayground: React.FC = () => {
       {/* ========================================================= */}
       {activeTab === 'llm-router' && (
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.1 }}
+          transition={{ duration: 0.4 }}
           className="rounded-3xl border border-slate-200 dark:border-purple-500/30 bg-white dark:bg-gradient-to-br dark:from-[#130f24] dark:via-[#0d0a1a] dark:to-[#070510] p-6 sm:p-10 shadow-lg dark:shadow-2xl space-y-8"
         >
           {/* Header & Badges */}
@@ -925,9 +927,10 @@ export const VisionPlayground: React.FC = () => {
       {/* ========================================================= */}
       {activeTab === 'hand-landmarks' && (
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.1 }}
+          transition={{ duration: 0.4 }}
           className="rounded-3xl border border-slate-200 dark:border-cyan-500/30 bg-white dark:bg-gradient-to-br dark:from-[#081829] dark:via-[#05111c] dark:to-[#030910] p-6 sm:p-10 shadow-lg dark:shadow-2xl space-y-8"
         >
           {/* Header & Badges */}

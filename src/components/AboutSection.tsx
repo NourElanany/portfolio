@@ -2,12 +2,13 @@ import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { personalData } from '../data/portfolioData';
 import { User, GraduationCap, CheckCircle2, Cpu, Eye, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export const AboutSection: React.FC = () => {
   const { language } = useLanguage();
 
   return (
-    <section id="about" className="relative w-full py-16 sm:py-24 bg-slate-50 dark:bg-[#050914] border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+    <section id="about" className="relative w-full py-16 sm:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Header */}
@@ -22,7 +23,13 @@ export const AboutSection: React.FC = () => {
         </h2>
       </div>
 
-      <div className="rounded-3xl p-8 sm:p-12 bg-white dark:bg-gradient-to-br dark:from-[#0b172a] dark:via-[#07101e] dark:to-[#040810] border border-slate-200 dark:border-blue-500/20 shadow-md dark:shadow-xl space-y-8">
+      <motion.div
+        initial={{ opacity: 0, y: 35, scale: 0.98 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 0.45 }}
+        className="rounded-3xl p-8 sm:p-12 bg-white dark:bg-gradient-to-br dark:from-[#0b172a] dark:via-[#07101e] dark:to-[#040810] border border-slate-200 dark:border-blue-500/20 shadow-md dark:shadow-xl space-y-8"
+      >
         <div className="space-y-4 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
           <p>
             {language === 'ar'
@@ -61,7 +68,7 @@ export const AboutSection: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
       </div>
     </section>
   );

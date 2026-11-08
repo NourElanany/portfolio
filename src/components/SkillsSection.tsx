@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { Cpu, Eye, Layers, Terminal, Database, Sparkles, CheckCircle2, Bot } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export const SkillsSection: React.FC = () => {
   const { language } = useLanguage();
@@ -75,7 +76,7 @@ export const SkillsSection: React.FC = () => {
   ];
 
   return (
-    <section id="skills" className="relative w-full py-16 sm:py-24 bg-slate-50 dark:bg-[#0c1126] border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+    <section id="skills" className="relative w-full py-16 sm:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Header */}
@@ -94,8 +95,13 @@ export const SkillsSection: React.FC = () => {
         {skillGroups.map((group) => {
           const Icon = group.icon;
           return (
-            <div
+            <motion.div
               key={group.id}
+              initial={{ opacity: 0, y: 30, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, amount: 0.15 }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               className={`rounded-3xl p-7 sm:p-9 border transition-all ${
                 group.isPrimary
                   ? 'bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:bg-gradient-to-br dark:from-[#131d3d] dark:via-[#0e162f] dark:to-[#080d1d] border-blue-300 dark:border-indigo-500/40 shadow-lg md:col-span-2'
@@ -129,7 +135,7 @@ export const SkillsSection: React.FC = () => {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>

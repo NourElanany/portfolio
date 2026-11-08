@@ -3,12 +3,13 @@ import { useLanguage } from '../context/LanguageContext';
 import { personalData } from '../data/portfolioData';
 import { Mail, Phone, MapPin, Send, MessageCircle } from 'lucide-react';
 import { LinkedinIcon, GithubIcon } from './SocialIcons';
+import { motion } from 'framer-motion';
 
 export const ContactSection: React.FC = () => {
   const { language } = useLanguage();
 
   return (
-    <section id="contact" className="relative w-full py-16 sm:py-24 bg-slate-100/70 dark:bg-[#071329] border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+    <section id="contact" className="relative w-full py-16 sm:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Header */}
@@ -31,7 +32,12 @@ export const ContactSection: React.FC = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* WhatsApp */}
-        <a
+        <motion.a
+          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: false, amount: 0.15 }}
+          whileHover={{ y: -6, transition: { duration: 0.2 } }}
+          transition={{ duration: 0.45 }}
           href={personalData.contacts.whatsapp}
           target="_blank"
           rel="noopener noreferrer"
@@ -46,10 +52,15 @@ export const ContactSection: React.FC = () => {
               {personalData.contacts.phone}
             </div>
           </div>
-        </a>
+        </motion.a>
 
         {/* Email */}
-        <a
+        <motion.a
+          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: false, amount: 0.15 }}
+          whileHover={{ y: -6, transition: { duration: 0.2 } }}
+          transition={{ duration: 0.45, delay: 0.05 }}
           href={`mailto:${personalData.contacts.email}`}
           className="p-7 rounded-3xl bg-white dark:bg-gradient-to-br dark:from-[#091a33] dark:via-[#061224] dark:to-[#030913] border border-slate-200 dark:border-blue-500/25 hover:border-blue-500/60 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between"
         >
@@ -62,10 +73,15 @@ export const ContactSection: React.FC = () => {
               {personalData.contacts.email}
             </div>
           </div>
-        </a>
+        </motion.a>
 
         {/* LinkedIn */}
-        <a
+        <motion.a
+          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: false, amount: 0.15 }}
+          whileHover={{ y: -6, transition: { duration: 0.2 } }}
+          transition={{ duration: 0.45, delay: 0.1 }}
           href={personalData.contacts.linkedin}
           target="_blank"
           rel="noopener noreferrer"
@@ -80,10 +96,15 @@ export const ContactSection: React.FC = () => {
               nour-eldin-elanany
             </div>
           </div>
-        </a>
+        </motion.a>
 
         {/* GitHub */}
-        <a
+        <motion.a
+          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: false, amount: 0.15 }}
+          whileHover={{ y: -6, transition: { duration: 0.2 } }}
+          transition={{ duration: 0.45, delay: 0.15 }}
           href={personalData.contacts.github}
           target="_blank"
           rel="noopener noreferrer"
@@ -98,7 +119,7 @@ export const ContactSection: React.FC = () => {
               NourElanany
             </div>
           </div>
-        </a>
+        </motion.a>
       </div>
       </div>
     </section>
