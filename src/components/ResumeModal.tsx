@@ -30,7 +30,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-slate-950/75 backdrop-blur-sm"
+          className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm"
         />
 
         {/* Modal Sheet */}
@@ -38,13 +38,13 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           initial={{ opacity: 0, scale: 0.96, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 20 }}
-          className="relative w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl z-10 flex flex-col max-h-[92vh] overflow-hidden"
+          className="relative w-full max-w-4xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl z-10 flex flex-col max-h-[92vh] overflow-hidden transition-colors"
         >
           {/* Header Bar */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-slate-950/80 shrink-0">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/80 shrink-0">
             <div className="flex items-center gap-2.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-              <h3 className="font-bold text-sm sm:text-base text-slate-100">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-slate-100">
                 {language === 'ar' ? 'السيرة الذاتية الرسمية المعتمدة (ATS-Compliant CV)' : 'Official ATS-Compliant Resume'}
               </h3>
             </div>
@@ -61,7 +61,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
               <button
                 onClick={onClose}
-                className="p-2 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors cursor-pointer"
+                className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -71,19 +71,19 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           {/* Printable Resume Content (Formatted for standard ATS single-column / clean print) */}
           <div
             ref={printRef}
-            className="overflow-y-auto p-6 sm:p-10 text-slate-100 bg-slate-900 print:text-black print:bg-white print:p-0 font-sans space-y-6"
+            className="overflow-y-auto p-6 sm:p-10 text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-900 print:text-black print:bg-white print:p-0 font-sans space-y-6"
             id="printable-ats-resume"
           >
             {/* Resume Header */}
-            <div className="border-b-2 border-slate-700 print:border-black pb-4 text-center sm:text-start">
-              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white print:text-black uppercase">
+            <div className="border-b-2 border-slate-300 dark:border-slate-700 print:border-black pb-4 text-center sm:text-start">
+              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white print:text-black uppercase">
                 {personalData.name.en}
               </h1>
-              <p className="text-base sm:text-lg font-bold text-blue-400 print:text-blue-800 mt-1">
-                AI Engineer | Computer Vision & Generative AI
+              <p className="text-base sm:text-lg font-bold text-blue-600 dark:text-blue-400 print:text-blue-800 mt-1">
+                AI ENGINEERING INTERN | PYTHON | LLMs | NLP
               </p>
 
-              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1.5 mt-3 text-xs sm:text-sm text-slate-300 print:text-slate-800 font-mono">
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1.5 mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 print:text-slate-800 font-mono">
                 <span className="flex items-center gap-1">
                   <MapPin className="w-3.5 h-3.5" />
                   Cairo, Egypt
@@ -113,55 +113,52 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
             {/* Summary */}
             <div>
-              <h2 className="text-xs sm:text-sm font-extrabold text-slate-200 print:text-black uppercase tracking-wider border-b border-slate-700 pb-1 mb-2">
+              <h2 className="text-xs sm:text-sm font-extrabold text-slate-800 dark:text-slate-200 print:text-black uppercase tracking-wider border-b border-slate-300 dark:border-slate-700 pb-1 mb-2">
                 Professional Summary
               </h2>
-              <p className="text-xs sm:text-sm text-slate-300 print:text-black leading-relaxed">
-                Final-year Artificial Intelligence Engineer with hands-on experience in Computer Vision, Deep Learning, and Generative AI. Proven ability to design and deploy end-to-end AI systems, including multi-modal medical diagnosis models (94% accuracy) and an AI-first development environment using Python and Rust. NVIDIA-certified with practical training in LLM orchestration, RAG pipelines (Milvus, Zilliz), LangChain, and MLOps practices. Focused on clean code, scalable architectures, and production-ready AI solutions.
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 print:text-black leading-relaxed">
+                Recent Artificial Intelligence graduate with practical project experience building Python-based NLP and LLM applications. Developed healthcare-focused review analysis and retrieval-augmented generation (RAG) workflows, text-classification models, and semantic retrieval components. Familiar with data preparation, embeddings, vector search, prompt-grounded generation, and lightweight AI application interfaces. Seeking an AI Engineering internship to contribute to real-world healthcare technology projects.
               </p>
             </div>
 
             {/* Technical Skills */}
             <div>
-              <h2 className="text-xs sm:text-sm font-extrabold text-slate-200 print:text-black uppercase tracking-wider border-b border-slate-700 pb-1 mb-2">
+              <h2 className="text-xs sm:text-sm font-extrabold text-slate-800 dark:text-slate-200 print:text-black uppercase tracking-wider border-b border-slate-300 dark:border-slate-700 pb-1 mb-2">
                 Technical Skills
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300 print:text-black leading-relaxed">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700 dark:text-slate-300 print:text-black leading-relaxed">
                 <div>
-                  <strong>Programming:</strong> Python, C++, Java, Rust, SQL
+                  <strong>Programming:</strong> Python
                 </div>
                 <div>
-                  <strong>AI & ML:</strong> Deep Learning, Computer Vision, Generative AI, LLMs, NLP, Reinforcement Learning (PPO), GANs, Transfer Learning
+                  <strong>AI / Machine Learning:</strong> LLMs, Retrieval-Augmented Generation (RAG), NLP, text classification, sentiment analysis, semantic search, embeddings, LSTM, BiLSTM, CNN-LSTM
                 </div>
                 <div>
-                  <strong>Frameworks & Libraries:</strong> PyTorch, TensorFlow, OpenCV, MediaPipe, LangChain4j, NumPy, Pandas, Scikit-learn, Matplotlib
+                  <strong>Libraries & Frameworks:</strong> scikit-learn, TensorFlow/Keras, PyTorch, Sentence Transformers, LangGraph, FAISS, ChromaDB, pandas, NumPy
                 </div>
                 <div>
-                  <strong>Vector DBs & MLOps:</strong> Milvus, Zilliz, Docker, Git, CI/CD basics
-                </div>
-                <div className="sm:col-span-2">
-                  <strong>Concepts:</strong> Clean Code, OOP, Data Structures & Algorithms, Microkernel Architecture, Model Deployment
+                  <strong>Applications & APIs:</strong> Gradio, Streamlit, Flask, OpenRouter API
                 </div>
               </div>
             </div>
 
-            {/* Experience & Professional Training */}
+            {/* Experience */}
             <div>
-              <h2 className="text-xs sm:text-sm font-extrabold text-slate-200 print:text-black uppercase tracking-wider border-b border-slate-700 pb-1 mb-3">
-                Experience & Professional Training
+              <h2 className="text-xs sm:text-sm font-extrabold text-slate-800 dark:text-slate-200 print:text-black uppercase tracking-wider border-b border-slate-300 dark:border-slate-700 pb-1 mb-3">
+                Experience
               </h2>
               <div className="space-y-4">
                 {experienceList.map((exp: ExperienceItem) => (
                   <div key={exp.id} className="text-xs sm:text-sm">
                     <div className="flex justify-between items-baseline font-bold">
-                      <span className="text-white print:text-black">
-                        {exp.role.en} — <span className="text-blue-400 print:text-blue-800">{exp.company.en}</span>
+                      <span className="text-slate-900 dark:text-white print:text-black">
+                        {exp.role.en} — <span className="text-blue-600 dark:text-blue-400 print:text-blue-800">{exp.company.en}</span>
                       </span>
-                      <span className="text-slate-400 font-mono text-2xs sm:text-xs">
+                      <span className="text-slate-500 dark:text-slate-400 font-mono text-2xs sm:text-xs">
                         {exp.period.en}
                       </span>
                     </div>
-                    <ul className="list-disc list-inside mt-1.5 space-y-1 text-slate-300 print:text-black leading-relaxed">
+                    <ul className="list-disc list-inside mt-1.5 space-y-1 text-slate-700 dark:text-slate-300 print:text-black leading-relaxed">
                       {exp.points.en.map((hl: string, i: number) => (
                         <li key={i}>{hl}</li>
                       ))}
@@ -171,26 +168,26 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               </div>
             </div>
 
-            {/* Featured Projects */}
+            {/* Selected AI & NLP Projects */}
             <div>
-              <h2 className="text-xs sm:text-sm font-extrabold text-slate-200 print:text-black uppercase tracking-wider border-b border-slate-700 pb-1 mb-3">
-                Featured Projects
+              <h2 className="text-xs sm:text-sm font-extrabold text-slate-800 dark:text-slate-200 print:text-black uppercase tracking-wider border-b border-slate-300 dark:border-slate-700 pb-1 mb-3">
+                Selected AI & NLP Projects
               </h2>
               <div className="space-y-3 text-xs">
-                {allProjectsList.slice(0, 4).map((proj: ProjectItem) => (
-                  <div key={proj.id} className="p-3 rounded-xl border border-slate-800 print:border-slate-400">
-                    <div className="font-bold text-white print:text-black flex items-center justify-between">
+                {allProjectsList.filter(p => !p.isPrivateTeamRepo).slice(0, 4).map((proj: ProjectItem) => (
+                  <div key={proj.id} className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 print:border-slate-400">
+                    <div className="font-bold text-slate-900 dark:text-white print:text-black flex items-center justify-between">
                       <span>{proj.title.en}</span>
                       {proj.metrics && (
-                        <span className="text-2xs font-mono font-bold text-blue-400 print:text-blue-800">
+                        <span className="text-2xs font-mono font-bold text-blue-600 dark:text-blue-400 print:text-blue-800">
                           {proj.metrics.value}
                         </span>
                       )}
                     </div>
-                    <p className="text-slate-300 print:text-black mt-1 text-2xs leading-relaxed">
+                    <p className="text-slate-700 dark:text-slate-300 print:text-black mt-1 text-2xs leading-relaxed">
                       {proj.summary.en}
                     </p>
-                    <div className="text-2xs font-mono text-slate-400 mt-1.5">
+                    <div className="text-2xs font-mono text-slate-500 dark:text-slate-400 mt-1.5">
                       {proj.technologies.join(' • ')}
                     </div>
                   </div>
@@ -200,23 +197,26 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
             {/* Education & Certifications */}
             <div>
-              <h2 className="text-xs sm:text-sm font-extrabold text-slate-200 print:text-black uppercase tracking-wider border-b border-slate-700 pb-1 mb-2">
+              <h2 className="text-xs sm:text-sm font-extrabold text-slate-800 dark:text-slate-200 print:text-black uppercase tracking-wider border-b border-slate-300 dark:border-slate-700 pb-1 mb-2">
                 Education & Certifications
               </h2>
-              <div className="text-xs space-y-1.5 text-slate-300 print:text-black leading-relaxed">
+              <div className="text-xs space-y-2 text-slate-700 dark:text-slate-300 print:text-black leading-relaxed">
                 <p>
-                  <strong>B.Sc. in Artificial Intelligence</strong> — Faculty of Computers & Artificial Intelligence, Benha University (September 2022 – Expected Graduation: 2026). Focus: Machine Learning & Robotics.
+                  <strong>Bachelor's Degree, Artificial Intelligence</strong> — Faculty of Artificial Intelligence, Benha University (2022 – 2026 Graduated).
                 </p>
                 <div>
-                  <strong>Certifications:</strong>
+                  <strong>Certifications & Training:</strong>
                   <ul className="list-disc list-inside mt-1 space-y-0.5">
                     {certificationsList.map((c: CertificationItem) => (
                       <li key={c.id}>
-                        {c.title} — <em>{c.issuer}</em>
+                        {c.title} — <em>{c.issuer}</em> {c.badgeText ? `(${c.badgeText})` : ''}
                       </li>
                     ))}
                   </ul>
                 </div>
+                <p>
+                  <strong>Languages:</strong> Arabic: Native | English: B1 (Intermediate)
+                </p>
               </div>
             </div>
           </div>

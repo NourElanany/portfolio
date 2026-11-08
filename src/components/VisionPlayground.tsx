@@ -19,11 +19,14 @@ import {
   Sliders,
   ChevronRight,
   Play,
-  RotateCcw
+  RotateCcw,
+  Network,
+  Layers,
+  CheckCircle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-type PlaygroundTab = 'rag-pipeline' | 'ppo-simulation' | 'hand-landmarks';
+type PlaygroundTab = 'rag-pipeline' | 'llm-router' | 'hand-landmarks';
 
 export const VisionPlayground: React.FC = () => {
   const { language } = useLanguage();
@@ -121,7 +124,7 @@ export const VisionPlayground: React.FC = () => {
   const [customInput, setCustomInput] = useState<string>('');
   const [selectedRag, setSelectedRag] = useState<RagPreset>(ragPresets[0]);
   const [isProcessingRag, setIsProcessingRag] = useState<boolean>(false);
-  const [ragCurrentStep, setRagCurrentStep] = useState<number>(4); // 1: Embedding, 2: Vector Search, 3: Context Injection, 4: Generated
+  const [ragCurrentStep, setRagCurrentStep] = useState<number>(4);
   const [displayedAnswer, setDisplayedAnswer] = useState<string>(ragPresets[0].responseAr);
 
   const runRagPipeline = (preset: RagPreset, customText?: string) => {
@@ -146,9 +149,9 @@ export const VisionPlayground: React.FC = () => {
           } else {
             setDisplayedAnswer(answer);
           }
-        }, 300);
-      }, 300);
-    }, 300);
+        }, 280);
+      }, 280);
+    }, 280);
   };
 
   const handleCustomSubmit = (e: React.FormEvent) => {
@@ -177,70 +180,71 @@ export const VisionPlayground: React.FC = () => {
   };
 
   // ==========================================
-  // Tab 2 State: Step-by-Step PPO Simulation
+  // Tab 2 State: Step-by-Step Dynamic LLM Routing Simulator
+  // (100% Public Project on GitHub)
   // ==========================================
-  const [ppoStep, setPpoStep] = useState<number>(1);
-  const [isAutoSimulating, setIsAutoSimulating] = useState<boolean>(false);
+  const [routerStep, setRouterStep] = useState<number>(1);
+  const [isAutoRouting, setIsAutoRouting] = useState<boolean>(false);
 
-  const ppoStepsData = [
+  const routerStepsData = [
     {
       step: 1,
-      titleAr: 'الخطوة 1: مراقبة حالة النظام الحالية (State Observation: St)',
-      titleEn: 'Step 1: State Observation (St)',
-      descAr: 'يقوم الوكيل بقراءة حالة الذاكرة المشتركة، عدد المهام المتراكمة من بايثون (16 مهمة مصفوفات)، وحالة خيوط Rust الجاهزة.',
-      descEn: 'The agent inspects system memory state, pending neural tasks from Python runtime (16 tensor jobs), and idle Rust thread workers.',
-      telemetry: { state: '16 Pending Tasks in Queue', memory: 'Shared Memory IPC: Normal', threads: '16 Rust Worker Cores Idle' },
-      formula: 's_t = { \\text{QueueSize}, \\text{MemoryLoad}, \\text{IdleThreads} }',
+      titleAr: 'الخطوة 1: فحص التخزين الدلالي المؤقت (Semantic Cache Lookup)',
+      titleEn: 'Step 1: Semantic Response Cache Lookup',
+      descAr: 'يقوم المحرك بمقارنة استعلام المستخدم بالأسئلة السابقة المخزنة دلالياً بـ Cosine Similarity. إذا كان التشابه > 0.95 يتم إرجاع النتيجة فوراً بزمن 12ms وتوفير 100% توكنز.',
+      descEn: 'Calculates cosine similarity against indexed cached query vectors. Hits (Sim > 0.95) return instantaneously in 12ms with 100% token expense avoided.',
+      telemetry: { cacheHitStatus: 'Cache Miss (New Intent)', cosineSimilarity: '0.842 (< 0.95)', lookupTime: '11.8 ms' },
+      formula: '\\text{Similarity}(q, q_k) = \\frac{\\mathbf{e}_q \\cdot \\mathbf{e}_{q_k}}{\\|\\mathbf{e}_q\\| \\|\\mathbf{e}_{q_k}\\|}',
     },
     {
       step: 2,
-      titleAr: 'الخطوة 2: تقييم السياسة والقيمة (Actor-Critic Network Evaluation)',
-      titleEn: 'Step 2: Actor-Critic Policy Evaluation',
-      descAr: 'شبكة الـ Actor تُحسب احتمالية الإجراءات (πθ)، بينما شبكة الـ Critic تُقدّر دالة القيمة المتوقعة V(s) لضمان اتخاذ قرار مثالي.',
-      descEn: 'The Actor network computes action probabilities πθ(a|s), while Critic estimates expected value V(s) to guide optimal execution.',
-      telemetry: { actorProb: 'πθ(Action=RustWorker) = 0.94', criticValue: 'V(s) = +2.48 Expected Return', entropy: '0.032' },
-      formula: '\\pi_\\theta(a_t | s_t) \\quad \\& \\quad V_\\phi(s_t)',
+      titleAr: 'الخطوة 2: تحليل الصعوبة والنية عبر LangGraph (Complexity Scorer)',
+      titleEn: 'Step 2: LangGraph Query Complexity Evaluation',
+      descAr: 'تقوم عقدة التقييم بتحليل عمق الاستفسار وعدد الخطوات الحسابية المطلوبة (Tokens, Code Reasoning, Multi-turn Context) لتحديد مسار التوجيه الأمثل.',
+      descEn: 'Evaluation node analyzes reasoning depth, token volume, and code requirements via Sentence Transformers to classify task complexity.',
+      telemetry: { evaluatedComplexity: 'High-Reasoning Task', reasoningDepth: '0.88 / 1.0', inputTokens: '64 tokens' },
+      formula: '\\text{ComplexityScore} = f(\\text{TokenLen}, \\text{NERDepth}, \\text{ReasoningIntent})',
     },
     {
       step: 3,
-      titleAr: 'الخطوة 3: تنفيذ الإجراء في معمارية Rust (Action Execution: At)',
-      titleEn: 'Step 3: Action Execution in Rust Safe Kernel',
-      descAr: 'يتم توجيه المهام الثقيلة فورياً إلى خيوط Rust المتزامنة مع ضمان أمان الذاكرة التام (Zero-Cost Safety) وتجنب تضارب البيانات.',
-      descEn: 'Heavy neural workloads are dispatched into Rust concurrency threads with zero-cost memory safety and zero data races.',
-      telemetry: { dispatchedTo: 'Rust Native Thread #04', executionTime: '0.78 ms', safetyStatus: '100% Zero-Panic' },
-      formula: 'a_t \\sim \\pi_\\theta(\\cdot | s_t) \\rightarrow \\text{Rust Safe Dispatch}',
+      titleAr: 'الخطوة 3: التوجيه الديناميكي للنموذج الأنسب (Adaptive Tier Dispatch)',
+      titleEn: 'Step 3: Adaptive Model Tier Dispatch',
+      descAr: 'يتم إرسال الاستعلام للشريحة المحددة: الشريحة الاقتصادية السريعة (Llama-3-8B / Haiku) للمهام البسيطة، أو شريحة التفكير العميق (Claude 3.5 Sonnet / GPT-4o) للكود والتحليلات.',
+      descEn: 'Dispatches payload to the optimal tier: Lightweight tier for summaries, or deep reasoning tier for architectural code and complex deductions.',
+      telemetry: { selectedTier: 'Deep Reasoning Tier', dispatchedModel: 'Claude 3.5 Sonnet', targetApi: 'OpenRouter' },
+      formula: '\\text{Route}(q) = \\begin{cases} \\text{Tier 1 (Fast)}, & \\text{Score} < 0.40 \\\\ \\text{Tier 2 (Deep)}, & \\text{Score} \\ge 0.40 \\end{cases}',
     },
     {
       step: 4,
-      titleAr: 'الخطوة 4: حساب المكافأة والتغذية الراجعة (Reward Feedback: Rt)',
-      titleEn: 'Step 4: Environment Reward & Feedback (Rt)',
-      descAr: 'البيئة تقيس الأداء: زمن استجابة استثنائي (0.78ms) بدون أي خطأ في الذاكرة -> يمنح الوكيل مكافأة إيجابية عالية (+0.94).',
-      descEn: 'Environment evaluates performance: Sub-millisecond latency (0.78ms) + zero memory crash yields high reward (+0.94).',
-      telemetry: { latency: '0.78 ms (< 1ms Threshold)', rewardScore: '+0.942 High Reward', throughput: '4,650 tasks/sec' },
-      formula: 'R_t = +1.0 - (\\lambda \\cdot \\text{Latency}) = +0.94',
+      titleAr: 'الخطوة 4: منطق التحقق وإعادة المحاولة والبدائل (Retry / Fallback Safety)',
+      titleEn: 'Step 4: Retry & Fallback Circuit Breaker',
+      descAr: 'في حال حدوث خطأ في الاتصال، تجاوز الـ Rate Limit، أو تأخر الاستجابة (>2s)، يفعل المحرك منطق Fallback تلقائياً للتبديل الفوري لنموذج بديل دون انقطاع الخدمة.',
+      descEn: 'Circuit breaker monitors API status, latency thresholds, and rate limits, instantly executing fallback retry to secondary models seamlessly.',
+      telemetry: { circuitState: 'Circuit Closed (Healthy)', primaryLatency: '480 ms', fallbackTriggered: 'False (Success)' },
+      formula: '\\text{FallbackTrigger} = [\\text{Status} \\ne 200] \\lor [\\Delta t > 2000\\text{ms}]',
     },
     {
       step: 5,
-      titleAr: 'الخطوة 5: تحديث السياسة بدالة القطع (PPO-Clipped Objective Update)',
-      titleEn: 'Step 5: PPO Clipped Objective Update',
-      descAr: 'تطبيق معادلة PPO-Clip بحدود ε=0.2 لمنع القفزات الكارثية في السياسة، مما يضمن استقرار التدريب وتحسين القرارات تدريجياً.',
-      descEn: 'Applying PPO-Clip objective with clipping ratio ε=0.2 to prevent catastrophic policy updates and guarantee steady convergence.',
-      telemetry: { clipRatio: 'r_t(θ) ∈ [0.8, 1.2]', policyLoss: '-0.014 Optimal', convergenceRate: '99.4% Converged' },
-      formula: 'L^{CLIP}(\\theta) = \\hat{\\mathbb{E}}_t \\left[ \\min(r_t(\\theta)\\hat{A}_t, \\text{clip}(r_t(\\theta), 1-\\epsilon, 1+\\epsilon)\\hat{A}_t) \\right]',
+      titleAr: 'الخطوة 5: تسجيل مقاييس الأداء وتوفير التكلفة (Token Savings: 70%)',
+      titleEn: 'Step 5: Compute Savings & Performance Logging',
+      descAr: 'تسجيل التكلفة الفعلية ومقارنتها بتكلفة إرسال كل الاستعلامات للنماذج الباهظة، مع توثيق توفير 70% في ميزانية الـ Tokens وزمن استجابة أقل.',
+      descEn: 'Logs actual execution expenditure against universal high-tier billing, validating 70% budget reduction and sub-500ms response time.',
+      telemetry: { tokenSavings: '70% Cost Saved', roundtripLatency: '492 ms', streamState: 'Completed' },
+      formula: '\\text{Savings} = 1.0 - \\frac{\\text{ActualCost}}{\\text{MaxTierCost}} = 70\\%',
     },
   ];
 
-  const currentPpoStepData = ppoStepsData[ppoStep - 1];
+  const currentRouterStepData = routerStepsData[routerStep - 1];
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (isAutoSimulating) {
+    if (isAutoRouting) {
       interval = setInterval(() => {
-        setPpoStep((prev) => (prev >= 5 ? 1 : prev + 1));
-      }, 1800);
+        setRouterStep((prev) => (prev >= 5 ? 1 : prev + 1));
+      }, 1900);
     }
     return () => clearInterval(interval);
-  }, [isAutoSimulating]);
+  }, [isAutoRouting]);
 
   // ==========================================
   // Tab 3 State: Hand Landmarks Pose Simulator
@@ -361,8 +365,8 @@ export const VisionPlayground: React.FC = () => {
       
       {/* Section Header */}
       <div className="text-center space-y-3 mb-10">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-600 dark:text-blue-400 text-xs sm:text-sm font-bold">
-          <Zap className="w-4 h-4 text-blue-500" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-500/15 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-400 text-xs sm:text-sm font-bold shadow-xs">
+          <Zap className="w-4 h-4 text-blue-600 dark:text-blue-400" />
           <span>{language === 'ar' ? 'محاكاة تفاعلية حية • نتائج مشاريع منفذة' : 'Interactive Simulations & Live Project Benchmarks'}</span>
         </div>
         <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
@@ -372,8 +376,8 @@ export const VisionPlayground: React.FC = () => {
         </h2>
         <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
           {language === 'ar'
-            ? 'استكشف آليات عمل الأنظمة الفعلية واختبر الردود الحية: محاكاة استرجاع وتوليد الـ RAG بقواعد المتجهات مع استجابة فورية، والمحاكاة المرحلية لوكيل التعلم المعزز PPO خطوة بخطوة، ونظام تتبع مفاصل اليد اللحظي.'
-            : 'Explore the inner architecture of production systems with live interactive feedback: Vector RAG retrieval and synthesis with grounded responses, step-by-step PPO reinforcement learning simulation, and real-time hand pose tracking.'}
+            ? 'استكشف آليات عمل الأنظمة الفعلية واختبر الردود الحية: محاكاة استرجاع وتوليد الـ RAG بقواعد المتجهات مع استجابة فورية، والمحاكاة المرحلية لمنظومة توجيه نماذج الـ LLM الذكية (توفير 70% تكلفة)، ونظام تتبع مفاصل اليد اللحظي.'
+            : 'Explore the inner architecture of production systems with live interactive feedback: Vector RAG retrieval and synthesis with grounded responses, step-by-step Dynamic LLM Routing simulation (70% cost savings), and real-time hand pose tracking.'}
         </p>
       </div>
 
@@ -384,23 +388,23 @@ export const VisionPlayground: React.FC = () => {
           className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
             activeTab === 'rag-pipeline'
               ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-400/40'
-              : 'bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-blue-500/50'
+              : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-blue-500/50 shadow-xs'
           }`}
         >
-          <Database className="w-4 h-4 text-emerald-400" />
+          <Database className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
           <span>{language === 'ar' ? 'محاكي الـ Vector RAG والبحث الدلالي (إجابة حية)' : 'Live Vector RAG & Retrieval Simulator'}</span>
         </button>
 
         <button
-          onClick={() => setActiveTab('ppo-simulation')}
+          onClick={() => setActiveTab('llm-router')}
           className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
-            activeTab === 'ppo-simulation'
+            activeTab === 'llm-router'
               ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-400/40'
-              : 'bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-blue-500/50'
+              : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-blue-500/50 shadow-xs'
           }`}
         >
-          <Cpu className="w-4 h-4 text-purple-400" />
-          <span>{language === 'ar' ? 'محاكاة التعلم المعزز PPO خطوة بخطوة (Symphony AIDE)' : 'PPO Reinforcement Learning Step Simulation'}</span>
+          <Network className="w-4 h-4 text-purple-500 dark:text-purple-400" />
+          <span>{language === 'ar' ? 'توجيه الـ LLM الذكي مع التخزين الدلالي (توفير 70%)' : 'Dynamic LLM Router & Semantic Cache'}</span>
         </button>
 
         <button
@@ -408,10 +412,10 @@ export const VisionPlayground: React.FC = () => {
           className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
             activeTab === 'hand-landmarks'
               ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-400/40'
-              : 'bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-blue-500/50'
+              : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-blue-500/50 shadow-xs'
           }`}
         >
-          <Hand className="w-4 h-4 text-cyan-400" />
+          <Hand className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
           <span>{language === 'ar' ? 'محاكي مفاصل اليد (MediaPipe 30+ FPS)' : 'Hand Pose Landmarks (30+ FPS)'}</span>
         </button>
       </div>
@@ -424,16 +428,16 @@ export const VisionPlayground: React.FC = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/90 p-6 sm:p-10 shadow-2xl space-y-8"
+          className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 p-6 sm:p-10 shadow-lg dark:shadow-2xl space-y-8"
         >
           {/* Header & Badges */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
             <div>
               <div className="flex items-center gap-2 mb-1 flex-wrap">
-                <span className="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-bold border border-emerald-500/30">
+                <span className="px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 text-xs font-mono font-bold border border-emerald-200 dark:border-emerald-500/30">
                   Milvus & ChromaDB • LangChain4j • Python
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 text-xs font-mono font-bold border border-blue-500/30">
+                <span className="px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-blue-400 text-xs font-mono font-bold border border-blue-200 dark:border-blue-500/30">
                   0% Hallucination Rate
                 </span>
               </div>
@@ -530,7 +534,7 @@ export const VisionPlayground: React.FC = () => {
                     }}
                     className={`p-3.5 rounded-2xl border text-start transition-all cursor-pointer flex flex-col justify-between ${
                       isSelected
-                        ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/40 shadow-md ring-2 ring-blue-500/20'
+                        ? 'border-blue-500 bg-blue-50/70 dark:bg-blue-950/40 shadow-sm ring-2 ring-blue-500/20'
                         : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 hover:border-slate-400 dark:hover:border-slate-700'
                     }`}
                   >
@@ -550,13 +554,13 @@ export const VisionPlayground: React.FC = () => {
           </div>
 
           {/* RAG Pipeline Stepper Visualization */}
-          <div className="p-6 rounded-3xl bg-slate-950 border border-slate-800 text-slate-100 space-y-6">
+          <div className="p-6 rounded-3xl bg-slate-900 dark:bg-slate-950 border border-slate-800 text-slate-100 space-y-6">
             <div className="flex items-center justify-between flex-wrap gap-2">
-              <span className="text-xs font-mono font-bold text-slate-400">
+              <span className="text-xs font-mono font-bold text-slate-300 dark:text-slate-400">
                 ⚡ Vector RAG Execution Pipeline Flow
               </span>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono text-emerald-400">
+                <span className="text-xs font-mono text-emerald-400 font-bold">
                   Cosine Similarity: 96.4%
                 </span>
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
@@ -565,45 +569,41 @@ export const VisionPlayground: React.FC = () => {
 
             {/* 4 Pipeline Stages */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {/* Stage 1 */}
               <div className={`p-3.5 rounded-2xl border transition-all ${
-                ragCurrentStep >= 1 ? 'border-blue-500/60 bg-blue-950/30' : 'border-slate-800 bg-slate-900/40 opacity-50'
+                ragCurrentStep >= 1 ? 'border-blue-500/60 bg-blue-950/40' : 'border-slate-800 bg-slate-900/40 opacity-50'
               }`}>
                 <div className="text-[11px] font-mono text-blue-400 font-bold mb-1">Stage 1: Dense Vector</div>
-                <div className="text-xs font-bold text-slate-200">
+                <div className="text-xs font-bold text-slate-100">
                   {language === 'ar' ? 'توليد متجهات التضمين' : 'Dense Embedding'}
                 </div>
                 <span className="text-[10px] text-slate-400 font-mono mt-1 block">384-dim Dense Vector</span>
               </div>
 
-              {/* Stage 2 */}
               <div className={`p-3.5 rounded-2xl border transition-all ${
-                ragCurrentStep >= 2 ? 'border-emerald-500/60 bg-emerald-950/30' : 'border-slate-800 bg-slate-900/40 opacity-50'
+                ragCurrentStep >= 2 ? 'border-emerald-500/60 bg-emerald-950/40' : 'border-slate-800 bg-slate-900/40 opacity-50'
               }`}>
                 <div className="text-[11px] font-mono text-emerald-400 font-bold mb-1">Stage 2: Vector Search</div>
-                <div className="text-xs font-bold text-slate-200">
+                <div className="text-xs font-bold text-slate-100">
                   {language === 'ar' ? 'البحث الدلالي (Milvus)' : 'Vector Retrieval'}
                 </div>
                 <span className="text-[10px] text-emerald-400 font-mono mt-1 block">Top-K Chunks Retrieved</span>
               </div>
 
-              {/* Stage 3 */}
               <div className={`p-3.5 rounded-2xl border transition-all ${
-                ragCurrentStep >= 3 ? 'border-purple-500/60 bg-purple-950/30' : 'border-slate-800 bg-slate-900/40 opacity-50'
+                ragCurrentStep >= 3 ? 'border-purple-500/60 bg-purple-950/40' : 'border-slate-800 bg-slate-900/40 opacity-50'
               }`}>
                 <div className="text-[11px] font-mono text-purple-400 font-bold mb-1">Stage 3: Context Grounding</div>
-                <div className="text-xs font-bold text-slate-200">
+                <div className="text-xs font-bold text-slate-100">
                   {language === 'ar' ? 'حقن السياق وتأكيد الدقة' : 'Prompt Injection'}
                 </div>
                 <span className="text-[10px] text-purple-300 font-mono mt-1 block">Anti-Hallucination Bound</span>
               </div>
 
-              {/* Stage 4 */}
               <div className={`p-3.5 rounded-2xl border transition-all ${
-                ragCurrentStep >= 4 ? 'border-amber-500/60 bg-amber-950/30' : 'border-slate-800 bg-slate-900/40 opacity-50'
+                ragCurrentStep >= 4 ? 'border-amber-500/60 bg-amber-950/40' : 'border-slate-800 bg-slate-900/40 opacity-50'
               }`}>
                 <div className="text-[11px] font-mono text-amber-400 font-bold mb-1">Stage 4: Grounded Response</div>
-                <div className="text-xs font-bold text-slate-200">
+                <div className="text-xs font-bold text-slate-100">
                   {language === 'ar' ? 'توليد الرد الموثق' : 'Verified Generation'}
                 </div>
                 <span className="text-[10px] text-amber-400 font-mono mt-1 block">0% Hallucination</span>
@@ -622,14 +622,14 @@ export const VisionPlayground: React.FC = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {selectedRag.retrievedChunks.map((chunk, idx) => (
-                  <div key={idx} className="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1.5">
+                  <div key={idx} className="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700/60 space-y-1.5">
                     <div className="flex items-center justify-between text-[11px] font-mono">
-                      <span className="text-blue-400 font-bold">{chunk.source}</span>
+                      <span className="text-blue-300 font-bold">{chunk.source}</span>
                       <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">
                         Sim: {chunk.similarity}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-300 leading-relaxed">
+                    <p className="text-xs text-slate-200 leading-relaxed">
                       {language === 'ar' ? chunk.contentAr : chunk.contentEn}
                     </p>
                   </div>
@@ -638,13 +638,13 @@ export const VisionPlayground: React.FC = () => {
             </div>
 
             {/* Live Model Output / Grounded Response Box */}
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-blue-500/40 space-y-2">
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-blue-500/40 space-y-2">
               <div className="flex items-center justify-between text-xs font-bold">
-                <span className="flex items-center gap-1.5 text-blue-400">
+                <span className="flex items-center gap-1.5 text-blue-300">
                   <Sparkles className="w-4 h-4" />
                   <span>{language === 'ar' ? 'الرد الفعلي المولد من النموذج (Grounded AI Response):' : 'Synthesized Grounded AI Response:'}</span>
                 </span>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[11px] font-mono">
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[11px] font-mono font-bold">
                   Verified Accurate
                 </span>
               </div>
@@ -658,7 +658,7 @@ export const VisionPlayground: React.FC = () => {
               </p>
 
               {/* Benchmark Numbers */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 border-t border-slate-800 text-[11px] font-mono">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 border-t border-slate-700/60 text-[11px] font-mono">
                 <div>
                   <span className="text-slate-400">Latency: </span>
                   <span className="text-emerald-400 font-bold">{selectedRag.latencyMs} ms</span>
@@ -682,46 +682,47 @@ export const VisionPlayground: React.FC = () => {
       )}
 
       {/* ========================================================= */}
-      {/* Tab 2: Step-by-Step PPO Simulation (Symphony AIDE) */}
+      {/* Tab 2: Step-by-Step Dynamic LLM Routing Simulator */}
+      {/* (100% Public Project on GitHub) */}
       {/* ========================================================= */}
-      {activeTab === 'ppo-simulation' && (
+      {activeTab === 'llm-router' && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/90 p-6 sm:p-10 shadow-2xl space-y-8"
+          className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 p-6 sm:p-10 shadow-lg dark:shadow-2xl space-y-8"
         >
           {/* Header & Badges */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
             <div>
               <div className="flex items-center gap-2 mb-1 flex-wrap">
-                <span className="px-2.5 py-1 rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-400 text-xs font-mono font-bold border border-purple-500/30">
-                  Proximal Policy Optimization (PPO)
+                <span className="px-2.5 py-1 rounded-lg bg-purple-50 dark:bg-purple-500/15 text-purple-700 dark:text-purple-400 text-xs font-mono font-bold border border-purple-200 dark:border-purple-500/30">
+                  LangGraph • Sentence Transformers • Streamlit
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 text-xs font-mono font-bold border border-blue-500/30">
-                  Rust + Python Dual Kernel
+                <span className="px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-blue-400 text-xs font-mono font-bold border border-blue-200 dark:border-blue-500/30">
+                  70% Token Cost Reduction
                 </span>
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">
                 {language === 'ar'
-                  ? 'المحاكاة المرحلية لوكيل التعلم المعزز PPO لتنظيم المهام (Symphony AIDE)'
-                  : 'Step-by-Step PPO Reinforcement Learning Simulation'}
+                  ? 'المحاكاة المرحلية لمنظومة توجيه استفسارات الـ LLM مع التخزين الدلالي'
+                  : 'Step-by-Step Dynamic LLM Routing & Semantic Caching Simulation'}
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl">
                 {language === 'ar'
-                  ? 'رسم ومحاكاة دقيقة لكل خطوة تحدث داخل وكيل التعلم المعزز (Conductor) بالترتيب: من قراءة حالة النظام وتقييم شبكة الـ Actor-Critic، وحتى تنفيذ إجراء Rust وحساب دالة القطع Clipped Objective.'
-                  : 'Exact step-by-step visual simulation of how the PPO Conductor agent orchestrates workloads: from state observation and policy evaluation to Rust action dispatch and clipped objective updates.'}
+                  ? 'محاكاة مرسومة ومفصلة لخطوات عمل المنظومة بالترتيب: من فحص الذاكرة الدلالية المؤقتة، تقييم صعوبة الاستفسار عبر LangGraph، توجيه النموذج الأنسب، وحتى تفعيل دارة الحماية والبدائل (Fallback).'
+                  : 'Visual step-by-step simulation of query lifecycle: Semantic caching lookup, complexity scoring via LangGraph, adaptive tier routing, and circuit-breaker fallback handling.'}
               </p>
             </div>
 
             <a
-              href="https://github.com/NourElanany/Symphony-AIDE"
+              href="https://github.com/NourElanany/Dynamic-LLM-Routing-System"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-slate-800 text-white hover:bg-blue-600 text-xs sm:text-sm font-bold transition-all shadow-md shrink-0 cursor-pointer"
             >
               <ExternalLink className="w-4 h-4" />
-              <span>{language === 'ar' ? 'مستودع Symphony AIDE' : 'View on GitHub'}</span>
+              <span>{language === 'ar' ? 'مستودع المشروع على GitHub' : 'View on GitHub'}</span>
             </a>
           </div>
 
@@ -729,24 +730,24 @@ export const VisionPlayground: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800">
             {/* Step buttons */}
             <div className="flex items-center gap-1.5 flex-wrap">
-              {ppoStepsData.map((s) => (
+              {routerStepsData.map((s) => (
                 <button
                   key={s.step}
                   onClick={() => {
-                    setIsAutoSimulating(false);
-                    setPpoStep(s.step);
+                    setIsAutoRouting(false);
+                    setRouterStep(s.step);
                   }}
                   className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                    ppoStep === s.step
+                    routerStep === s.step
                       ? 'bg-purple-600 text-white shadow-md shadow-purple-500/30 ring-2 ring-purple-400/40'
                       : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-purple-400'
                   }`}
                 >
-                  <span className="w-4 h-4 rounded-full bg-slate-900/30 dark:bg-white/20 flex items-center justify-center text-[10px]">
+                  <span className="w-4 h-4 rounded-full bg-slate-900/20 dark:bg-white/20 flex items-center justify-center text-[10px]">
                     {s.step}
                   </span>
                   <span>
-                    {s.step === 1 ? 'State' : s.step === 2 ? 'Actor-Critic' : s.step === 3 ? 'Action' : s.step === 4 ? 'Reward' : 'PPO-Clip'}
+                    {s.step === 1 ? 'Cache' : s.step === 2 ? 'Complexity' : s.step === 3 ? 'Dispatch' : s.step === 4 ? 'Fallback' : 'Metrics'}
                   </span>
                 </button>
               ))}
@@ -755,17 +756,17 @@ export const VisionPlayground: React.FC = () => {
             {/* Play/Pause Auto-Simulation */}
             <div className="flex items-center gap-2">
               <button
-                onClick={() => setIsAutoSimulating(!isAutoSimulating)}
+                onClick={() => setIsAutoRouting(!isAutoRouting)}
                 className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  isAutoSimulating
-                    ? 'bg-amber-500/20 text-amber-500 border border-amber-500/30'
+                  isAutoRouting
+                    ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30'
                     : 'bg-blue-600 hover:bg-blue-700 text-white shadow-md'
                 }`}
               >
-                {isAutoSimulating ? (
+                {isAutoRouting ? (
                   <>
                     <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                    <span>{language === 'ar' ? 'إيقاف المحاكاة المستمرة' : 'Pause Loop'}</span>
+                    <span>{language === 'ar' ? 'إيقاف المحاكاة الدورية' : 'Pause Loop'}</span>
                   </>
                 ) : (
                   <>
@@ -776,7 +777,7 @@ export const VisionPlayground: React.FC = () => {
               </button>
 
               <button
-                onClick={() => setPpoStep((prev) => (prev >= 5 ? 1 : prev + 1))}
+                onClick={() => setRouterStep((prev) => (prev >= 5 ? 1 : prev + 1))}
                 className="inline-flex items-center gap-1 px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 transition-all cursor-pointer"
               >
                 <span>{language === 'ar' ? 'الخطوة التالية' : 'Next Step'}</span>
@@ -786,38 +787,38 @@ export const VisionPlayground: React.FC = () => {
           </div>
 
           {/* Detailed Visual Step Breakdown Card */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-slate-950 border border-slate-800 text-slate-100 space-y-6">
+          <div className="p-6 sm:p-8 rounded-3xl bg-slate-900 dark:bg-slate-950 border border-slate-800 text-slate-100 space-y-6">
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <div>
-                <span className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 font-mono text-xs font-bold border border-purple-500/30">
-                  {language === 'ar' ? `المرحلة الحالية: ${ppoStep} من 5` : `Current Stage: ${ppoStep} of 5`}
+                <span className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 font-mono text-xs font-bold border border-purple-500/30">
+                  {language === 'ar' ? `المرحلة الحالية: ${routerStep} من 5` : `Current Stage: ${routerStep} of 5`}
                 </span>
                 <h4 className="text-lg sm:text-xl font-bold text-white mt-2">
-                  {language === 'ar' ? currentPpoStepData.titleAr : currentPpoStepData.titleEn}
+                  {language === 'ar' ? currentRouterStepData.titleAr : currentRouterStepData.titleEn}
                 </h4>
                 <p className="text-sm text-slate-300 mt-1 max-w-3xl leading-relaxed">
-                  {language === 'ar' ? currentPpoStepData.descAr : currentPpoStepData.descEn}
+                  {language === 'ar' ? currentRouterStepData.descAr : currentRouterStepData.descEn}
                 </p>
               </div>
 
-              {/* Mathematical Formula Chip */}
-              <div className="p-3 rounded-2xl bg-slate-900 border border-slate-800 font-mono text-xs text-emerald-400">
-                <span className="text-[10px] text-slate-400 block mb-0.5">Mathematical Expression:</span>
-                <code>{currentPpoStepData.formula}</code>
+              {/* Mathematical / Algorithmic Expression Chip */}
+              <div className="p-3 rounded-2xl bg-slate-800 border border-slate-700 font-mono text-xs text-emerald-400">
+                <span className="text-[10px] text-slate-400 block mb-0.5">Algorithm Function:</span>
+                <code>{currentRouterStepData.formula}</code>
               </div>
             </div>
 
-            {/* Architecture Pipeline Simulation Graphic */}
+            {/* Pipeline Simulation Step Cards Graphic */}
             <div className="grid grid-cols-1 md:grid-cols-5 gap-3 relative pt-2">
               {[1, 2, 3, 4, 5].map((idx) => {
-                const isActive = ppoStep === idx;
-                const isPassed = ppoStep > idx;
+                const isActive = routerStep === idx;
+                const isPassed = routerStep > idx;
                 return (
                   <div
                     key={idx}
                     className={`p-4 rounded-2xl border transition-all text-center flex flex-col justify-between ${
                       isActive
-                        ? 'border-purple-500 bg-purple-950/40 shadow-lg shadow-purple-500/20 ring-2 ring-purple-400/40'
+                        ? 'border-purple-500 bg-purple-950/50 shadow-lg shadow-purple-500/20 ring-2 ring-purple-400/40'
                         : isPassed
                         ? 'border-emerald-500/40 bg-emerald-950/20 text-slate-300'
                         : 'border-slate-800 bg-slate-900/40 opacity-40'
@@ -827,28 +828,28 @@ export const VisionPlayground: React.FC = () => {
                       <div className="w-8 h-8 rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-xs font-mono bg-slate-800 text-slate-200">
                         {isPassed ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : idx}
                       </div>
-                      <div className="text-xs font-bold text-slate-200">
+                      <div className="text-xs font-bold text-slate-100">
                         {idx === 1
-                          ? '1. State'
+                          ? '1. Semantic Cache'
                           : idx === 2
-                          ? '2. Actor-Critic'
+                          ? '2. Complexity'
                           : idx === 3
-                          ? '3. Action'
+                          ? '3. Tier Route'
                           : idx === 4
-                          ? '4. Reward'
-                          : '5. PPO Clip'}
+                          ? '4. Fallback Circuit'
+                          : '5. Metrics'}
                       </div>
                     </div>
                     <div className="mt-3 text-[11px] font-mono text-slate-400">
                       {idx === 1
-                        ? 'Queue: 16 tasks'
+                        ? 'Sim > 0.95'
                         : idx === 2
-                        ? 'Policy: πθ'
+                        ? 'LangGraph Eval'
                         : idx === 3
-                        ? 'Rust Concurrency'
+                        ? 'Cost Optimized'
                         : idx === 4
-                        ? 'Reward: +0.94'
-                        : 'ε = 0.2 Clip'}
+                        ? 'Auto Retry'
+                        : '70% Saved'}
                     </div>
                   </div>
                 );
@@ -856,15 +857,15 @@ export const VisionPlayground: React.FC = () => {
             </div>
 
             {/* Live Telemetry Panel for this Step */}
-            <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
-              <span className="text-xs font-mono font-bold text-slate-400 flex items-center gap-2">
+            <div className="p-4 rounded-2xl bg-slate-850 bg-slate-800/80 border border-slate-700/60 space-y-3">
+              <span className="text-xs font-mono font-bold text-slate-300 flex items-center gap-2">
                 <Activity className="w-4 h-4 text-purple-400" />
-                <span>Live State Telemetry & Policy Metrics:</span>
+                <span>Live State Telemetry & Router Metrics:</span>
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
-                {Object.entries(currentPpoStepData.telemetry).map(([key, val]) => (
-                  <div key={key} className="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-                    <span className="text-slate-500 capitalize block text-[10px]">{key}:</span>
+                {Object.entries(currentRouterStepData.telemetry).map(([key, val]) => (
+                  <div key={key} className="p-2.5 rounded-xl bg-slate-900 border border-slate-700/60">
+                    <span className="text-slate-400 capitalize block text-[10px]">{key}:</span>
                     <span className="text-purple-300 font-bold mt-0.5 block">{val}</span>
                   </div>
                 ))}
@@ -874,42 +875,42 @@ export const VisionPlayground: React.FC = () => {
             {/* In-depth Advantages & Features Breakdown */}
             <div className="pt-4 border-t border-slate-800 space-y-3">
               <h5 className="text-sm font-bold text-slate-200">
-                {language === 'ar' ? 'مميزات وخصائص المنظومة الهندسية (Key Architectural Advantages):' : 'Key Architectural Advantages:'}
+                {language === 'ar' ? 'مميزات النظام الهندسية (Key Architectural Features):' : 'Key Architectural Advantages:'}
               </h5>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                <div className="p-3.5 rounded-2xl bg-slate-850 bg-slate-800/60 border border-slate-700/60 space-y-1">
                   <div className="font-bold text-emerald-400 flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4" />
-                    <span>{language === 'ar' ? 'استقرار التدريب الرياضي' : 'Stable Policy Updates'}</span>
-                  </div>
-                  <p className="text-slate-300 leading-relaxed">
-                    {language === 'ar'
-                      ? 'دالة الـ Clipping تمنع التغيرات المفاجئة في السياسة (No Catastrophic Policy Collapse).'
-                      : 'Clipping objective prevents sudden degrading jumps in policy distribution.'}
-                  </p>
-                </div>
-
-                <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
-                  <div className="font-bold text-blue-400 flex items-center gap-1.5">
-                    <Cpu className="w-4 h-4" />
-                    <span>{language === 'ar' ? 'أمان الذاكرة بلغة Rust' : 'Zero-Cost Rust Safety'}</span>
-                  </div>
-                  <p className="text-slate-300 leading-relaxed">
-                    {language === 'ar'
-                      ? 'تنفيذ الخيوط المتزامنة بأقل من 0.8ms بدون أي استهلاك عشوائي أو تضارب في الذاكرة.'
-                      : 'Sub-millisecond thread execution with zero memory panics and zero data races.'}
-                  </p>
-                </div>
-
-                <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
-                  <div className="font-bold text-purple-400 flex items-center gap-1.5">
                     <TrendingUp className="w-4 h-4" />
-                    <span>{language === 'ar' ? 'كفاءة العينات وسرعة التقارب' : 'Sample Efficiency'}</span>
+                    <span>{language === 'ar' ? 'توفير التكلفة بنسبة 70%' : '70% Budget Optimization'}</span>
                   </div>
                   <p className="text-slate-300 leading-relaxed">
                     {language === 'ar'
-                      ? 'إعادة استخدام العينات لأكثر من دورة تدريبية (Multiple Epochs of SGD) لتقليل زمن التدريب.'
-                      : 'Reuses collected trajectories across multiple SGD epochs for rapid convergence.'}
+                      ? 'توجيه 80% من الاستفسارات الخفيفة إلى النماذج الاقتصادية، مما يخفض الفاتورة الشهرية بنسبة 70%.'
+                      : 'Directs routine queries to economical models, preventing budget exhaustion on high-parameter LLMs.'}
+                  </p>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-slate-850 bg-slate-800/60 border border-slate-700/60 space-y-1">
+                  <div className="font-bold text-blue-400 flex items-center gap-1.5">
+                    <Zap className="w-4 h-4" />
+                    <span>{language === 'ar' ? 'التخزين الدلالي الفوري (12ms)' : 'Sub-15ms Semantic Caching'}</span>
+                  </div>
+                  <p className="text-slate-300 leading-relaxed">
+                    {language === 'ar'
+                      ? 'الاستجابة الفورية للاستعلامات المكررة أو المتشابهة دلالياً دون استدعاء واجهات الـ API الخارجية.'
+                      : 'Instantaneous response for semantically identical questions with 0 token consumption.'}
+                  </p>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-slate-850 bg-slate-800/60 border border-slate-700/60 space-y-1">
+                  <div className="font-bold text-purple-400 flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4" />
+                    <span>{language === 'ar' ? 'استمرارية الخدمة (Zero Downtime)' : 'High Availability Circuit Breaker'}</span>
+                  </div>
+                  <p className="text-slate-300 leading-relaxed">
+                    {language === 'ar'
+                      ? 'منطق Fallback ذكي يبدل تلقائياً للنموذج البديل عند حدوث أي خطأ في الخادم الأصلي.'
+                      : 'Automated fallback routing protects user experience from upstream provider rate limits.'}
                   </p>
                 </div>
               </div>
@@ -926,16 +927,16 @@ export const VisionPlayground: React.FC = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/90 p-6 sm:p-10 shadow-2xl space-y-8"
+          className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 p-6 sm:p-10 shadow-lg dark:shadow-2xl space-y-8"
         >
           {/* Header & Badges */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
             <div>
               <div className="flex items-center gap-2 mb-1 flex-wrap">
-                <span className="px-2.5 py-1 rounded-lg bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 text-xs font-mono font-bold border border-cyan-500/30">
+                <span className="px-2.5 py-1 rounded-lg bg-cyan-50 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 text-xs font-mono font-bold border border-cyan-200 dark:border-cyan-500/30">
                   MediaPipe • OpenCV • Scikit-learn
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 text-xs font-mono font-bold border border-blue-500/30">
+                <span className="px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-blue-400 text-xs font-mono font-bold border border-blue-200 dark:border-blue-500/30">
                   30+ FPS Real-Time Benchmark
                 </span>
               </div>
@@ -962,7 +963,7 @@ export const VisionPlayground: React.FC = () => {
 
           {/* Centered Canvas */}
           <div className="flex flex-col items-center">
-            <div className="relative rounded-3xl overflow-hidden border-2 border-slate-700 shadow-2xl bg-slate-950 w-full max-w-3xl">
+            <div className="relative rounded-3xl overflow-hidden border-2 border-slate-300 dark:border-slate-700 shadow-2xl bg-slate-950 w-full max-w-3xl">
               <canvas ref={landmarkCanvasRef} className="block w-full h-auto" />
               <div className="absolute top-3 right-3 px-3 py-1.5 rounded-xl bg-slate-950/85 backdrop-blur-md text-xs font-mono text-emerald-400 border border-emerald-500/30">
                 ⚡ 30+ FPS • MediaPipe 21 Joints

@@ -1,103 +1,90 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { Cpu, Eye, Layers, Terminal, Database, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Cpu, Eye, Layers, Terminal, Database, Sparkles, CheckCircle2, Bot } from 'lucide-react';
 
 export const SkillsSection: React.FC = () => {
   const { language } = useLanguage();
 
   const skillGroups = [
     {
-      id: 'ai-engineering-core',
-      title: { ar: 'الـ Core الأساسي: هندسة ونظم الذكاء الاصطناعي (AI Engineering)', en: 'Core Discipline: AI Engineering & Systems' },
-      icon: Cpu,
+      id: 'ai-ml-nlp-rag',
+      title: { ar: 'الذكاء الاصطناعي، نماذج الـ LLMs والـ RAG ومعالجة اللغات (NLP)', en: 'AI, LLMs, Vector RAG & NLP Classification' },
+      icon: Bot,
       isPrimary: true,
       skills: [
-        'End-to-End AI Systems',
-        'Clean Code Architecture',
-        'Microkernel Architecture (Rust + Python)',
-        'Model Deployment & Serving',
-        'Reinforcement Learning (PPO Agent)',
-        'Object-Oriented Programming (OOP)',
-        'Data Structures & Algorithms',
-        'Low-Latency Inference Optimization',
+        'Large Language Models (LLMs)',
+        'Retrieval-Augmented Generation (RAG)',
+        'Natural Language Processing (NLP)',
+        'Text Classification & Categorization',
+        'Clinical Review Sentiment Analysis',
+        'Semantic Vector Search',
+        'Dense Embeddings Generation',
+        'LSTM & BiLSTM Neural Networks',
+        'CNN-LSTM Feature Hybridization',
+        'Prompt Grounding & Verification',
       ],
     },
     {
-      id: 'cv-mastery',
-      title: { ar: 'الرؤية الحاسوبية ومعالجة الصور (Computer Vision)', en: 'Computer Vision & Visual Intelligence' },
-      icon: Eye,
-      isPrimary: true,
-      skills: [
-        'OpenCV',
-        'MediaPipe (30+ FPS Pose/Landmarks)',
-        'Early Feature Fusion (Medical Imaging)',
-        'Object Detection Pipelines (YOLO)',
-        'Semantic Segmentation (Mask R-CNN)',
-        'Digital Image Processing (Canny, Sobel)',
-        'Real-Time Live Video Processing',
-        'Data Augmentation Strategies',
-      ],
-    },
-    {
-      id: 'genai-llms',
-      title: { ar: 'الذكاء الاصطناعي التوليدي والـ RAG (Generative AI & LLMs)', en: 'Generative AI, LLMs & Vector RAG' },
+      id: 'libraries-frameworks',
+      title: { ar: 'المكتبات وأطر العمل الهندسية (Libraries & Frameworks)', en: 'Libraries & Frameworks' },
       icon: Layers,
       isPrimary: false,
       skills: [
-        'Large Language Models (LLMs)',
-        'LangChain4j (Enterprise Java)',
-        'LangGraph Dynamic Query Routing',
-        'Milvus & Zilliz Vector DBs',
-        'ChromaDB & FAISS Vector Search',
-        'Prompt Engineering (NVIDIA Certified)',
-        'RAG Hallucination Mitigation',
-      ],
-    },
-    {
-      id: 'dl-ml',
-      title: { ar: 'التعلم العميق والآلي ومعالجة اللغات (DL, ML & NLP)', en: 'Deep Learning, ML & Arabic NLP' },
-      icon: Database,
-      isPrimary: false,
-      skills: [
+        'scikit-learn',
+        'TensorFlow / Keras',
         'PyTorch',
-        'TensorFlow',
-        'Convolutional Neural Networks (CNNs)',
-        'Recurrent Networks (BiLSTM/RNNs)',
-        'GANs & Generative Architectures',
-        'Transfer Learning',
-        'Scikit-learn (10+ Classifiers Evaluated)',
-        'Arabic NLP (Tokenization, TF-IDF)',
+        'Sentence Transformers',
+        'LangGraph',
+        'FAISS Vector Engine',
+        'ChromaDB Vector Store',
+        'Milvus & Zilliz',
+        'pandas',
+        'NumPy',
       ],
     },
     {
-      id: 'languages-mlops',
-      title: { ar: 'لغات البرمجة والإنتاج والـ MLOps', en: 'Programming Languages & MLOps' },
+      id: 'applications-apis',
+      title: { ar: 'تطوير الواجهات والـ APIs (Applications & APIs)', en: 'Applications, Interfaces & APIs' },
       icon: Terminal,
       isPrimary: false,
       skills: [
-        'Python (Expert)',
-        'C++',
-        'Java',
-        'Rust',
-        'SQL',
-        'Docker & Containerization',
-        'Git & GitHub Workflow',
-        'CI/CD Basics & Linux',
+        'Gradio Interactive UIs',
+        'Streamlit Dashboards',
+        'Flask RESTful APIs',
+        'OpenRouter API Integration',
+        'Python (Core Language)',
+        'Git & GitHub Version Control',
+        'Docker Basics',
+        'Clean Architecture & Modular Code',
+      ],
+    },
+    {
+      id: 'cv-edge',
+      title: { ar: 'الرؤية الحاسوبية وتتبع الفيديو (Computer Vision - NTI 98%)', en: 'Computer Vision & Edge Processing' },
+      icon: Eye,
+      isPrimary: false,
+      skills: [
+        'OpenCV',
+        'MediaPipe (30+ FPS Pose Landmarks)',
+        'Early Feature Fusion (94% Clinical Acc)',
+        'Object Detection (YOLO)',
+        'Image Preprocessing & Edge Detection',
+        'Real-Time Live Video Processing',
       ],
     },
   ];
 
   return (
-    <section id="skills" className="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800">
+    <section id="skills" className="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200 dark:border-slate-800 transition-colors">
       
       {/* Header */}
       <div className="text-center space-y-3 mb-12">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-400 text-xs sm:text-sm font-bold">
-          <Sparkles className="w-4 h-4 text-blue-400" />
-          <span>{language === 'ar' ? 'الترسانة والمهارات المعتمدة في الـ CV' : 'Technical Arsenal from Verified CV'}</span>
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-500/15 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-400 text-xs sm:text-sm font-bold shadow-xs">
+          <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+          <span>{language === 'ar' ? 'الترسانة والمهارات التقنية المعتمدة' : 'Verified Technical Skills'}</span>
         </div>
 
-        <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-100 tracking-tight">
+        <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
           {language === 'ar' ? 'المهارات والتقنيات الهندسية' : 'Skills & Technical Capabilities'}
         </h2>
       </div>
@@ -110,39 +97,35 @@ export const SkillsSection: React.FC = () => {
               key={group.id}
               className={`rounded-3xl p-7 sm:p-9 border transition-all ${
                 group.isPrimary
-                  ? 'bg-gradient-to-br from-blue-950/40 via-slate-900 to-indigo-950/40 border-blue-500/50 shadow-lg md:col-span-2'
-                  : 'bg-slate-900/90 border-slate-800'
+                  ? 'bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-blue-950/40 dark:via-slate-900 dark:to-indigo-950/40 border-blue-300 dark:border-blue-500/50 shadow-md md:col-span-2'
+                  : 'bg-white dark:bg-slate-900/90 border-slate-200 dark:border-slate-800 shadow-sm'
               }`}
             >
               <div className="flex items-center gap-3.5 mb-6">
-                <div className={`p-3 rounded-2xl ${group.isPrimary ? 'bg-blue-600 text-white' : 'bg-slate-800 text-blue-400'}`}>
+                <div className={`p-3 rounded-2xl ${group.isPrimary ? 'bg-blue-600 text-white' : 'bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-blue-400'}`}>
                   <Icon className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-100">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
                     {group.title[language]}
                   </h3>
                   {group.isPrimary && (
-                    <span className="text-xs font-bold text-blue-400">
-                      {language === 'ar' ? '★ الركائز الهندسية الأساسية' : '★ Core Engineering Pillars'}
+                    <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">
+                      {language === 'ar' ? '★ التخصص والخبرة الأساسية' : '★ Core Specialization'}
                     </span>
                   )}
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {group.skills.map((skill, sIdx) => (
-                  <span
+                  <div
                     key={sIdx}
-                    className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium border ${
-                      group.isPrimary
-                        ? 'bg-blue-500/15 text-blue-300 border-blue-500/40'
-                        : 'bg-slate-800 text-slate-200 border-slate-700'
-                    }`}
+                    className="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/60 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
                     <span>{skill}</span>
-                  </span>
+                  </div>
                 ))}
               </div>
             </div>

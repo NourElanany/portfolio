@@ -8,20 +8,20 @@ export const ContactSection: React.FC = () => {
   const { language } = useLanguage();
 
   return (
-    <section id="contact" className="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800">
+    <section id="contact" className="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200 dark:border-slate-800 transition-colors">
       
       {/* Header */}
       <div className="text-center space-y-3 mb-12">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-400 text-xs sm:text-sm font-bold">
-          <Send className="w-4 h-4 text-blue-400" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-500/15 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-400 text-xs sm:text-sm font-bold shadow-xs">
+          <Send className="w-4 h-4 text-blue-600 dark:text-blue-400" />
           <span>{language === 'ar' ? 'ابدأ محادثة فورية' : 'Get In Touch'}</span>
         </div>
 
-        <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-100 tracking-tight">
+        <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
           {language === 'ar' ? 'تواصل معي مباشرة' : 'Connect & Collaborate'}
         </h2>
 
-        <p className="text-sm sm:text-base text-slate-400 max-w-xl mx-auto">
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
           {language === 'ar'
             ? 'متاح لفرص العمل في هندسة الذكاء الاصطناعي (AI Engineering)، مشاريع الرؤية الحاسوبية، والذكاء الاصطناعي التوليدي.'
             : 'Open to AI Engineer roles, Computer Vision development, and Generative AI collaborations.'}
@@ -34,14 +34,14 @@ export const ContactSection: React.FC = () => {
           href={personalData.contacts.whatsapp}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-7 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-emerald-500/50 hover:shadow-xl transition-all group flex flex-col justify-between"
+          className="p-7 rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between"
         >
-          <div className="p-3.5 rounded-2xl bg-emerald-500/15 text-emerald-400 w-fit mb-5 group-hover:scale-110 transition-transform">
+          <div className="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 w-fit mb-5 group-hover:scale-110 transition-transform">
             <MessageCircle className="w-7 h-7" />
           </div>
           <div>
-            <div className="text-xs font-bold text-slate-400">WhatsApp</div>
-            <div className="text-sm sm:text-base font-extrabold text-slate-100 group-hover:text-emerald-400 transition-colors mt-1 font-mono">
+            <div className="text-xs font-bold text-slate-500 dark:text-slate-400">WhatsApp</div>
+            <div className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors mt-1 font-mono">
               {personalData.contacts.phone}
             </div>
           </div>
@@ -50,14 +50,14 @@ export const ContactSection: React.FC = () => {
         {/* Email */}
         <a
           href={`mailto:${personalData.contacts.email}`}
-          className="p-7 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-blue-500/50 hover:shadow-xl transition-all group flex flex-col justify-between"
+          className="p-7 rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 hover:border-blue-500/50 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between"
         >
-          <div className="p-3.5 rounded-2xl bg-blue-500/15 text-blue-400 w-fit mb-5 group-hover:scale-110 transition-transform">
+          <div className="p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 w-fit mb-5 group-hover:scale-110 transition-transform">
             <Mail className="w-7 h-7" />
           </div>
           <div>
-            <div className="text-xs font-bold text-slate-400">Email</div>
-            <div className="text-xs sm:text-sm font-extrabold text-slate-100 group-hover:text-blue-400 transition-colors mt-1 truncate font-mono">
+            <div className="text-xs font-bold text-slate-500 dark:text-slate-400">Email</div>
+            <div className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mt-1 truncate font-mono">
               {personalData.contacts.email}
             </div>
           </div>
@@ -68,14 +68,14 @@ export const ContactSection: React.FC = () => {
           href={personalData.contacts.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-7 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-[#0077B5]/60 hover:shadow-xl transition-all group flex flex-col justify-between"
+          className="p-7 rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 hover:border-[#0077B5]/60 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between"
         >
-          <div className="p-3.5 rounded-2xl bg-blue-500/15 text-[#0077B5] w-fit mb-5 group-hover:scale-110 transition-transform">
+          <div className="p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-500/15 text-[#0077B5] w-fit mb-5 group-hover:scale-110 transition-transform">
             <LinkedinIcon className="w-7 h-7 fill-current" />
           </div>
           <div>
-            <div className="text-xs font-bold text-slate-400">LinkedIn</div>
-            <div className="text-sm sm:text-base font-extrabold text-slate-100 group-hover:text-[#0077B5] transition-colors mt-1 font-mono">
+            <div className="text-xs font-bold text-slate-500 dark:text-slate-400">LinkedIn</div>
+            <div className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-[#0077B5] transition-colors mt-1 font-mono">
               nour-eldin-elanany
             </div>
           </div>
@@ -86,14 +86,14 @@ export const ContactSection: React.FC = () => {
           href={personalData.contacts.github}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-7 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-purple-500/50 hover:shadow-xl transition-all group flex flex-col justify-between"
+          className="p-7 rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 hover:border-purple-500/50 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between"
         >
-          <div className="p-3.5 rounded-2xl bg-slate-800 text-slate-100 w-fit mb-5 group-hover:scale-110 transition-transform">
+          <div className="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 w-fit mb-5 group-hover:scale-110 transition-transform">
             <GithubIcon className="w-7 h-7 fill-current" />
           </div>
           <div>
-            <div className="text-xs font-bold text-slate-400">GitHub</div>
-            <div className="text-sm sm:text-base font-extrabold text-slate-100 group-hover:text-purple-400 transition-colors mt-1 font-mono">
+            <div className="text-xs font-bold text-slate-500 dark:text-slate-400">GitHub</div>
+            <div className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors mt-1 font-mono">
               NourElanany
             </div>
           </div>

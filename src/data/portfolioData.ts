@@ -10,6 +10,7 @@ export interface ProjectItem {
   githubUrl: string;
   image?: string;
   isFeatured?: boolean;
+  isPrivateTeamRepo?: boolean;
 }
 
 export interface ExperienceItem {
@@ -47,20 +48,20 @@ export const personalData = {
     shortEn: 'Noureldin Osama',
   },
   role: {
-    ar: 'مهندس ذكاء اصطناعي | AI Engineer',
-    en: 'AI Engineer | Computer Vision & Generative AI',
+    ar: 'مهندس ذكاء اصطناعي | AI Engineer (Python, LLMs, NLP & CV)',
+    en: 'AI Engineer | Python, LLMs, NLP & Computer Vision',
   },
   currentTitle: {
-    ar: 'مهندس ذكاء اصطناعي (AI Engineer)',
-    en: 'Artificial Intelligence Engineer',
+    ar: 'خريج ذكاء اصطناعي ومهندس AI (Recent AI Graduate)',
+    en: 'Recent AI Graduate | AI Engineering Specialist',
   },
   subRole: {
-    ar: 'التخصص الأساسي: هندسة الذكاء الاصطناعي (AI Engineering) مع تميز استثنائي في الرؤية الحاسوبية (Computer Vision) والذكاء الاصطناعي التوليدي (Generative AI)',
-    en: 'Core Discipline: AI Engineering specializing in Computer Vision, Deep Learning & Generative AI',
+    ar: 'خريج كلية الذكاء الاصطناعي (جامعة بنها 2026) — متخصص في بناء تطبيقات بايثون لنماذج اللغة الكبيرة (LLMs)، خطوط أنابيب الـ RAG للقطاع الطبي، وتطبيقات الرؤية الحاسوبية.',
+    en: 'Recent AI Graduate (Benha University 2026) — Specializing in Python LLMs, Healthcare Vector RAG Pipelines, NLP Text Classification, and Computer Vision.',
   },
   bio: {
-    ar: 'مهندس ذكاء اصطناعي في السنة النهائية بكلية الحاسبات والذكاء الاصطناعي - جامعة بنها (دفعة 2026). خبرة عملية في تصميم ونشر أنظمة الذكاء الاصطناعي المتكاملة، بدءاً من نماذج التشخيص الطبي بالرؤية الحاسوبية بدقة 94%، وتطوير بيئات هندسية متطورة بلغة بايثون ورست، إلى هندسة نماذج الـ LLMs وخطوط أنابيب الـ RAG، معتمد من NVIDIA ومتدرب بامتياز 98% في معهد NTI.',
-    en: 'Final-year Artificial Intelligence Engineer with hands-on experience in Computer Vision, Deep Learning, and Generative AI. Proven ability to design and deploy end-to-end AI systems, including multi-modal medical diagnosis models (94% accuracy) and an AI-first development environment using Python and Rust. NVIDIA-certified with practical training in LLM orchestration, RAG pipelines (Milvus, Zilliz), and MLOps practices.',
+    ar: 'خريج حديث في الذكاء الاصطناعي من كلية الذكاء الاصطناعي بجامعة بنها (دفعة 2026). خبرة تطبيقية عملية في بناء تطبيقات البرمجة اللغوية العصبية (NLP) ونماذج اللغة الكبيرة (LLMs) باستخدام بايثون. طوّرت خطوط أنابيب استرجاع وتوليد RAG متخصصة للرعاية الصحية، ونماذج لتصنيف النصوص وتحليل المشاعر، ومكونات البحث الدلالي المتجهي (ChromaDB, FAISS). متمكن في الرؤية الحاسوبية (امتياز 98% من المعهد القومي للاتصالات NTI)، معتمد من NVIDIA، مع خبرة عملية في شركتي NOVEGATES و NamaSoft.',
+    en: 'Recent Artificial Intelligence graduate (Benha University, Class of 2026) with practical project experience building Python-based NLP and LLM applications. Developed healthcare-focused review analysis and retrieval-augmented generation (RAG) workflows, text-classification models, and semantic retrieval components (ChromaDB, FAISS). Strong background in Computer Vision (NTI 98% Distinction), NVIDIA certified, with industry experience at NOVEGATES and NamaSoft.',
   },
   contacts: {
     email: 'elananynour@gmail.com',
@@ -68,11 +69,15 @@ export const personalData = {
     whatsapp: 'https://wa.me/201129982673',
     linkedin: 'https://linkedin.com/in/nour-eldin-elanany',
     github: 'https://github.com/NourElanany',
+    location: {
+      ar: 'القاهرة، مصر',
+      en: 'Cairo, Egypt',
+    },
   },
   education: {
     degree: {
-      ar: 'بكالوريوس الذكاء الاصطناعي (B.Sc. in AI)',
-      en: 'B.Sc. in Artificial Intelligence',
+      ar: 'بكالوريوس في الذكاء الاصطناعي (تم التخرج بنجاح)',
+      en: "Bachelor's Degree in Artificial Intelligence (Graduated)",
     },
     faculty: {
       ar: 'كلية الحاسبات والذكاء الاصطناعي — جامعة بنها',
@@ -80,95 +85,177 @@ export const personalData = {
     },
     period: '2022 – 2026',
     focus: {
-      ar: 'التعلم الآلي والروبوتات (Machine Learning & Robotics)',
-      en: 'Focus: Machine Learning & Robotics',
+      ar: 'التعلم الآلي، معالجة اللغات الطبيعية والروبوتات',
+      en: 'Machine Learning, NLP & Robotics',
+    },
+    status: {
+      ar: 'خريج حديث (Recent Graduate)',
+      en: 'Recent Graduate',
     },
   },
   stats: [
-    { value: 'AI Engineer', label: { ar: 'التخصص الأساسي', en: 'Core Specialization' } },
-    { value: '98%', label: { ar: 'امتياز معهد NTI في الرؤية الحاسوبية', en: 'NTI Distinction in CV' } },
+    { value: 'دفعة 2026', label: { ar: 'خريج ذكاء اصطناعي رسمي', en: 'AI Graduate 2026' } },
+    { value: '98%', label: { ar: 'امتياز NTI في الرؤية الحاسوبية', en: 'NTI Distinction in CV' } },
     { value: '94%', label: { ar: 'دقة التشخيص الطبي بالذكاء الاصطناعي', en: 'Medical AI Accuracy' } },
-    { value: '15+', label: { ar: 'مشروع مفتوح المصدر على GitHub', en: 'GitHub AI Projects' } },
+    { value: '15+', label: { ar: 'مشروع ذكاء اصطناعي على GitHub', en: 'GitHub AI Projects' } },
   ],
 };
 
 export const aiPillars: AIPillar[] = [
   {
     id: 'ai-engineering',
-    title: { ar: 'هندسة ونشر أنظمة الذكاء الاصطناعي (AI Systems & MLOps)', en: 'End-to-End AI Engineering & MLOps' },
+    title: { ar: 'هندسة ونشر حلول الذكاء الاصطناعي (AI Engineering & Python)', en: 'AI Engineering & Python Production Pipelines' },
     description: {
-      ar: 'تصميم وبناء حلول ذكاء اصطناعي إنتاجية متكاملة وقابلة للتوسع (Clean Architecture)، دمج كيرنل مزدوج بلغة بايثون ورست، ونشر النماذج بحاويات Docker و APIs عالية السرعة.',
-      en: 'Designing scalable, production-ready AI solutions with clean architecture, dual Python & Rust kernels (Symphony AIDE), and low-latency API containerization.',
+      ar: 'بناء تطبيقات وحلول ذكاء اصطناعي إنتاجية بلغة بايثون، تصميم معماريات نظيفة (Clean Architecture)، دمج واجهات خفيفة بـ Gradio و Streamlit و Flask، ونشر النماذج عبر واجهات برمجية APIs عالية الاعتمادية.',
+      en: 'Designing scalable, production-ready AI solutions with clean architecture, Python-based pipeline orchestration, and lightweight application interfaces (Gradio, Streamlit, Flask).',
     },
-    tools: ['Python', 'Rust', 'Docker', 'FastAPI', 'Microkernels', 'Clean Code'],
+    tools: ['Python', 'LangGraph', 'Streamlit', 'Gradio', 'Flask', 'OpenRouter API', 'Clean Code'],
     badge: { ar: 'الـ Core الأساسي', en: 'Core Discipline' },
     metrics: 'Production AI',
   },
   {
-    id: 'computer-vision',
-    title: { ar: 'الرؤية الحاسوبية والتشخيص الطبي (Computer Vision)', en: 'Computer Vision & Visual Intelligence' },
-    description: {
-      ar: 'خطوط أنابيب متقدمة للدمج المبكر لصور الأشعة (X-Ray & CT) بدقة 94%، ومعالجة الفيديو المباشر واستخراج 21 مفصل هيكلي لليد بـ MediaPipe بسرعة تفوق 30 FPS.',
-      en: 'State-of-the-art Multi-Modal early feature fusion for medical imaging (94% accuracy), and real-time 30+ FPS skeletal hand landmark tracking via MediaPipe.',
-    },
-    tools: ['OpenCV', 'MediaPipe', 'YOLO', 'Mask R-CNN', 'Medical Imaging', 'TensorFlow'],
-    badge: { ar: 'دقة 94% | 30+ FPS', en: '94% Acc | 30+ FPS' },
-    metrics: '94% Accuracy',
-  },
-  {
     id: 'generative-ai',
-    title: { ar: 'الذكاء الاصطناعي التوليدي والـ RAG (Generative AI & LLMs)', en: 'Generative AI, LLMs & Vector RAG' },
+    title: { ar: 'الذكاء الاصطناعي التوليدي والـ RAG (Generative AI, LLMs & RAG)', en: 'Generative AI, LLMs & Vector RAG' },
     description: {
-      ar: 'بناء وتدريب أنظمة استرجاع وتوليد RAG متقدمة بقواعد بيانات المتجهات (Milvus & Zilliz)، وتوجيه استفسارات النماذج لغوياً بـ LangGraph و LangChain4j لتقليل التكلفة بنسبة 70%.',
-      en: 'Architecting high-precision RAG pipelines using Milvus & Zilliz vector databases, LangGraph query routing, and LangChain4j enterprise integration.',
+      ar: 'تطوير خطوط أنابيب متقدمة للاسترجاع والتوليد RAG بقواعد المتجهات (ChromaDB, FAISS, Milvus)، وتوجيه استفسارات النماذج ذكياً بـ LangGraph لتوفير حتى 70% من التكلفة ومنع الهلوسة الطبية.',
+      en: 'Architecting high-precision RAG pipelines using ChromaDB and FAISS vector databases, semantic caching, and LangGraph query complexity routing with 70% cost savings.',
     },
-    tools: ['LLMs', 'LangGraph', 'LangChain4j', 'Milvus', 'Zilliz', 'ChromaDB', 'FAISS'],
+    tools: ['LLMs', 'RAG', 'ChromaDB', 'FAISS', 'Milvus', 'Sentence Transformers', 'LangChain4j'],
     badge: { ar: 'توفير 70% تكلفة', en: '70% Cost Optimized' },
     metrics: 'Enterprise RAG',
   },
   {
-    id: 'deep-learning',
-    title: { ar: 'التعلم العميق والمعزز (Deep & Reinforcement Learning)', en: 'Deep & Reinforcement Learning (PPO)' },
+    id: 'nlp-machine-learning',
+    title: { ar: 'معالجة اللغات الطبيعية وتصنيف النصوص (NLP & Deep Learning)', en: 'NLP, Sentiment Analysis & Neural Models' },
     description: {
-      ar: 'تصميم شبكات عصبية عميقة (CNNs, BiLSTM, GANs)، وتدريب وكيل تعلم معزز (PPO Conductor) لتنظيم المهام الحوسبية وجدولة الموارد بذكاء.',
-      en: 'Designing high-throughput deep neural networks (CNNs, BiLSTM, GANs) and reinforcement learning agents (PPO) for autonomous resource orchestration.',
+      ar: 'تحليل وتصنيف المشاعر للنصوص الطبية والعامة، دمج خصائص TF-IDF مع شبكات BiLSTM و CNN-LSTM، واستخراج الكيانات وتصنيف فاعلية الأدوية بدقة عالية.',
+      en: 'Text classification, sentiment analysis on clinical reviews, hybrid TF-IDF + BiLSTM and CNN-LSTM feature fusion, and semantic embedding re-ranking.',
     },
-    tools: ['PyTorch', 'TensorFlow', 'PPO RL', 'CNNs', 'BiLSTM', 'Transfer Learning'],
+    tools: ['scikit-learn', 'BiLSTM', 'CNN-LSTM', 'TensorFlow', 'PyTorch', 'TF-IDF', 'Transformers'],
     badge: { ar: 'معتمد من NVIDIA', en: 'NVIDIA Certified' },
-    metrics: 'Advanced RL & DL',
+    metrics: 'Advanced NLP',
+  },
+  {
+    id: 'computer-vision',
+    title: { ar: 'الرؤية الحاسوبية والتشخيص الطبي (Computer Vision & Edge)', en: 'Computer Vision & Visual Intelligence' },
+    description: {
+      ar: 'خطوط أنابيب متقدمة للدمج المبكر لصور الأشعة (X-Ray & CT) بدقة 94%، ومعالجة الفيديو المباشر واستخراج 21 مفصل هيكلي لليد بـ MediaPipe بسرعة تفوق 30 FPS بتقدير 98% ممتاز من NTI.',
+      en: 'Multi-Modal early feature fusion for medical imaging (94% accuracy), and real-time 30+ FPS skeletal hand landmark tracking via MediaPipe. NTI 98% Excellent.',
+    },
+    tools: ['OpenCV', 'MediaPipe', 'YOLO', 'TensorFlow', 'Medical Scans', 'Scikit-learn'],
+    badge: { ar: 'امتياز NTI 98%', en: 'NTI 98% Distinction' },
+    metrics: '94% Acc | 30+ FPS',
   },
 ];
 
 export const allProjectsList: ProjectItem[] = [
   {
-    id: 'symphony-aide',
-    title: { ar: 'Symphony AIDE — بيئة تطوير ذكية متطورة بلغة بايثون ورست', en: 'Symphony AIDE — AI-First Python & Rust Platform' },
-    category: 'AI Systems & Reinforcement Learning',
-    categoryKey: 'ai',
+    id: 'webmd-ai-pipeline',
+    title: { ar: 'WebMD AI Pipeline: ML, NLP & RAG — خط أنابيب متكامل لتحليل بيانات الأدوية', en: 'WebMD AI Pipeline: ML, NLP & RAG' },
+    category: 'Healthcare Analytics, NLP & Generative AI',
+    categoryKey: 'genai',
     summary: {
-      ar: 'بيئة تطوير برمجية متطورة مصممة بمعمارية Microkernel تجمع بين سرعة لغة Rust ومرونة Python، يديرها وكيل تعلم معزز PPO لتوزيع المهام الحوسبية والمساعدة البرمجية.',
-      en: 'An AI-first development environment featuring a dual-ensemble microkernel architecture with Rust for speed, Python for model orchestration, and a PPO reinforcement agent.',
+      ar: 'خط أنابيب ذكاء اصطناعي متكامل للرعاية الصحية يشمل تنظيف البيانات، تصنيف فاعلية الأدوية، تحليل مشاعر المراجعات بنموذج BiLSTM، ونظام RAG للإجابة عن الأسئلة الطبية.',
+      en: 'End-to-end healthcare review pipeline spanning data cleaning, drug-effectiveness classification, review sentiment analysis, and RAG-based question answering over WebMD drug reviews.',
     },
     details: {
       ar: [
-        'معمارية Microkernel متقدمة لدمج مكونات Rust فائقة الأداء مع نماذج بايثون.',
-        'تطوير وكيل "Conductor" بالتعلم المعزز PPO لجدولة سير العمل وتوزيع الموارد الحوسبية.',
-        'كود نظيف وأنظمة متزامنة آمنة للذاكرة موجهة لإنتاج برمجيات الذكاء الاصطناعي.',
+        'بناء خط أنابيب متكامل من جمع البيانات والـ EDA وحتى الاسترجاع والتوليد المعزز (RAG).',
+        'دمج خصائص TF-IDF على مستوى الكلمات والحروف مع شبكة عصيبة BiLSTM لتصنيف المشاعر.',
+        'تطبيق استرجاع المتجهات بـ ChromaDB مع فلاتر اختيارية للأدوية والحالات المرضية قبل التوليد اللغوي.',
       ],
       en: [
-        'Designed a dual-ensemble microkernel architecture for AI-assisted software engineering.',
-        'Developed "Conductor", a PPO-based reinforcement learning agent orchestrating workflows.',
-        'Integrated Rust for zero-cost memory safety with Python for seamless AI pipelines.',
+        'Built a healthcare-review pipeline spanning data cleaning, drug-effectiveness classification, and review sentiment analysis.',
+        'Combined word- and character-level TF-IDF features with a BiLSTM for sentiment classification.',
+        'Implemented vector retrieval with optional drug and condition filters before LLM-based Arabic summaries.',
       ],
     },
-    technologies: ['Python', 'Rust', 'Reinforcement Learning (PPO)', 'Microkernel', 'Clean Code'],
-    metrics: { label: { ar: 'المعمارية', en: 'Architecture' }, value: 'Rust + Python Core' },
-    githubUrl: 'https://github.com/NourElanany/Symphony-AIDE',
+    technologies: ['Python', 'scikit-learn', 'BiLSTM', 'ChromaDB', 'OpenRouter API', 'NLP', 'RAG'],
+    metrics: { label: { ar: 'المراحل', en: 'Phases' }, value: 'ML + NLP + RAG' },
+    githubUrl: 'https://github.com/NourElanany/webmd-ai-pipeline-ml-rag-llm',
+    isFeatured: true,
+  },
+  {
+    id: 'webmd-review-rag',
+    title: { ar: 'WebMD Review RAG Application — تطبيق استرجاع وتوليد مراجعات المرضى', en: 'WebMD Review RAG Application (Gradio & FAISS)' },
+    category: 'Generative AI & Semantic Retrieval',
+    categoryKey: 'genai',
+    summary: {
+      ar: 'تطبيق تفاعلي بواجهة Gradio لفهرسة مراجعات WebMD واسترجاع المقاطع الأكثر صلة دلالياً باستخدام FAISS وتوليد ردود موثقة بالسياق.',
+      en: 'Interactive Gradio application indexing WebMD review passages with FAISS and Sentence Transformers, generating grounded context answers.',
+    },
+    details: {
+      ar: [
+        'تطوير واجهة مستخدم سريعة بـ Gradio لفهرسة بيانات المراجعات والاستعلام اللحظي.',
+        'تجزئة النصوص (Chunking) مع استخراج متجهات التضمين المحتوية على الميتا-داتا (Metadata-aware embeddings).',
+        'استرجاع دلالي دقيق لأفضل المقاطع (Semantic Top-k Retrieval) وتوليد إجابات خالية من الهلوسة.',
+      ],
+      en: [
+        'Developed a Gradio interface to index WebMD review data and query retrieved review passages.',
+        'Implemented chunking, metadata-aware embeddings, and semantic top-k retrieval.',
+        'Context-grounded response generation preventing medical hallucinations.',
+      ],
+    },
+    technologies: ['Python', 'Gradio', 'Sentence Transformers', 'FAISS', 'Vector Search'],
+    metrics: { label: { ar: 'الواجهة', en: 'Interface' }, value: 'Gradio + FAISS' },
+    githubUrl: 'https://github.com/NourElanany/webmd-ai-pipeline-ml-rag-llm',
+    isFeatured: true,
+  },
+  {
+    id: 'dynamic-llm-routing',
+    title: { ar: 'نظام توجيه استفسارات الـ LLM الذكي (توفير 70% تكلفة الحوسبة)', en: 'Dynamic LLM Routing System (LangGraph)' },
+    category: 'Generative AI & LLM Systems',
+    categoryKey: 'genai',
+    summary: {
+      ar: 'هندسة معمارية متطورة لتوجيه استفسارات المستخدمين ديناميكياً للنموذج الأنسب حسب صعوبة المهمة باستخدام LangGraph والتخزين الدلالي المؤقت، مما يوفر 70% من التكلفة.',
+      en: 'Intelligent prompt router directing user queries across model tiers based on task complexity using LangGraph, semantic response caching, and retry/fallback logic with Streamlit.',
+    },
+    details: {
+      ar: [
+        'تطبيق التوجيه اللحظي حسب صعوبة الاستعلام (Query-Complexity Routing) عبر شرائح النماذج المختلفة.',
+        'إضافة التخزين الدلالي المؤقت (Semantic Response Caching) ومنطق إعادة المحاولة والبدائل (Retry / Fallback).',
+        'لوحة تحكم تفاعلية بـ Streamlit للاختبار الفردي والمجموعات (Single-query & Batch testing).',
+      ],
+      en: [
+        'Implemented query-complexity routing across model tiers to optimize latency and compute expenses.',
+        'Added semantic response caching, retry/fallback logic, and token consumption analytics.',
+        'Built Streamlit interface supporting single-query and automated batch benchmarking.',
+      ],
+    },
+    technologies: ['Python', 'LangGraph', 'Sentence Transformers', 'Streamlit', 'LLM Routing'],
+    metrics: { label: { ar: 'توفير التكلفة', en: 'Cost Saved' }, value: '70% Cost Optimized' },
+    githubUrl: 'https://github.com/NourElanany/Dynamic-LLM-Routing-System',
+    isFeatured: true,
+  },
+  {
+    id: 'arabic-rag-system',
+    title: { ar: 'نظام الإجابة الذاتي على الأسئلة باللغة العربية (Arabic Retrieval-Augmented Q&A)', en: 'Arabic Retrieval-Augmented Q&A System' },
+    category: 'NLP & Generative AI',
+    categoryKey: 'genai',
+    summary: {
+      ar: 'تطبيق ذكي للإجابة عن الأسئلة باللغة العربية يدمج بين الاسترجاع الدلالي والكلمات المفتاحية (FAISS + TF-IDF) مع إعادة ترتيب السياق والتحقق من صحة الإجابة.',
+      en: 'Arabic question-answering application combining semantic and keyword retrieval, context re-ranking, answer generation, and response validation using Flask and FAISS.',
+    },
+    details: {
+      ar: [
+        'دمج البحث الدلالي المتجهي بفهرس FAISS مع خوارزميات الكلمات المفتاحية TF-IDF للنصوص العربية.',
+        'إعادة ترتيب السياق (Context Re-ranking) والتحقق من دقة وموثوقية الإجابة المولدة.',
+        'واجهة خلفية متكاملة بإطار عمل Flask مخصصة للمعالجة فائقة السرعة.',
+      ],
+      en: [
+        'Combined dense semantic vector retrieval via FAISS with sparse keyword TF-IDF matching.',
+        'Implemented context re-ranking, prompt grounding, and response verification filters.',
+        'Engineered responsive Flask backend API handling low-latency query sessions.',
+      ],
+    },
+    technologies: ['Python', 'Flask', 'FAISS', 'TF-IDF', 'Transformers', 'Arabic NLP'],
+    metrics: { label: { ar: 'النوع', en: 'Architecture' }, value: 'Hybrid RAG + Flask' },
+    githubUrl: 'https://github.com/NourElanany/RAG-Retrieval-Augmented-Generation-Q-A-System',
     isFeatured: true,
   },
   {
     id: 'disease-detection-cv',
-    title: { ar: 'نظام تشخيص الأمراض بالرؤية الحاسوبية والدمج المبكر (دقة 94%)', en: 'Multi-Modal Pulmonary Disease Diagnostic System' },
+    title: { ar: 'نظام تشخيص الأمراض الرئوية بالدمج المبكر (دقة سريرية 94%)', en: 'Multi-Modal Pulmonary Disease Diagnostic System' },
     category: 'Computer Vision & Healthcare AI',
     categoryKey: 'cv',
     summary: {
@@ -219,84 +306,8 @@ export const allProjectsList: ProjectItem[] = [
     isFeatured: true,
   },
   {
-    id: 'arabic-sentiment-analysis',
-    title: { ar: 'نظام تحليل المشاعر للنصوص العربية (NLP & ML)', en: 'Arabic Clinical & Text Sentiment Analysis' },
-    category: 'Natural Language Processing & ML',
-    categoryKey: 'ml',
-    summary: {
-      ar: 'خط أنابيب متكامل لمعالجة وتنظيف النصوص العربية المتقدمة، مع تقييم أكثر من 10 نماذج تعلم آلي كلاسيكية، وتحقيق أعلى دقة باستخدام TF-IDF ومصنف ExtraTrees.',
-      en: 'Arabic text preprocessing and cleaning pipeline evaluating 10+ classical ML algorithms, yielding benchmark accuracy with TF-IDF and ExtraTrees Classifier.',
-    },
-    details: {
-      ar: [
-        'بناء خوارزميات متقدمة لمعالجة وتطبيع واستخلاص الجذور للنصوص العربية.',
-        'تقييم ومقارنة أداء أكثر من 10 نماذج تعلم آلي مختلفة.',
-        'تحقيق أعلى دقة تصنيف باستخدام مصفوفات TF-IDF ونموذج ExtraTrees Classifier.',
-      ],
-      en: [
-        'Designed custom Arabic tokenization, normalization, and semantic preprocessing.',
-        'Benchmarked 10+ classical machine learning classifiers on complex corpora.',
-        'Achieved state-of-the-art results using TF-IDF vectorization and ExtraTrees.',
-      ],
-    },
-    technologies: ['Python', 'NLP', 'Machine Learning', 'TF-IDF', 'ExtraTrees', 'Scikit-learn'],
-    metrics: { label: { ar: 'النماذج', en: 'Models' }, value: '10+ Evaluated' },
-    githubUrl: 'https://github.com/NourElanany/NLP-Neural-Networks',
-    isFeatured: true,
-  },
-  {
-    id: 'dynamic-llm-routing',
-    title: { ar: 'نظام توجيه استفسارات الـ LLM الديناميكي (توفير 70% تكلفة)', en: 'Dynamic LLM Routing System (LangGraph)' },
-    category: 'Generative AI & LLM Engineering',
-    categoryKey: 'genai',
-    summary: {
-      ar: 'هندسة معمارية متطورة لتوجيه استفسارات المستخدمين ديناميكياً للنموذج الأنسب حسب صعوبة المهمة باستخدام LangGraph و Streamlit، مما وفر 70% من التكلفة الحوسبية.',
-      en: 'Intelligent prompt router directing user queries to the optimal LLM based on task complexity using LangGraph, Python, and Streamlit, saving up to 70% compute costs.',
-    },
-    details: {
-      ar: [
-        'تصميم محرك تقييم يحلل صعوبة الاستفسار قبل إرساله للنماذج الباهظة.',
-        'توفير حتى 70% من استهلاك التوكنز عبر التوجيه الذكي للنماذج الاقتصادية.',
-        'لوحة تحكم Streamlit لمراقبة مسار القرارات وزمن الاستجابة والتكلفة.',
-      ],
-      en: [
-        'Engineered an evaluation routing graph analyzing query intent and complexity.',
-        'Saved up to 70% in token expenditure through smart tiered model dispatch.',
-        'Built real-time Streamlit monitoring dashboard for routing metrics and latency.',
-      ],
-    },
-    technologies: ['GenAI', 'LangGraph', 'LLM Routing', 'Streamlit', 'Python', 'Prompt Engineering'],
-    metrics: { label: { ar: 'توفير التكلفة', en: 'Cost Saved' }, value: '70% Cost Optimized' },
-    githubUrl: 'https://github.com/NourElanany/Dynamic-LLM-Routing-System',
-  },
-  {
-    id: 'webmd-ai-pipeline',
-    title: { ar: 'WebMD AI Pipeline — خط أنابيب متكامل من الـ ML إلى الـ RAG والـ LLM', en: 'WebMD AI Pipeline — End-to-End ML, RAG & LLM' },
-    category: 'Healthcare Analytics & Generative AI',
-    categoryKey: 'genai',
-    summary: {
-      ar: 'خط أنابيب ذكاء اصطناعي خماسي المراحل: تحليل بيانات (EDA)، تعلم آلي، تصنيف مشاعر بـ BiLSTM، بحث دلالي RAG بقاعدة متجهات، وتوليد إجابات دقيقة بنماذج لغوية.',
-      en: 'Five-phase enterprise AI pipeline on WebMD drug reviews: exploratory data analysis, classical ML, BiLSTM sentiment classification, vector RAG, and OpenRouter LLM generation.',
-    },
-    details: {
-      ar: [
-        'بناء خط أنابيب متكامل يجمع 5 مراحل من الـ EDA حتى الـ RAG والـ LLM.',
-        'واجهة تفاعلية بـ Tkinter تستعرض رسومات وتحليلات كل مرحلة على حدة.',
-        'تخزين واسترجاع دلالي فائق الدقة لآلاف مراجعات المرضى باستخدام قواعد المتجهات.',
-      ],
-      en: [
-        'Built full 5-stage pipeline bridging EDA, ML, BiLSTM, RAG, and LLM synthesis.',
-        'Interactive Tkinter analytics visualizer rendering phase-by-phase model benchmarks.',
-        'High-density vector indexing and similarity retrieval using ChromaDB.',
-      ],
-    },
-    technologies: ['Scikit-learn', 'BiLSTM', 'ChromaDB', 'RAG', 'OpenRouter LLM', 'Python'],
-    metrics: { label: { ar: 'مراحل الذكاء', en: 'Phases' }, value: '5-Stage Pipeline' },
-    githubUrl: 'https://github.com/NourElanany/webmd-ai-pipeline-ml-rag-llm',
-  },
-  {
     id: 'rag-langchain4j',
-    title: { ar: 'أنظمة RAG المؤسسية بلغة جافا باستخدام LangChain4j', en: 'Enterprise Java RAG with LangChain4j' },
+    title: { ar: 'أنظمة RAG المؤسسية بلغة جافا باستخدام LangChain4j و Milvus', en: 'Enterprise Java RAG with LangChain4j & Milvus' },
     category: 'Enterprise AI & Java',
     categoryKey: 'genai',
     summary: {
@@ -320,29 +331,55 @@ export const allProjectsList: ProjectItem[] = [
     githubUrl: 'https://github.com/NourElanany/rag-langchain4j',
   },
   {
-    id: 'image-processing-studio',
-    title: { ar: 'Image-Processing Studio — منصة معالجة الصور الرقمية المتقدمة', en: 'Image-Processing Studio — Advanced CV GUI' },
-    category: 'Computer Vision Software',
-    categoryKey: 'cv',
+    id: 'arabic-sentiment-analysis',
+    title: { ar: 'نظام تحليل المشاعر للنصوص العربية (NLP & ML Benchmark)', en: 'Arabic Clinical & Text Sentiment Analysis' },
+    category: 'Natural Language Processing & ML',
+    categoryKey: 'ml',
     summary: {
-      ar: 'تطبيق برمجي مبني بلغة بايثون بواجهة مستخدم رسومية حديثة لتطبيق خوارزميات معالجة الصور مثل كشف الحواف (Edge Detection) والفلاتر الترددية.',
-      en: 'Comprehensive Python desktop application providing an intuitive GUI for advanced digital image processing algorithms.',
+      ar: 'خط أنابيب متكامل لمعالجة وتنظيف النصوص العربية المتقدمة، مع تقييم أكثر من 10 نماذج تعلم آلي كلاسيكية، وتحقيق أعلى دقة باستخدام TF-IDF ومصنف ExtraTrees.',
+      en: 'Arabic text preprocessing and cleaning pipeline evaluating 10+ classical ML algorithms, yielding benchmark accuracy with TF-IDF and ExtraTrees Classifier.',
     },
     details: {
       ar: [
-        'تنفيذ خوارزميات كشف الحواف (Sobel, Canny, Prewitt) والفلاتر المكانية.',
-        'واجهة استخدام عصرية تفاعلية تتيح معاينة الفروق بين العمليات في الوقت الفعلي.',
-        'هندسة معمارية نظيفة تدعم التوسعة لأي خوارزميات تصنيف صور جديدة.',
+        'بناء خوارزميات متقدمة لمعالجة وتطبيع واستخلاص الجذور للنصوص العربية.',
+        'تقييم ومقارنة أداء أكثر من 10 نماذج تعلم آلي مختلفة.',
+        'تحقيق أعلى دقة تصنيف باستخدام مصفوفات TF-IDF ونموذج ExtraTrees Classifier.',
       ],
       en: [
-        'Implemented edge operators (Sobel, Canny, Prewitt) and spatial filters.',
-        'Interactive modern UI enabling real-time visual comparison of processed filters.',
-        'Modular, maintainable architecture designed for rapid algorithm prototyping.',
+        'Designed custom Arabic tokenization, normalization, and semantic preprocessing.',
+        'Benchmarked 10+ classical machine learning classifiers on complex corpora.',
+        'Achieved state-of-the-art results using TF-IDF vectorization and ExtraTrees.',
       ],
     },
-    technologies: ['Digital Image Processing', 'OpenCV', 'GUI Architecture', 'Python'],
-    metrics: { label: { ar: 'الفلاتر', en: 'Filters' }, value: 'Multi-Filter Suite' },
-    githubUrl: 'https://github.com/NourElanany/Image-Processing',
+    technologies: ['Python', 'NLP', 'Machine Learning', 'TF-IDF', 'ExtraTrees', 'Scikit-learn'],
+    metrics: { label: { ar: 'النماذج', en: 'Models' }, value: '10+ Evaluated' },
+    githubUrl: 'https://github.com/NourElanany/NLP-Neural-Networks',
+  },
+  {
+    id: 'symphony-aide',
+    title: { ar: 'Symphony AIDE — بيئة تطوير ذكية متطورة بلغة بايثون ورست (مشروع فريق عمل خاص)', en: 'Symphony AIDE — AI-First Microkernel Platform (Private Team Project)' },
+    category: 'AI Systems & Reinforcement Learning',
+    categoryKey: 'ai',
+    summary: {
+      ar: 'مشروع فريق عمل خاص: بيئة تطوير برمجية مصممة بمعمارية Microkernel تجمع بين سرعة لغة Rust ومرونة بايثون، ويديرها وكيل تعلم معزز PPO لتوزيع المهام الحوسبية.',
+      en: 'Private collaborative team project: AI development platform featuring a dual-ensemble microkernel architecture with Rust for speed, Python for model orchestration, and a PPO agent.',
+    },
+    details: {
+      ar: [
+        'معمارية Microkernel متقدمة لدمج مكونات Rust فائقة الأداء مع نماذج بايثون.',
+        'تطوير وكيل "Conductor" بالتعلم المعزز PPO لجدولة سير العمل وتوزيع الموارد الحوسبية.',
+        'مشروع مغلق ومحمي لفريق العمل (Private Enterprise Codebase).',
+      ],
+      en: [
+        'Designed a dual-ensemble microkernel architecture for AI-assisted software engineering.',
+        'Developed "Conductor", a PPO-based reinforcement learning agent orchestrating workflows.',
+        'Proprietary team collaboration codebase (Private Repository).',
+      ],
+    },
+    technologies: ['Python', 'Rust', 'Reinforcement Learning (PPO)', 'Microkernel', 'Team Collaboration'],
+    metrics: { label: { ar: 'المستودع', en: 'Access' }, value: '🔒 Private Team Repo' },
+    githubUrl: '',
+    isPrivateTeamRepo: true,
   },
   {
     id: 'sanad-rust-microservices',
@@ -369,117 +406,69 @@ export const allProjectsList: ProjectItem[] = [
     metrics: { label: { ar: 'السرعة', en: 'Speed' }, value: 'Rust Concurrency' },
     githubUrl: 'https://github.com/NourElanany/Sanad',
   },
-  {
-    id: 'arabic-rag-system',
-    title: { ar: 'نظام الإجابة الذاتي على الأسئلة باللغة العربية (Enhanced RAG)', en: 'Arabic High-Precision RAG Q&A System' },
-    category: 'Generative AI & NLP',
-    categoryKey: 'genai',
-    summary: {
-      ar: 'نظام استرجاع معلومات متقدم يدمج بين البحث الدلالي بفهرس FAISS ومعالجة اللغة العربية المتقدمة للحد من الهلوسة وتقديم إجابات موثوقة.',
-      en: 'Production-ready Arabic RAG question answering engine pairing FAISS semantic search with specialized Arabic preprocessing and hallucination mitigation.',
-    },
-    details: {
-      ar: [
-        'فهرسة دلالية عالية الكفاءة عبر FAISS Indexing للبحث فائق السرعة.',
-        'خوارزميات تحليل واسترجاع السياق الدلالي الملائم باللغة العربية.',
-        'تقييم موثوقية الإجابات وحساب درجات الثقة (Confidence Scoring).',
-      ],
-      en: [
-        'High-speed semantic vector indexing using FAISS for low-latency retrieval.',
-        'Engineered custom Arabic text normalization, tokenization, and context ranking.',
-        'Implemented hallucination guards and answer confidence metrics.',
-      ],
-    },
-    technologies: ['Arabic NLP', 'RAG', 'FAISS', 'Python', 'Vector Search'],
-    metrics: { label: { ar: 'اللغة', en: 'Language' }, value: 'Arabic RAG' },
-    githubUrl: 'https://github.com/NourElanany/RAG-Retrieval-Augmented-Generation-Q-A-System',
-  },
-  {
-    id: 'workout-recommender',
-    title: { ar: 'محرك توصيات التمارين الرياضية بالتعلم الآلي', en: 'Personalized Workout Recommender System' },
-    category: 'Machine Learning',
-    categoryKey: 'ml',
-    summary: {
-      ar: 'نظام توصية مخصص للتمارين الرياضية وخطة اللياقة البدنية مبني على خوارزميات التعلم الآلي لتخصيص البرامج بناء على أهداف ومستوى المتدرب.',
-      en: 'Machine learning recommendation engine suggesting personalized fitness and workout regimens based on trainee goals, body metrics, and fitness levels.',
-    },
-    details: {
-      ar: [
-        'بناء خوارزميات فلترة مبنية على المحتوى لمطابقة التمارين المناسبة.',
-        'تحليل المتغيرات البدنية وتوليد خطط تدريبية متوازنة ديناميكياً.',
-        'توفير واجهة تفاعلية سهلة الاستخدام لاختبار التوصيات فورياً.',
-      ],
-      en: [
-        'Engineered content-based filtering algorithms matching workouts to user profiles.',
-        'Analyzed physiological variables to generate dynamically balanced workout splits.',
-        'Interactive UI delivering real-time regimen adaptation and tracking.',
-      ],
-    },
-    technologies: ['Machine Learning', 'Scikit-learn', 'Recommendation Systems', 'Python'],
-    metrics: { label: { ar: 'النوع', en: 'Type' }, value: 'ML Recommender' },
-    githubUrl: 'https://github.com/NourElanany/workout_recommender',
-  },
-  {
-    id: 'assistant-my-pc',
-    title: { ar: 'Assistant My PC — أداة أتمتة إدارة نظام التشغيل', en: 'Assistant My PC — OS Automation Engine' },
-    category: 'System Automation',
-    categoryKey: 'ai',
-    summary: {
-      ar: 'أداة برمجية بلغة بايثون مخصصة لمساعدة المستخدم في إدارة وتنظيم وأتمتة المهام اليومية على نظام التشغيل وتحسين إنتاجية النظام.',
-      en: 'Custom Python software tool designed to manage, optimize, and automate desktop operating system tasks to improve productivity and performance.',
-    },
-    details: {
-      ar: [
-        'أتمتة المهام المتكررة وإدارة الموارد على الحاسوب.',
-        'واجهة تفاعلية بسيطة وسريعة الاستجابة.',
-        'بناء أدوات صيانة وتحسين أداء الذاكرة والملفات.',
-      ],
-      en: [
-        'Automated routine OS tasks and resource monitoring routines.',
-        'Responsive, lightweight interface for instant task execution.',
-        'Maintenance utilities optimizing memory footprint and disk cleanup.',
-      ],
-    },
-    technologies: ['Python', 'System Automation', 'OS Utilities'],
-    metrics: { label: { ar: 'النوع', en: 'Type' }, value: 'Automation' },
-    githubUrl: 'https://github.com/NourElanany/assistant_my_pc',
-  },
 ];
 
 export const experienceList: ExperienceItem[] = [
   {
-    id: 'genai-training',
+    id: 'novegates',
     role: {
-      ar: 'متدرب في هندسة الذكاء الاصطناعي التوليدي (Generative AI Intensive Trainee)',
-      en: 'Generative AI Intensive Training — Trainee',
+      ar: 'جامع بيانات ضمن فريق الهندسة (Data Collector, Engineering Team)',
+      en: 'Data Collector, Engineering Team',
     },
     company: {
-      ar: 'برنامج تدريب الذكاء الاصطناعي التوليدي المكثف',
-      en: 'Generative AI Intensive Training (Remote / Hybrid)',
+      ar: 'NOVEGATES',
+      en: 'NOVEGATES',
     },
     period: {
-      ar: 'صيف 2025',
-      en: 'Summer 2025',
+      ar: 'يونيو 2026 – أكتوبر 2026',
+      en: 'Jun 2026 – Oct 2026',
     },
     location: {
-      ar: 'عن بُعد / هجين (Remote / Hybrid)',
-      en: 'Remote / Hybrid',
+      ar: 'القاهرة، مصر',
+      en: 'Cairo, Egypt',
     },
     points: {
       ar: [
-        'إتمام أكثر من 90 ساعة تدريب عملي مكثف في النماذج اللغوية الكبيرة (LLMs) ومعماريات الذكاء الاصطناعي الحديثة.',
-        'بناء 3 مشاريع ذكاء اصطناعي توليدي على المستوى الإنتاجي باستخدام LangChain4j.',
-        'تصميم وتنفيذ أنظمة RAG متقدمة بالاعتماد على قواعد بيانات المتجهات Milvus و Zilliz.',
-        'تطبيق التوجيه الديناميكي ومبادئ الكود النظيف لتحسين استجابة النماذج وخفض زمن الكمون (Latency).',
+        'العمل ضمن فريق الهندسة التقني في جمع وإعداد وهيكلة مجموعات البيانات التقنية.',
+        'فحص جودة وتجهيز البيانات اللازمة لتدريب وتقييم نماذج الذكاء الاصطناعي بدقة وموثوقية عالية.',
       ],
       en: [
-        'Completed 90+ hours of intensive hands-on training in Large Language Models and modern AI architectures.',
-        'Built 3 production-level Generative AI projects using LangChain4j.',
-        'Designed and implemented RAG systems using Milvus and Zilliz vector databases.',
-        'Applied dynamic routing and clean code principles to optimize LLM response quality and latency.',
+        'Worked in a data-collection role within the Engineering team.',
+        'Validated, cleaned, and structured high-integrity technical datasets for model evaluation.',
       ],
     },
-    technologies: ['LLMs', 'LangChain4j', 'Milvus', 'Zilliz', 'RAG', 'Dynamic Routing', 'Clean Code'],
+    technologies: ['Data Collection', 'Data Quality', 'Engineering Workflows', 'Python'],
+    isCurrent: false,
+  },
+  {
+    id: 'namasoft',
+    role: {
+      ar: 'متدرب في هندسة الذكاء الاصطناعي (AI Engineering Trainee)',
+      en: 'AI Engineering Trainee',
+    },
+    company: {
+      ar: 'NamaSoft',
+      en: 'NamaSoft',
+    },
+    period: {
+      ar: 'يوليو 2025 – نوفمبر 2025',
+      en: 'Jul 2025 – Nov 2025',
+    },
+    location: {
+      ar: 'القاهرة، مصر',
+      en: 'Cairo, Egypt',
+    },
+    points: {
+      ar: [
+        'إتمام برنامج تدريب هندسة الذكاء الاصطناعي المكثف بنجاح على مدار 4 أشهر كاملة.',
+        'بناء وتطوير واختبار حلول الذكاء الاصطناعي ونماذج معالجة اللغات الطبيعية وربطها مع أنظمة العمل الإنتاجية.',
+      ],
+      en: [
+        'Completed a four-month intensive AI Engineering training program.',
+        'Engineered, tested, and integrated applied machine learning and NLP solutions into enterprise workflows.',
+      ],
+    },
+    technologies: ['AI Engineering', 'Machine Learning', 'NLP', 'Python', 'Enterprise Solutions'],
     isCurrent: false,
   },
   {
@@ -494,7 +483,7 @@ export const experienceList: ExperienceItem[] = [
     },
     period: {
       ar: 'يوليو 2025 – أغسطس 2025',
-      en: 'July 2025 – August 2025',
+      en: 'Jul 2025 – Aug 2025',
     },
     location: {
       ar: 'القاهرة، مصر',
@@ -512,79 +501,122 @@ export const experienceList: ExperienceItem[] = [
         'Hands-on experience with real-world datasets and model optimization for inference speed.',
       ],
     },
-    technologies: ['Computer Vision', 'OpenCV', 'TensorFlow', 'Object Detection', 'Model Deployment', 'Inference Speed'],
+    technologies: ['Computer Vision', 'OpenCV', 'TensorFlow', 'Object Detection', 'Inference Speed'],
     isCurrent: false,
   },
   {
-    id: 'academic-research',
+    id: 'genai-training',
     role: {
-      ar: 'طالب وباحث هندسة ذكاء اصطناعي (AI Engineering Student & Researcher)',
-      en: 'AI Engineering Student & Researcher',
+      ar: 'متدرب في هندسة الذكاء الاصطناعي التوليدي والـ RAG',
+      en: 'Generative AI & LLMs Trainee',
     },
     company: {
-      ar: 'كلية الحاسبات والذكاء الاصطناعي — جامعة بنها',
-      en: 'Faculty of Computers & Artificial Intelligence, Benha University',
+      ar: 'برنامج تدريب الذكاء الاصطناعي التوليدي المكثف',
+      en: 'Generative AI Intensive Program',
     },
     period: {
-      ar: 'سبتمبر 2022 – متوقع التخرج: 2026',
-      en: 'September 2022 – Expected Graduation: 2026',
+      ar: 'صيف 2025',
+      en: 'Summer 2025',
     },
     location: {
-      ar: 'بنها، مصر',
-      en: 'Benha, Egypt',
+      ar: 'عن بُعد / هجين (Remote / Hybrid)',
+      en: 'Remote / Hybrid',
     },
     points: {
       ar: [
-        'طالب في السنة النهائية ببرنامج الذكاء الاصطناعي، تخصص دقيق في التعلم الآلي والروبوتات (ML & Robotics).',
-        'تطوير نظام تشخيص الأمراض الرئوية بالدمج المبكر لصور X-Ray و CT scans بدقة 94%.',
-        'بناء أكثر من 15 مستودع كود مفتوح المصدر في مجالات الرؤية واللغات وهندسة النظم على GitHub.',
+        'إتمام أكثر من 90 ساعة تدريب عملي في النماذج اللغوية الكبيرة (LLMs) ومعماريات الذكاء الاصطناعي التوليدي.',
+        'تصميم وتنفيذ أنظمة RAG متقدمة بالاعتماد على قواعد بيانات المتجهات Milvus و Zilliz.',
+        'تطبيق التوجيه الديناميكي ومبادئ الكود النظيف لتحسين استجابة النماذج وخفض استهلاك التوكنز.',
       ],
       en: [
-        'Final-year Artificial Intelligence student focusing on Machine Learning & Robotics (Expected Graduation: 2026).',
-        'Engineered 94% accurate multi-modal pulmonary diagnostic systems combining X-Ray & CT scans.',
-        'Authored and published 15+ open-source AI projects across vision, NLP, and system engineering on GitHub.',
+        'Completed 90+ hours of intensive hands-on training in Large Language Models and modern AI architectures.',
+        'Designed and implemented RAG systems using Milvus and Zilliz vector databases.',
+        'Applied dynamic routing and clean code principles to optimize LLM response quality and latency.',
       ],
     },
-    technologies: ['Machine Learning', 'Robotics', 'Python', 'C++', 'Java', 'Rust', 'Algorithms'],
-    isCurrent: true,
+    technologies: ['LLMs', 'LangChain4j', 'Milvus', 'Zilliz', 'RAG', 'Dynamic Routing', 'Clean Code'],
+    isCurrent: false,
   },
 ];
 
 export const certificationsList: CertificationItem[] = [
   {
-    id: 'nvidia-llms',
+    id: 'nvidia-llm',
     title: 'Rapid Application Development with Large Language Models (LLMs)',
-    issuer: 'NVIDIA Deep Learning Institute (DLI)',
-    badgeText: 'NVIDIA Certified',
-  },
-  {
-    id: 'nvidia-prompt',
-    title: 'Building LLM Applications with Prompt Engineering',
-    issuer: 'NVIDIA Deep Learning Institute (DLI)',
-    badgeText: 'NVIDIA Certified',
+    issuer: 'NVIDIA',
+    badgeText: 'Aug 2025',
   },
   {
     id: 'nvidia-dl',
     title: 'Getting Started with Deep Learning',
-    issuer: 'NVIDIA Deep Learning Institute (DLI)',
-    badgeText: 'NVIDIA Certified',
+    issuer: 'NVIDIA',
+    badgeText: 'Aug 2025',
   },
   {
-    id: 'nti-cv',
-    title: 'Computer Vision Intensive Training (Score: 98% Excellent)',
+    id: 'nvidia-prompt',
+    title: 'Building LLM Applications with Prompt Engineering',
+    issuer: 'NVIDIA',
+    badgeText: 'Jan 2025',
+  },
+  {
+    id: 'nti-cv-cert',
+    title: 'Computer Vision Training (Evaluation: 98% Excellent)',
     issuer: 'National Telecommunication Institute (NTI)',
-    badgeText: 'NTI 98% Distinction',
+    badgeText: 'Jul–Aug 2025',
   },
   {
-    id: 'iti-ai',
-    title: 'AI For Everyone',
-    issuer: 'Mahara-Tech (Information Technology Institute - ITI)',
-    badgeText: 'ITI Certified',
+    id: 'udemy-ds',
+    title: 'Python Data Science Fundamentals: Getting Started',
+    issuer: 'Udemy',
+    badgeText: 'Aug 2025',
   },
   {
     id: 'udemy-python',
     title: 'The Python Programming A-Z Definitive Diploma',
-    issuer: 'Udemy Professional Certification',
-    badgeText: 'Python Diploma',
+    issuer: 'Udemy',
+    badgeText: 'Feb 2024',
   },
 ];
+
+export const technicalSkills = {
+  programming: ['Python'],
+  aiAndML: [
+    'LLMs',
+    'Retrieval-Augmented Generation (RAG)',
+    'NLP',
+    'Text Classification',
+    'Sentiment Analysis',
+    'Semantic Search',
+    'Dense Embeddings',
+    'LSTM',
+    'BiLSTM',
+    'CNN-LSTM',
+    'Computer Vision',
+  ],
+  librariesAndFrameworks: [
+    'scikit-learn',
+    'TensorFlow / Keras',
+    'PyTorch',
+    'Sentence Transformers',
+    'LangGraph',
+    'FAISS',
+    'ChromaDB',
+    'Milvus',
+    'OpenCV',
+    'MediaPipe',
+    'pandas',
+    'NumPy',
+  ],
+  applicationsAndAPIs: [
+    'Gradio',
+    'Streamlit',
+    'Flask',
+    'OpenRouter API',
+    'Docker',
+    'Git / GitHub',
+  ],
+  languages: [
+    { name: { ar: 'العربية (اللغة الأم)', en: 'Arabic (Native)' }, level: 'Native' },
+    { name: { ar: 'الإنجليزية (مستوى متوسط B1)', en: 'English (B1 Intermediate)' }, level: 'B1 Intermediate' },
+  ],
+};
