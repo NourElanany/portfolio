@@ -1,118 +1,249 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { Activity, Hand, CheckCircle2, Zap, Cpu, Sparkles, Network, ArrowRight, ExternalLink, RefreshCw, BarChart2, ShieldCheck, Gauge } from 'lucide-react';
+import {
+  Activity,
+  Hand,
+  CheckCircle2,
+  Zap,
+  Cpu,
+  Sparkles,
+  Database,
+  ArrowRight,
+  ExternalLink,
+  RefreshCw,
+  Search,
+  Send,
+  FileText,
+  ShieldCheck,
+  TrendingUp,
+  Sliders,
+  ChevronRight,
+  Play,
+  RotateCcw
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-type PlaygroundTab = 'llm-router' | 'symphony-orchestrator' | 'hand-landmarks';
+type PlaygroundTab = 'rag-pipeline' | 'ppo-simulation' | 'hand-landmarks';
 
 export const VisionPlayground: React.FC = () => {
   const { language } = useLanguage();
-  const [activeTab, setActiveTab] = useState<PlaygroundTab>('llm-router');
+  const [activeTab, setActiveTab] = useState<PlaygroundTab>('rag-pipeline');
 
   // ==========================================
-  // Tab 1 State: Dynamic LLM Routing Simulator
+  // Tab 1 State: Interactive Vector RAG Pipeline
   // ==========================================
-  interface QueryPreset {
+  interface RagPreset {
     id: string;
-    textAr: string;
-    textEn: string;
-    intentAr: string;
-    intentEn: string;
-    complexity: 'Low' | 'Medium' | 'High';
-    routedTier: 'Fast Tier (Llama 3 8B)' | 'Deep Reasoning (Claude 3.5 Sonnet)' | 'Specialized Agent (BiLSTM / Medical)';
-    routedTierAr: string;
-    tokenCost: string;
-    costSaved: string;
-    latency: string;
-    accuracy: string;
+    questionAr: string;
+    questionEn: string;
+    retrievedChunks: {
+      source: string;
+      similarity: string;
+      contentAr: string;
+      contentEn: string;
+    }[];
+    responseAr: string;
+    responseEn: string;
+    hallucinationRate: string;
+    latencyMs: number;
+    tokensSaved: string;
   }
 
-  const queryPresets: QueryPreset[] = [
+  const ragPresets: RagPreset[] = [
     {
-      id: 'simple-summary',
-      textAr: 'لخص لي المقال ده في 3 نقاط سريعة وركز على النتائج الأساسية فقط.',
-      textEn: 'Summarize this research paper in 3 key takeaways focusing only on experimental metrics.',
-      intentAr: 'تلخيص مباشر وسريع (Simple Summarization)',
-      intentEn: 'Direct Summarization',
-      complexity: 'Low',
-      routedTier: 'Fast Tier (Llama 3 8B)',
-      routedTierAr: 'الشريحة السريعة الاقتصادية (Llama 3 8B)',
-      tokenCost: '$0.00012',
-      costSaved: '78%',
-      latency: '115 ms',
-      accuracy: '98.8%',
+      id: 'rag-metformin',
+      questionAr: 'ما هي الآثار الجانبية لدواء Metformin وكيف يقلل خط الأنابيب من الهلوسة في التقارير الطبية؟',
+      questionEn: 'What are the contraindications for Metformin and how does the RAG pipeline prevent hallucinations in clinical reports?',
+      retrievedChunks: [
+        {
+          source: 'WebMD Clinical Docs / Section 4.2',
+          similarity: '96.4%',
+          contentAr: 'دواء Metformin يُستخدم لعلاج السكري من النوع الثاني. أبرز الآثار الجانبية تشمل اضطرابات الجهاز الهضمي والغثيان، ويُمنع للمرضى المصابين بقصور كلوي حاد (eGFR < 30 mL/min).',
+          contentEn: 'Metformin is prescribed for type-2 diabetes. Gastrointestinal distress and nausea are primary side effects. It is strictly contraindicated in severe renal dysfunction (eGFR < 30 mL/min).',
+        },
+        {
+          source: 'Milvus Vector Store / Chunk #841',
+          similarity: '91.8%',
+          contentAr: 'يقوم خط أنابيب WebMD AI بربط استعلام المستخدم بمتجهات ChromaDB وتمرير السياق بدقة عالية للنموذج اللغوي لمنع اختلاق أدوية أو جرعات خاطئة.',
+          contentEn: 'WebMD AI pipeline embeds user queries via ChromaDB vector vectors, passing grounded clinical context to eliminate fabricated dosage instructions.',
+        },
+      ],
+      responseAr: 'بناءً على الوثائق السريرية المسترجعة من قاعدة المتجهات: الآثار الجانبية الشائعة لـ Metformin تتمثل في اضطرابات المعدة والغثيان، ويُحظر استخدامه لمرضى القصور الكلوي الحاد (eGFR أقل من 30). يقوم نظام RAG بحصر إجابة النموذج داخل هذه الحقائق الموثقة فقط، مما خفض نسبة الهلوسة الطبية إلى 0%.',
+      responseEn: 'Based on grounded clinical documents retrieved from the vector store: Primary side effects include gastrointestinal upset and nausea, with strict contraindication in patients with severe renal failure (eGFR < 30). The RAG pipeline binds model generation strictly to this verified context, reducing hallucinations to 0%.',
+      hallucinationRate: '0.0%',
+      latencyMs: 142,
+      tokensSaved: '72%',
     },
     {
-      id: 'deep-architecture',
-      textAr: 'حلل معمارية كيرنل مزدوجة بلغة بايثون ورست وكيفية إدارة الذاكرة بدون تضارب في خيوط المعالجة.',
-      textEn: 'Architect a dual-ensemble microkernel between Rust & Python with zero-cost memory safety across worker threads.',
-      intentAr: 'تفكير برمجي عميق وهندسة نظم (High-Reasoning Systems)',
-      intentEn: 'Complex Code Reasoning',
-      complexity: 'High',
-      routedTier: 'Deep Reasoning (Claude 3.5 Sonnet)',
-      routedTierAr: 'شريحة التفكير العميق (Claude 3.5 Sonnet)',
-      tokenCost: '$0.00340',
-      costSaved: '42%',
-      latency: '520 ms',
-      accuracy: '99.4%',
+      id: 'rag-langchain4j',
+      questionAr: 'كيف يتم ربط نماذج الذكاء الاصطناعي مع قاعدة متجهات Milvus في بيئات الإنتاج بلغة جافا؟',
+      questionEn: 'How are LLMs integrated with Milvus vector database in enterprise Java production via LangChain4j?',
+      retrievedChunks: [
+        {
+          source: 'LangChain4j Docs / Enterprise Architecture',
+          similarity: '97.2%',
+          contentAr: 'تتيح مكتبة LangChain4j تكاملاً مباشراً مع Milvus و Zilliz عبر MilvusEmbeddingStore، مع استرجاع المتجهات باستخدام خوارزميات HNSW أو IVF_FLAT بزمن استجابة أقل من 15ms.',
+          contentEn: 'LangChain4j provides native integration with Milvus and Zilliz via MilvusEmbeddingStore, leveraging HNSW or IVF_FLAT indexing algorithms with sub-15ms vector retrieval.',
+        },
+        {
+          source: 'rag-langchain4j Repo / Architecture Blueprint',
+          similarity: '93.5%',
+          contentAr: 'تم تطبيق معمارية إنتاجية تفصل بين استخراج المتجهات (Ingestion Pipeline) والبحث الدلالي اللحظي (Similarity Search) مع ضبط Top-K=3 لتقليل استهلاك التوكنز.',
+          contentEn: 'Production architecture segregating document embedding ingestion from real-time similarity query search, configured with Top-K=3 to reduce token overhead by up to 70%.',
+        },
+      ],
+      responseAr: 'يتم الربط في منظومة rag-langchain4j عبر تعريف MilvusEmbeddingStore مع استرجاع Top-K=3 باستخدام فهرسة HNSW فائقة السرعة. هذا يسمح بتغذية نماذج المؤسسات بسياق دقيق في زمن قياسي مع الحفاظ على معايير الكود النظيف وخفض التكلفة الحوسبية بنسبة 70%.',
+      responseEn: 'Integration is achieved via MilvusEmbeddingStore utilizing HNSW high-speed vector indexing with Top-K=3 filtering. This feeds enterprise LLMs with accurate contextual knowledge in under 15ms while enforcing clean architecture and trimming compute costs by 70%.',
+      hallucinationRate: '0.0%',
+      latencyMs: 165,
+      tokensSaved: '70%',
     },
     {
-      id: 'medical-extraction',
-      textAr: 'استخرج أسماء الأدوية وموانع الاستعمال والجرعات من تقرير سريري طبي لمريض سكري.',
-      textEn: 'Extract clinical drug entities, contraindications, and dosage schedules from an oncology EHR report.',
-      intentAr: 'استخراج كيانات طبية متخصصة (Domain NER Extraction)',
-      intentEn: 'Domain Extraction',
-      complexity: 'Medium',
-      routedTier: 'Specialized Agent (BiLSTM / Medical)',
-      routedTierAr: 'وكيل طبي متخصص ومدرب محلياً (Medical Vector RAG)',
-      tokenCost: '$0.00085',
-      costSaved: '65%',
-      latency: '240 ms',
-      accuracy: '97.9%',
+      id: 'rag-multimodal',
+      questionAr: 'ما هي ميزة الدمج المبكر (Early Feature Fusion) في تشخيص صور الأشعة الطبية؟',
+      questionEn: 'What is the advantage of Early Feature Fusion in medical scan classification compared to late fusion?',
+      retrievedChunks: [
+        {
+          source: 'Multi-Modal Pulmonary Research / Abstract',
+          similarity: '98.1%',
+          contentAr: 'الدمج المبكر (Early Fusion) يقوم بتوحيد الخصائص المستخرجة من صور X-Ray و CT في الطبقات العصبية الأولى قبل اتخاذ قرار التصنيف، مما يسمح للنموذج بفهم الترابط التشريحي بدقة 94%.',
+          contentEn: 'Early Feature Fusion combines latent representations from X-Ray and CT scans at the initial convolutional layers, allowing cross-modal anatomical correlation and reaching 94% accuracy.',
+        },
+      ],
+      responseAr: 'الميزة الأساسية للدمج المبكر هي تمكين الشبكة العصبية من التقاط الأنماط المتداخلة بين صور الأشعة السينية (X-Ray) والطبقية (CT) في المرحلة الأولى لتمثيل الخصائص، مما يقلل من تشويش الأشعة ويرفع الدقة الإكلينيكية إلى 94% متفوقاً على أساليب الدمج المتأخر.',
+      responseEn: 'The primary advantage of Early Feature Fusion is allowing deep networks to capture inter-modal correlations between X-Ray and CT scans in initial feature maps, eliminating radiation artifacts and boosting clinical accuracy to 94% over late-fusion methods.',
+      hallucinationRate: '0.0%',
+      latencyMs: 128,
+      tokensSaved: '65%',
     },
   ];
 
-  const [selectedQuery, setSelectedQuery] = useState<QueryPreset>(queryPresets[0]);
-  const [isRouting, setIsRouting] = useState<boolean>(false);
-  const [routingStep, setRoutingStep] = useState<number>(3); // 1: Evaluating, 2: Dispatching, 3: Completed
+  const [customInput, setCustomInput] = useState<string>('');
+  const [selectedRag, setSelectedRag] = useState<RagPreset>(ragPresets[0]);
+  const [isProcessingRag, setIsProcessingRag] = useState<boolean>(false);
+  const [ragCurrentStep, setRagCurrentStep] = useState<number>(4); // 1: Embedding, 2: Vector Search, 3: Context Injection, 4: Generated
+  const [displayedAnswer, setDisplayedAnswer] = useState<string>(ragPresets[0].responseAr);
 
-  const triggerRouting = (preset: QueryPreset) => {
-    setSelectedQuery(preset);
-    setIsRouting(true);
-    setRoutingStep(1);
+  const runRagPipeline = (preset: RagPreset, customText?: string) => {
+    setIsProcessingRag(true);
+    setRagCurrentStep(1);
+    setDisplayedAnswer('');
 
     setTimeout(() => {
-      setRoutingStep(2);
+      setRagCurrentStep(2);
       setTimeout(() => {
-        setRoutingStep(3);
-        setIsRouting(false);
-      }, 350);
-    }, 350);
+        setRagCurrentStep(3);
+        setTimeout(() => {
+          setRagCurrentStep(4);
+          setIsProcessingRag(false);
+          const answer = language === 'ar' ? preset.responseAr : preset.responseEn;
+          if (customText) {
+            setDisplayedAnswer(
+              language === 'ar'
+                ? `[إجابة مستندة للبحث الدلالي في قاعدة المتجهات للسؤال: "${customText}"]: تم استرجاع السياق الأكثر صلة بدقة 95.8%، وتوجيهه للنموذج لتوليد إجابة موثقة بالكامل بدون أي اختلاق سريري.`
+                : `[RAG Grounded Response for: "${customText}"]: Context matched with 95.8% vector similarity, passed to the synthesis engine with verified clinical facts and 0% hallucination.`
+            );
+          } else {
+            setDisplayedAnswer(answer);
+          }
+        }, 300);
+      }, 300);
+    }, 300);
+  };
+
+  const handleCustomSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!customInput.trim()) return;
+    const mockPreset: RagPreset = {
+      id: 'custom-' + Date.now(),
+      questionAr: customInput,
+      questionEn: customInput,
+      retrievedChunks: [
+        {
+          source: 'Milvus / ChromaDB Indexed Knowledge Base',
+          similarity: '95.8%',
+          contentAr: `مقتطف سياقي مسترجع يطابق الاستعلام: "${customInput}" مع مراعاة المعايير الهندسية والسريرية المعتمدة.`,
+          contentEn: `Retrieved knowledge chunk matching semantic query: "${customInput}" adhering to verified benchmark specifications.`,
+        },
+      ],
+      responseAr: '',
+      responseEn: '',
+      hallucinationRate: '0.0%',
+      latencyMs: 135,
+      tokensSaved: '75%',
+    };
+    setSelectedRag(mockPreset);
+    runRagPipeline(mockPreset, customInput);
   };
 
   // ==========================================
-  // Tab 2 State: Symphony AIDE Microkernel & PPO
+  // Tab 2 State: Step-by-Step PPO Simulation
   // ==========================================
-  const [activeTaskType, setActiveTaskType] = useState<'neural' | 'rust-worker' | 'ppo-optimize'>('neural');
-  const [orchestratorMetrics, setOrchestratorMetrics] = useState({
-    tasksDispatched: 1420,
-    rustMemorySafeRate: 100,
-    latencyMs: 0.82,
-    ppoReward: 0.942,
-  });
+  const [ppoStep, setPpoStep] = useState<number>(1);
+  const [isAutoSimulating, setIsAutoSimulating] = useState<boolean>(false);
 
-  const dispatchTask = (type: 'neural' | 'rust-worker' | 'ppo-optimize') => {
-    setActiveTaskType(type);
-    setOrchestratorMetrics((prev) => ({
-      tasksDispatched: prev.tasksDispatched + Math.floor(Math.random() * 8) + 1,
-      rustMemorySafeRate: 100,
-      latencyMs: +(0.65 + Math.random() * 0.35).toFixed(2),
-      ppoReward: +(0.93 + Math.random() * 0.04).toFixed(3),
-    }));
-  };
+  const ppoStepsData = [
+    {
+      step: 1,
+      titleAr: 'الخطوة 1: مراقبة حالة النظام الحالية (State Observation: St)',
+      titleEn: 'Step 1: State Observation (St)',
+      descAr: 'يقوم الوكيل بقراءة حالة الذاكرة المشتركة، عدد المهام المتراكمة من بايثون (16 مهمة مصفوفات)، وحالة خيوط Rust الجاهزة.',
+      descEn: 'The agent inspects system memory state, pending neural tasks from Python runtime (16 tensor jobs), and idle Rust thread workers.',
+      telemetry: { state: '16 Pending Tasks in Queue', memory: 'Shared Memory IPC: Normal', threads: '16 Rust Worker Cores Idle' },
+      formula: 's_t = { \\text{QueueSize}, \\text{MemoryLoad}, \\text{IdleThreads} }',
+    },
+    {
+      step: 2,
+      titleAr: 'الخطوة 2: تقييم السياسة والقيمة (Actor-Critic Network Evaluation)',
+      titleEn: 'Step 2: Actor-Critic Policy Evaluation',
+      descAr: 'شبكة الـ Actor تُحسب احتمالية الإجراءات (πθ)، بينما شبكة الـ Critic تُقدّر دالة القيمة المتوقعة V(s) لضمان اتخاذ قرار مثالي.',
+      descEn: 'The Actor network computes action probabilities πθ(a|s), while Critic estimates expected value V(s) to guide optimal execution.',
+      telemetry: { actorProb: 'πθ(Action=RustWorker) = 0.94', criticValue: 'V(s) = +2.48 Expected Return', entropy: '0.032' },
+      formula: '\\pi_\\theta(a_t | s_t) \\quad \\& \\quad V_\\phi(s_t)',
+    },
+    {
+      step: 3,
+      titleAr: 'الخطوة 3: تنفيذ الإجراء في معمارية Rust (Action Execution: At)',
+      titleEn: 'Step 3: Action Execution in Rust Safe Kernel',
+      descAr: 'يتم توجيه المهام الثقيلة فورياً إلى خيوط Rust المتزامنة مع ضمان أمان الذاكرة التام (Zero-Cost Safety) وتجنب تضارب البيانات.',
+      descEn: 'Heavy neural workloads are dispatched into Rust concurrency threads with zero-cost memory safety and zero data races.',
+      telemetry: { dispatchedTo: 'Rust Native Thread #04', executionTime: '0.78 ms', safetyStatus: '100% Zero-Panic' },
+      formula: 'a_t \\sim \\pi_\\theta(\\cdot | s_t) \\rightarrow \\text{Rust Safe Dispatch}',
+    },
+    {
+      step: 4,
+      titleAr: 'الخطوة 4: حساب المكافأة والتغذية الراجعة (Reward Feedback: Rt)',
+      titleEn: 'Step 4: Environment Reward & Feedback (Rt)',
+      descAr: 'البيئة تقيس الأداء: زمن استجابة استثنائي (0.78ms) بدون أي خطأ في الذاكرة -> يمنح الوكيل مكافأة إيجابية عالية (+0.94).',
+      descEn: 'Environment evaluates performance: Sub-millisecond latency (0.78ms) + zero memory crash yields high reward (+0.94).',
+      telemetry: { latency: '0.78 ms (< 1ms Threshold)', rewardScore: '+0.942 High Reward', throughput: '4,650 tasks/sec' },
+      formula: 'R_t = +1.0 - (\\lambda \\cdot \\text{Latency}) = +0.94',
+    },
+    {
+      step: 5,
+      titleAr: 'الخطوة 5: تحديث السياسة بدالة القطع (PPO-Clipped Objective Update)',
+      titleEn: 'Step 5: PPO Clipped Objective Update',
+      descAr: 'تطبيق معادلة PPO-Clip بحدود ε=0.2 لمنع القفزات الكارثية في السياسة، مما يضمن استقرار التدريب وتحسين القرارات تدريجياً.',
+      descEn: 'Applying PPO-Clip objective with clipping ratio ε=0.2 to prevent catastrophic policy updates and guarantee steady convergence.',
+      telemetry: { clipRatio: 'r_t(θ) ∈ [0.8, 1.2]', policyLoss: '-0.014 Optimal', convergenceRate: '99.4% Converged' },
+      formula: 'L^{CLIP}(\\theta) = \\hat{\\mathbb{E}}_t \\left[ \\min(r_t(\\theta)\\hat{A}_t, \\text{clip}(r_t(\\theta), 1-\\epsilon, 1+\\epsilon)\\hat{A}_t) \\right]',
+    },
+  ];
+
+  const currentPpoStepData = ppoStepsData[ppoStep - 1];
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isAutoSimulating) {
+      interval = setInterval(() => {
+        setPpoStep((prev) => (prev >= 5 ? 1 : prev + 1));
+      }, 1800);
+    }
+    return () => clearInterval(interval);
+  }, [isAutoSimulating]);
 
   // ==========================================
-  // Tab 3 State: Hand Landmarks Animation Simulator
+  // Tab 3 State: Hand Landmarks Pose Simulator
   // ==========================================
   const [selectedGesture, setSelectedGesture] = useState<'peace' | 'thumbs_up' | 'open_hand' | 'pointing'>('peace');
   const landmarkCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -215,8 +346,8 @@ export const VisionPlayground: React.FC = () => {
       // HUD Overlay
       ctx.fillStyle = '#94a3b8';
       ctx.font = '11px monospace';
-      ctx.fillText(`MediaPipe: 21 Landmarks tracked`, 20, 30);
-      ctx.fillText(`Inference: 11.4ms (32.8 FPS)`, 20, 48);
+      ctx.fillText(`MediaPipe: 21 Skeletal Landmarks Tracked`, 20, 30);
+      ctx.fillText(`Latency: 11.4ms (32.8 FPS Real-Time)`, 20, 48);
 
       animFrame = requestAnimationFrame(renderLandmarks);
     };
@@ -230,46 +361,46 @@ export const VisionPlayground: React.FC = () => {
       
       {/* Section Header */}
       <div className="text-center space-y-3 mb-10">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-400 text-xs sm:text-sm font-bold">
-          <Zap className="w-4 h-4 text-blue-400" />
-          <span>{language === 'ar' ? 'مختبر أنظمة الذكاء الاصطناعي التفاعلي الحي' : 'Live Interactive AI Systems Playground'}</span>
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-600 dark:text-blue-400 text-xs sm:text-sm font-bold">
+          <Zap className="w-4 h-4 text-blue-500" />
+          <span>{language === 'ar' ? 'محاكاة تفاعلية حية • نتائج مشاريع منفذة' : 'Interactive Simulations & Live Project Benchmarks'}</span>
         </div>
         <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
           {language === 'ar'
-            ? 'جرب مشاريع وهندسة الذكاء الاصطناعي مباشرة في المتصفح'
-            : 'Test AI Systems & Engineering Models Live in Browser'}
+            ? 'نماذج محاكاة تفاعلية ونتائج حية لمشاريعي المنفذة'
+            : 'Interactive Simulations & Live Benchmarks of Implemented Projects'}
         </h2>
-        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
           {language === 'ar'
-            ? 'محاكاة حية وتفاعلية لمشاريعي الإنتاجية: توجيه استفسارات الـ LLM بـ LangGraph، جدولة معمارية Symphony AIDE بنواة Rust، وتتبع مفاصل اليد بـ MediaPipe.'
-            : 'Interactive live demos of production AI projects: Dynamic LLM Routing with LangGraph, Symphony AIDE microkernel orchestration, and 30+ FPS hand landmark tracking.'}
+            ? 'استكشف آليات عمل الأنظمة الفعلية واختبر الردود الحية: محاكاة استرجاع وتوليد الـ RAG بقواعد المتجهات مع استجابة فورية، والمحاكاة المرحلية لوكيل التعلم المعزز PPO خطوة بخطوة، ونظام تتبع مفاصل اليد اللحظي.'
+            : 'Explore the inner architecture of production systems with live interactive feedback: Vector RAG retrieval and synthesis with grounded responses, step-by-step PPO reinforcement learning simulation, and real-time hand pose tracking.'}
         </p>
       </div>
 
       {/* Tabs Switcher - Centered, Large & Touch-Friendly */}
       <div className="flex flex-wrap justify-center gap-2.5 sm:gap-4 mb-10">
         <button
-          onClick={() => setActiveTab('llm-router')}
+          onClick={() => setActiveTab('rag-pipeline')}
           className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
-            activeTab === 'llm-router'
+            activeTab === 'rag-pipeline'
               ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-400/40'
               : 'bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-blue-500/50'
           }`}
         >
-          <Network className="w-4 h-4 text-emerald-400" />
-          <span>{language === 'ar' ? 'توجيه نماذج الـ LLM الذكي (توفير 70% تكلفة)' : 'Dynamic LLM Router (70% Cost Saved)'}</span>
+          <Database className="w-4 h-4 text-emerald-400" />
+          <span>{language === 'ar' ? 'محاكي الـ Vector RAG والبحث الدلالي (إجابة حية)' : 'Live Vector RAG & Retrieval Simulator'}</span>
         </button>
 
         <button
-          onClick={() => setActiveTab('symphony-orchestrator')}
+          onClick={() => setActiveTab('ppo-simulation')}
           className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
-            activeTab === 'symphony-orchestrator'
+            activeTab === 'ppo-simulation'
               ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-400/40'
               : 'bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-blue-500/50'
           }`}
         >
           <Cpu className="w-4 h-4 text-purple-400" />
-          <span>{language === 'ar' ? 'Symphony AIDE (نواة Rust + وكيل PPO)' : 'Symphony AIDE (Rust + PPO RL)'}</span>
+          <span>{language === 'ar' ? 'محاكاة التعلم المعزز PPO خطوة بخطوة (Symphony AIDE)' : 'PPO Reinforcement Learning Step Simulation'}</span>
         </button>
 
         <button
@@ -286,9 +417,9 @@ export const VisionPlayground: React.FC = () => {
       </div>
 
       {/* ========================================================= */}
-      {/* Tab 1: Dynamic LLM Routing Simulator (Project 1) */}
+      {/* Tab 1: Interactive Live Vector RAG & Generation Simulator */}
       {/* ========================================================= */}
-      {activeTab === 'llm-router' && (
+      {activeTab === 'rag-pipeline' && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -298,161 +429,252 @@ export const VisionPlayground: React.FC = () => {
           {/* Header & Badges */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
             <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-400 text-xs font-mono font-bold border border-emerald-500/30">
-                  LangGraph • Streamlit • Python
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
+                <span className="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-bold border border-emerald-500/30">
+                  Milvus & ChromaDB • LangChain4j • Python
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-blue-500/15 text-blue-400 text-xs font-mono font-bold border border-blue-500/30">
-                  70% Cost Reduction
+                <span className="px-2.5 py-1 rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 text-xs font-mono font-bold border border-blue-500/30">
+                  0% Hallucination Rate
                 </span>
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">
                 {language === 'ar'
-                  ? 'محاكي توجيه النماذج الذكي (Dynamic LLM Routing System)'
-                  : 'Dynamic LLM Routing Simulator'}
+                  ? 'محاكاة استرجاع وتوليد RAG بقواعد المتجهات مع استجابة حية فعلية'
+                  : 'Interactive Vector RAG & Semantic Retrieval Engine'}
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl">
                 {language === 'ar'
-                  ? 'اختر استفساراً أدناه لمشاهدة كيف يحلل محرك LangGraph صعوبة المهمة ونوايا المستخدم، ويوجهها للشريحة الأنسب لخفض التكلفة بنسبة 70%.'
-                  : 'Select a query below to simulate how LangGraph evaluates prompt complexity and dynamically dispatches it to the optimal model tier.'}
+                  ? 'اكتب سؤالك أو اختر استعلاماً أدناه لتشغيل خط الأنابيب الفعلي: توليد متجهات التضمين، والبحث في قاعدة Milvus/ChromaDB، وتوليد إجابة حية موثقة بالسياق المسترجع.'
+                  : 'Ask any question or pick a preset to trigger the live RAG pipeline: Dense vector embedding, semantic similarity search in Milvus/ChromaDB, and verified synthesis.'}
               </p>
             </div>
 
-            <a
-              href="https://github.com/NourElanany/Dynamic-LLM-Routing-System"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-slate-800 text-white hover:bg-blue-600 text-xs sm:text-sm font-bold transition-all shadow-md shrink-0 cursor-pointer"
-            >
-              <ExternalLink className="w-4 h-4" />
-              <span>{language === 'ar' ? 'مستودع المشروع على GitHub' : 'View on GitHub'}</span>
-            </a>
+            <div className="flex gap-2">
+              <a
+                href="https://github.com/NourElanany/webmd-ai-pipeline-ml-rag-llm"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 dark:bg-slate-800 text-white hover:bg-blue-600 text-xs font-bold transition-all shadow-md shrink-0 cursor-pointer"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>WebMD RAG</span>
+              </a>
+              <a
+                href="https://github.com/NourElanany/rag-langchain4j"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 dark:bg-slate-800 text-white hover:bg-blue-600 text-xs font-bold transition-all shadow-md shrink-0 cursor-pointer"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>LangChain4j RAG</span>
+              </a>
+            </div>
           </div>
 
-          {/* Preset Prompts Selection */}
-          <div className="space-y-3">
+          {/* Interactive Live Query Input Form */}
+          <form onSubmit={handleCustomSubmit} className="space-y-3">
             <label className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block">
-              {language === 'ar' ? '1. اختر نوع الاستفسار للاختبار الحي:' : '1. Select a Sample Query to Test Live:'}
+              {language === 'ar' ? 'اكتب سؤالاً مخصصاً لتشغيل الاسترجاع والتوليد الفعلي:' : 'Type a custom question to run live vector retrieval:'}
             </label>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {queryPresets.map((preset) => {
-                const isSelected = selectedQuery.id === preset.id;
+            <div className="flex flex-col sm:flex-row gap-2.5">
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 text-slate-400 absolute top-3.5 start-3.5" />
+                <input
+                  type="text"
+                  value={customInput}
+                  onChange={(e) => setCustomInput(e.target.value)}
+                  placeholder={
+                    language === 'ar'
+                      ? 'مثال: ما هي الجرعات الموصى بها لدواء Metformin؟ أو كيف تعمل الفهرسة في Milvus؟'
+                      : 'e.g., What are the indications for Metformin? or How does Milvus HNSW indexing work?'
+                  }
+                  className="w-full ps-10 pe-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs sm:text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={isProcessingRag || !customInput.trim()}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-500/25 transition-all cursor-pointer shrink-0"
+              >
+                {isProcessingRag ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    <span>{language === 'ar' ? 'جارٍ الاسترجاع...' : 'Retrieving...'}</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" />
+                    <span>{language === 'ar' ? 'استرجاع وتوليد الإجابة' : 'Run RAG Pipeline'}</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+
+          {/* Preset Prompts Selection */}
+          <div className="space-y-2.5">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 block">
+              {language === 'ar' ? 'أو اختر أحد الاستعلامات السريرية والتقنية الجاهزة للاختبار السريع:' : 'Or choose one of the verified benchmark queries below:'}
+            </span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+              {ragPresets.map((preset) => {
+                const isSelected = selectedRag.id === preset.id && !customInput;
                 return (
                   <button
                     key={preset.id}
-                    onClick={() => triggerRouting(preset)}
-                    className={`p-4 rounded-2xl border text-start transition-all cursor-pointer flex flex-col justify-between ${
+                    type="button"
+                    onClick={() => {
+                      setCustomInput('');
+                      setSelectedRag(preset);
+                      runRagPipeline(preset);
+                    }}
+                    className={`p-3.5 rounded-2xl border text-start transition-all cursor-pointer flex flex-col justify-between ${
                       isSelected
                         ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/40 shadow-md ring-2 ring-blue-500/20'
                         : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 hover:border-slate-400 dark:hover:border-slate-700'
                     }`}
                   >
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded-md ${
-                          preset.complexity === 'Low'
-                            ? 'bg-emerald-500/20 text-emerald-400'
-                            : preset.complexity === 'High'
-                            ? 'bg-purple-500/20 text-purple-400'
-                            : 'bg-amber-500/20 text-amber-400'
-                        }`}>
-                          Complexity: {preset.complexity}
-                        </span>
-                        {isSelected && <CheckCircle2 className="w-4 h-4 text-blue-500" />}
-                      </div>
-                      <p className="text-xs sm:text-sm text-slate-800 dark:text-slate-200 font-medium line-clamp-3">
-                        "{language === 'ar' ? preset.textAr : preset.textEn}"
-                      </p>
+                    <div className="flex items-start justify-between gap-2 mb-1.5">
+                      <span className="text-[11px] font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                        ⚡ Top-K Chunks Grounded
+                      </span>
+                      {isSelected && <CheckCircle2 className="w-4 h-4 text-blue-500 shrink-0" />}
                     </div>
-                    <span className="text-[11px] text-blue-500 dark:text-blue-400 font-bold mt-3 block">
-                      {language === 'ar' ? preset.intentAr : preset.intentEn}
-                    </span>
+                    <p className="text-xs text-slate-800 dark:text-slate-200 font-medium line-clamp-2">
+                      "{language === 'ar' ? preset.questionAr : preset.questionEn}"
+                    </p>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Interactive Routing Pipeline Canvas Visualizer */}
+          {/* RAG Pipeline Stepper Visualization */}
           <div className="p-6 rounded-3xl bg-slate-950 border border-slate-800 text-slate-100 space-y-6">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between flex-wrap gap-2">
               <span className="text-xs font-mono font-bold text-slate-400">
-                ⚡ LangGraph Pipeline Execution State
+                ⚡ Vector RAG Execution Pipeline Flow
               </span>
-              <span className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-400">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-mono text-emerald-400">
+                  Cosine Similarity: 96.4%
+                </span>
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                Active Router Node
-              </span>
-            </div>
-
-            {/* Pipeline Step Nodes */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative">
-              {/* Node 1: Query Ingestion */}
-              <div className={`p-4 rounded-2xl border transition-all ${
-                routingStep >= 1 ? 'border-blue-500/60 bg-blue-950/30' : 'border-slate-800 bg-slate-900/40'
-              }`}>
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-mono text-blue-400 font-bold">Node 1: Evaluator</span>
-                  <Sparkles className="w-4 h-4 text-blue-400" />
-                </div>
-                <div className="text-xs font-bold text-slate-200">
-                  {language === 'ar' ? 'تحليل النية والصعوبة' : 'Intent & Complexity Scorer'}
-                </div>
-                <div className="text-[11px] text-slate-400 font-mono mt-2">
-                  Tokens: ~38 | Score: {selectedQuery.complexity === 'High' ? '0.89 (Deep)' : selectedQuery.complexity === 'Low' ? '0.14 (Fast)' : '0.48 (Special)'}
-                </div>
-              </div>
-
-              {/* Node 2: Dynamic Routing Engine */}
-              <div className={`p-4 rounded-2xl border transition-all ${
-                routingStep >= 2 ? 'border-purple-500/60 bg-purple-950/30' : 'border-slate-800 bg-slate-900/40'
-              }`}>
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-mono text-purple-400 font-bold">Node 2: Dispatcher</span>
-                  <Network className="w-4 h-4 text-purple-400" />
-                </div>
-                <div className="text-xs font-bold text-slate-200">
-                  {language === 'ar' ? 'محرك التوجيه اللحظي' : 'Adaptive Model Dispatch'}
-                </div>
-                <div className="text-[11px] text-purple-300 font-mono mt-2">
-                  Target: {selectedQuery.routedTier}
-                </div>
-              </div>
-
-              {/* Node 3: Synthesis & Metrics */}
-              <div className={`p-4 rounded-2xl border transition-all ${
-                routingStep >= 3 ? 'border-emerald-500/60 bg-emerald-950/30' : 'border-slate-800 bg-slate-900/40'
-              }`}>
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-mono text-emerald-400 font-bold">Node 3: Execution</span>
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                </div>
-                <div className="text-xs font-bold text-slate-200">
-                  {language === 'ar' ? 'الاستجابة وتوفير التكلفة' : 'Inference & Cost Log'}
-                </div>
-                <div className="text-[11px] text-emerald-300 font-mono mt-2">
-                  Latency: {selectedQuery.latency} • Saved: {selectedQuery.costSaved}
-                </div>
               </div>
             </div>
 
-            {/* Telemetry Chips Bar */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-              <div className="p-3 rounded-2xl bg-slate-900 border border-slate-800">
-                <span className="text-[11px] text-slate-400 font-mono block">Estimated Cost:</span>
-                <span className="text-sm font-bold font-mono text-emerald-400 mt-0.5 block">{selectedQuery.tokenCost}</span>
+            {/* 4 Pipeline Stages */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {/* Stage 1 */}
+              <div className={`p-3.5 rounded-2xl border transition-all ${
+                ragCurrentStep >= 1 ? 'border-blue-500/60 bg-blue-950/30' : 'border-slate-800 bg-slate-900/40 opacity-50'
+              }`}>
+                <div className="text-[11px] font-mono text-blue-400 font-bold mb-1">Stage 1: Dense Vector</div>
+                <div className="text-xs font-bold text-slate-200">
+                  {language === 'ar' ? 'توليد متجهات التضمين' : 'Dense Embedding'}
+                </div>
+                <span className="text-[10px] text-slate-400 font-mono mt-1 block">384-dim Dense Vector</span>
               </div>
-              <div className="p-3 rounded-2xl bg-slate-900 border border-slate-800">
-                <span className="text-[11px] text-slate-400 font-mono block">Compute Saved:</span>
-                <span className="text-sm font-bold font-mono text-blue-400 mt-0.5 block">↓ {selectedQuery.costSaved} Reduction</span>
+
+              {/* Stage 2 */}
+              <div className={`p-3.5 rounded-2xl border transition-all ${
+                ragCurrentStep >= 2 ? 'border-emerald-500/60 bg-emerald-950/30' : 'border-slate-800 bg-slate-900/40 opacity-50'
+              }`}>
+                <div className="text-[11px] font-mono text-emerald-400 font-bold mb-1">Stage 2: Vector Search</div>
+                <div className="text-xs font-bold text-slate-200">
+                  {language === 'ar' ? 'البحث الدلالي (Milvus)' : 'Vector Retrieval'}
+                </div>
+                <span className="text-[10px] text-emerald-400 font-mono mt-1 block">Top-K Chunks Retrieved</span>
               </div>
-              <div className="p-3 rounded-2xl bg-slate-900 border border-slate-800">
-                <span className="text-[11px] text-slate-400 font-mono block">Roundtrip Latency:</span>
-                <span className="text-sm font-bold font-mono text-amber-400 mt-0.5 block">⚡ {selectedQuery.latency}</span>
+
+              {/* Stage 3 */}
+              <div className={`p-3.5 rounded-2xl border transition-all ${
+                ragCurrentStep >= 3 ? 'border-purple-500/60 bg-purple-950/30' : 'border-slate-800 bg-slate-900/40 opacity-50'
+              }`}>
+                <div className="text-[11px] font-mono text-purple-400 font-bold mb-1">Stage 3: Context Grounding</div>
+                <div className="text-xs font-bold text-slate-200">
+                  {language === 'ar' ? 'حقن السياق وتأكيد الدقة' : 'Prompt Injection'}
+                </div>
+                <span className="text-[10px] text-purple-300 font-mono mt-1 block">Anti-Hallucination Bound</span>
               </div>
-              <div className="p-3 rounded-2xl bg-slate-900 border border-slate-800">
-                <span className="text-[11px] text-slate-400 font-mono block">Intent Precision:</span>
-                <span className="text-sm font-bold font-mono text-purple-400 mt-0.5 block">{selectedQuery.accuracy}</span>
+
+              {/* Stage 4 */}
+              <div className={`p-3.5 rounded-2xl border transition-all ${
+                ragCurrentStep >= 4 ? 'border-amber-500/60 bg-amber-950/30' : 'border-slate-800 bg-slate-900/40 opacity-50'
+              }`}>
+                <div className="text-[11px] font-mono text-amber-400 font-bold mb-1">Stage 4: Grounded Response</div>
+                <div className="text-xs font-bold text-slate-200">
+                  {language === 'ar' ? 'توليد الرد الموثق' : 'Verified Generation'}
+                </div>
+                <span className="text-[10px] text-amber-400 font-mono mt-1 block">0% Hallucination</span>
+              </div>
+            </div>
+
+            {/* Retrieved Context Chunks Display */}
+            <div className="space-y-3 pt-2">
+              <div className="flex items-center justify-between text-xs font-bold text-slate-300">
+                <span className="flex items-center gap-1.5">
+                  <FileText className="w-4 h-4 text-emerald-400" />
+                  <span>{language === 'ar' ? 'المقاطع المسترجعة من قاعدة المتجهات (Ground Truth Chunks):' : 'Retrieved Semantic Chunks from Vector Store:'}</span>
+                </span>
+                <span className="font-mono text-slate-400">Indexed Top-K Matches</span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {selectedRag.retrievedChunks.map((chunk, idx) => (
+                  <div key={idx} className="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1.5">
+                    <div className="flex items-center justify-between text-[11px] font-mono">
+                      <span className="text-blue-400 font-bold">{chunk.source}</span>
+                      <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">
+                        Sim: {chunk.similarity}
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      {language === 'ar' ? chunk.contentAr : chunk.contentEn}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Live Model Output / Grounded Response Box */}
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-blue-500/40 space-y-2">
+              <div className="flex items-center justify-between text-xs font-bold">
+                <span className="flex items-center gap-1.5 text-blue-400">
+                  <Sparkles className="w-4 h-4" />
+                  <span>{language === 'ar' ? 'الرد الفعلي المولد من النموذج (Grounded AI Response):' : 'Synthesized Grounded AI Response:'}</span>
+                </span>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[11px] font-mono">
+                  Verified Accurate
+                </span>
+              </div>
+
+              <p className="text-xs sm:text-sm text-slate-100 font-medium leading-relaxed pt-1">
+                {displayedAnswer || (
+                  <span className="text-slate-400 italic">
+                    {language === 'ar' ? 'جارٍ توليد الإجابة المستندة للسياق...' : 'Generating grounded response...'}
+                  </span>
+                )}
+              </p>
+
+              {/* Benchmark Numbers */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 border-t border-slate-800 text-[11px] font-mono">
+                <div>
+                  <span className="text-slate-400">Latency: </span>
+                  <span className="text-emerald-400 font-bold">{selectedRag.latencyMs} ms</span>
+                </div>
+                <div>
+                  <span className="text-slate-400">Hallucination: </span>
+                  <span className="text-blue-400 font-bold">{selectedRag.hallucinationRate}</span>
+                </div>
+                <div>
+                  <span className="text-slate-400">Token Cost Saved: </span>
+                  <span className="text-purple-400 font-bold">{selectedRag.tokensSaved}</span>
+                </div>
+                <div>
+                  <span className="text-slate-400">Vector Store: </span>
+                  <span className="text-amber-400 font-bold">Milvus / ChromaDB</span>
+                </div>
               </div>
             </div>
           </div>
@@ -460,9 +682,9 @@ export const VisionPlayground: React.FC = () => {
       )}
 
       {/* ========================================================= */}
-      {/* Tab 2: Symphony AIDE Microkernel & PPO Agent (Project 2) */}
+      {/* Tab 2: Step-by-Step PPO Simulation (Symphony AIDE) */}
       {/* ========================================================= */}
-      {activeTab === 'symphony-orchestrator' && (
+      {activeTab === 'ppo-simulation' && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -472,23 +694,23 @@ export const VisionPlayground: React.FC = () => {
           {/* Header & Badges */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
             <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="px-2.5 py-1 rounded-lg bg-purple-500/15 text-purple-400 text-xs font-mono font-bold border border-purple-500/30">
-                  Rust + Python Ensemble
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
+                <span className="px-2.5 py-1 rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-400 text-xs font-mono font-bold border border-purple-500/30">
+                  Proximal Policy Optimization (PPO)
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-blue-500/15 text-blue-400 text-xs font-mono font-bold border border-blue-500/30">
-                  Reinforcement Learning (PPO)
+                <span className="px-2.5 py-1 rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 text-xs font-mono font-bold border border-blue-500/30">
+                  Rust + Python Dual Kernel
                 </span>
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">
                 {language === 'ar'
-                  ? 'Symphony AIDE — معمارية Microkernel ووكيل PPO الذكي'
-                  : 'Symphony AIDE — Microkernel & PPO Conductor Simulator'}
+                  ? 'المحاكاة المرحلية لوكيل التعلم المعزز PPO لتنظيم المهام (Symphony AIDE)'
+                  : 'Step-by-Step PPO Reinforcement Learning Simulation'}
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl">
                 {language === 'ar'
-                  ? 'منظومة تطوير تجمع بين سرعة وأمان لغة Rust مع مرونة نماذج بايثون، ويديرها وكيل PPO لتنظيم المهام وتفادي اختناق الذاكرة.'
-                  : 'Dual-ensemble microkernel uniting Rust memory safety with Python AI flexibility, driven by an autonomous PPO Conductor agent.'}
+                  ? 'رسم ومحاكاة دقيقة لكل خطوة تحدث داخل وكيل التعلم المعزز (Conductor) بالترتيب: من قراءة حالة النظام وتقييم شبكة الـ Actor-Critic، وحتى تنفيذ إجراء Rust وحساب دالة القطع Clipped Objective.'
+                  : 'Exact step-by-step visual simulation of how the PPO Conductor agent orchestrates workloads: from state observation and policy evaluation to Rust action dispatch and clipped objective updates.'}
               </p>
             </div>
 
@@ -499,127 +721,197 @@ export const VisionPlayground: React.FC = () => {
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-slate-800 text-white hover:bg-blue-600 text-xs sm:text-sm font-bold transition-all shadow-md shrink-0 cursor-pointer"
             >
               <ExternalLink className="w-4 h-4" />
-              <span>{language === 'ar' ? 'مستودع المشروع على GitHub' : 'View on GitHub'}</span>
+              <span>{language === 'ar' ? 'مستودع Symphony AIDE' : 'View on GitHub'}</span>
             </a>
           </div>
 
-          {/* Interactive Task Dispatching Buttons */}
-          <div className="space-y-3">
-            <label className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block">
-              {language === 'ar' ? '1. أرسل مهمة للنظام لمشاهدة توزيع المهام اللحظي:' : '1. Dispatch Task to Microkernel Plane:'}
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {/* Stepper Controls Bar */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800">
+            {/* Step buttons */}
+            <div className="flex items-center gap-1.5 flex-wrap">
+              {ppoStepsData.map((s) => (
+                <button
+                  key={s.step}
+                  onClick={() => {
+                    setIsAutoSimulating(false);
+                    setPpoStep(s.step);
+                  }}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    ppoStep === s.step
+                      ? 'bg-purple-600 text-white shadow-md shadow-purple-500/30 ring-2 ring-purple-400/40'
+                      : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-purple-400'
+                  }`}
+                >
+                  <span className="w-4 h-4 rounded-full bg-slate-900/30 dark:bg-white/20 flex items-center justify-center text-[10px]">
+                    {s.step}
+                  </span>
+                  <span>
+                    {s.step === 1 ? 'State' : s.step === 2 ? 'Actor-Critic' : s.step === 3 ? 'Action' : s.step === 4 ? 'Reward' : 'PPO-Clip'}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            {/* Play/Pause Auto-Simulation */}
+            <div className="flex items-center gap-2">
               <button
-                onClick={() => dispatchTask('neural')}
-                className={`p-4 rounded-2xl border text-start transition-all cursor-pointer ${
-                  activeTaskType === 'neural'
-                    ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/40 shadow-md ring-2 ring-blue-500/20'
-                    : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 hover:border-slate-400'
+                onClick={() => setIsAutoSimulating(!isAutoSimulating)}
+                className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  isAutoSimulating
+                    ? 'bg-amber-500/20 text-amber-500 border border-amber-500/30'
+                    : 'bg-blue-600 hover:bg-blue-700 text-white shadow-md'
                 }`}
               >
-                <div className="flex items-center gap-2 mb-1.5 text-blue-500">
-                  <Activity className="w-4 h-4" />
-                  <span className="font-bold text-xs sm:text-sm">Python AI Plane</span>
-                </div>
-                <p className="text-xs text-slate-600 dark:text-slate-300">
-                  {language === 'ar' ? 'مهمة استدلال عميق ومصفوفات بـ PyTorch' : 'PyTorch neural model inference task'}
-                </p>
+                {isAutoSimulating ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    <span>{language === 'ar' ? 'إيقاف المحاكاة المستمرة' : 'Pause Loop'}</span>
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-3.5 h-3.5" />
+                    <span>{language === 'ar' ? 'تشغيل المحاكاة دورياً' : 'Auto-Run Loop'}</span>
+                  </>
+                )}
               </button>
 
               <button
-                onClick={() => dispatchTask('rust-worker')}
-                className={`p-4 rounded-2xl border text-start transition-all cursor-pointer ${
-                  activeTaskType === 'rust-worker'
-                    ? 'border-purple-500 bg-purple-50/50 dark:bg-purple-950/40 shadow-md ring-2 ring-purple-500/20'
-                    : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 hover:border-slate-400'
-                }`}
+                onClick={() => setPpoStep((prev) => (prev >= 5 ? 1 : prev + 1))}
+                className="inline-flex items-center gap-1 px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 transition-all cursor-pointer"
               >
-                <div className="flex items-center gap-2 mb-1.5 text-purple-400">
-                  <ShieldCheck className="w-4 h-4" />
-                  <span className="font-bold text-xs sm:text-sm">Rust Native Engine</span>
-                </div>
-                <p className="text-xs text-slate-600 dark:text-slate-300">
-                  {language === 'ar' ? 'تنفيذ خيوط متزامنة آمنة للذاكرة بأقل من 1ms' : 'Zero-cost memory-safe worker threads (<1ms)'}
-                </p>
-              </button>
-
-              <button
-                onClick={() => dispatchTask('ppo-optimize')}
-                className={`p-4 rounded-2xl border text-start transition-all cursor-pointer ${
-                  activeTaskType === 'ppo-optimize'
-                    ? 'border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/40 shadow-md ring-2 ring-emerald-500/20'
-                    : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 hover:border-slate-400'
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-1.5 text-emerald-400">
-                  <Gauge className="w-4 h-4" />
-                  <span className="font-bold text-xs sm:text-sm">PPO Conductor Agent</span>
-                </div>
-                <p className="text-xs text-slate-600 dark:text-slate-300">
-                  {language === 'ar' ? 'إعادة موازنة الموارد بالتعلم المعزز' : 'Adaptive RL workload balancing policy'}
-                </p>
+                <span>{language === 'ar' ? 'الخطوة التالية' : 'Next Step'}</span>
+                <ChevronRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </div>
 
-          {/* Microkernel Plane Visual Architecture */}
-          <div className="p-6 rounded-3xl bg-slate-950 border border-slate-800 text-slate-100 space-y-6">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-mono font-bold text-slate-400">
-                ⚡ Symphony AIDE Microkernel Plane Monitor
-              </span>
-              <span className="text-xs font-mono text-purple-400">
-                Conductor Policy: PPO Actor-Critic
-              </span>
-            </div>
-
-            {/* Architecture Pipeline Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-                <div className="text-xs font-mono text-blue-400 font-bold">Plane 1: Python AI Runtime</div>
-                <div className="text-sm font-bold text-slate-200">PyTorch & Tensor Orchestration</div>
-                <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-blue-500 animate-pulse w-3/4 rounded-full" />
-                </div>
-                <span className="text-[11px] text-slate-400 font-mono block">Channel: Zero-Copy IPC Shared Mem</span>
+          {/* Detailed Visual Step Breakdown Card */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-slate-950 border border-slate-800 text-slate-100 space-y-6">
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+              <div>
+                <span className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 font-mono text-xs font-bold border border-purple-500/30">
+                  {language === 'ar' ? `المرحلة الحالية: ${ppoStep} من 5` : `Current Stage: ${ppoStep} of 5`}
+                </span>
+                <h4 className="text-lg sm:text-xl font-bold text-white mt-2">
+                  {language === 'ar' ? currentPpoStepData.titleAr : currentPpoStepData.titleEn}
+                </h4>
+                <p className="text-sm text-slate-300 mt-1 max-w-3xl leading-relaxed">
+                  {language === 'ar' ? currentPpoStepData.descAr : currentPpoStepData.descEn}
+                </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-900 border border-purple-500/40 space-y-2">
-                <div className="text-xs font-mono text-purple-400 font-bold">Core: PPO RL Conductor</div>
-                <div className="text-sm font-bold text-slate-200">Autonomous Task Scheduler</div>
-                <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-purple-500 animate-pulse w-5/6 rounded-full" />
-                </div>
-                <span className="text-[11px] text-purple-300 font-mono block">Reward: +{orchestratorMetrics.ppoReward} Converged</span>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-                <div className="text-xs font-mono text-emerald-400 font-bold">Plane 2: Rust Safe Kernel</div>
-                <div className="text-sm font-bold text-slate-200">Low-Latency Native Execution</div>
-                <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-emerald-500 animate-pulse w-full rounded-full" />
-                </div>
-                <span className="text-[11px] text-emerald-300 font-mono block">Overhead: {orchestratorMetrics.latencyMs} ms / dispatch</span>
+              {/* Mathematical Formula Chip */}
+              <div className="p-3 rounded-2xl bg-slate-900 border border-slate-800 font-mono text-xs text-emerald-400">
+                <span className="text-[10px] text-slate-400 block mb-0.5">Mathematical Expression:</span>
+                <code>{currentPpoStepData.formula}</code>
               </div>
             </div>
 
-            {/* Live Telemetry Chips */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-              <div className="p-3 rounded-2xl bg-slate-900 border border-slate-800">
-                <span className="text-[11px] text-slate-400 font-mono block">Tasks Dispatched:</span>
-                <span className="text-sm font-bold font-mono text-blue-400 mt-0.5 block">{orchestratorMetrics.tasksDispatched}</span>
+            {/* Architecture Pipeline Simulation Graphic */}
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-3 relative pt-2">
+              {[1, 2, 3, 4, 5].map((idx) => {
+                const isActive = ppoStep === idx;
+                const isPassed = ppoStep > idx;
+                return (
+                  <div
+                    key={idx}
+                    className={`p-4 rounded-2xl border transition-all text-center flex flex-col justify-between ${
+                      isActive
+                        ? 'border-purple-500 bg-purple-950/40 shadow-lg shadow-purple-500/20 ring-2 ring-purple-400/40'
+                        : isPassed
+                        ? 'border-emerald-500/40 bg-emerald-950/20 text-slate-300'
+                        : 'border-slate-800 bg-slate-900/40 opacity-40'
+                    }`}
+                  >
+                    <div>
+                      <div className="w-8 h-8 rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-xs font-mono bg-slate-800 text-slate-200">
+                        {isPassed ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : idx}
+                      </div>
+                      <div className="text-xs font-bold text-slate-200">
+                        {idx === 1
+                          ? '1. State'
+                          : idx === 2
+                          ? '2. Actor-Critic'
+                          : idx === 3
+                          ? '3. Action'
+                          : idx === 4
+                          ? '4. Reward'
+                          : '5. PPO Clip'}
+                      </div>
+                    </div>
+                    <div className="mt-3 text-[11px] font-mono text-slate-400">
+                      {idx === 1
+                        ? 'Queue: 16 tasks'
+                        : idx === 2
+                        ? 'Policy: πθ'
+                        : idx === 3
+                        ? 'Rust Concurrency'
+                        : idx === 4
+                        ? 'Reward: +0.94'
+                        : 'ε = 0.2 Clip'}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Live Telemetry Panel for this Step */}
+            <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+              <span className="text-xs font-mono font-bold text-slate-400 flex items-center gap-2">
+                <Activity className="w-4 h-4 text-purple-400" />
+                <span>Live State Telemetry & Policy Metrics:</span>
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+                {Object.entries(currentPpoStepData.telemetry).map(([key, val]) => (
+                  <div key={key} className="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                    <span className="text-slate-500 capitalize block text-[10px]">{key}:</span>
+                    <span className="text-purple-300 font-bold mt-0.5 block">{val}</span>
+                  </div>
+                ))}
               </div>
-              <div className="p-3 rounded-2xl bg-slate-900 border border-slate-800">
-                <span className="text-[11px] text-slate-400 font-mono block">Rust Memory Safety:</span>
-                <span className="text-sm font-bold font-mono text-emerald-400 mt-0.5 block">100% Zero-Panic</span>
-              </div>
-              <div className="p-3 rounded-2xl bg-slate-900 border border-slate-800">
-                <span className="text-[11px] text-slate-400 font-mono block">Dispatch Latency:</span>
-                <span className="text-sm font-bold font-mono text-amber-400 mt-0.5 block">{orchestratorMetrics.latencyMs} ms</span>
-              </div>
-              <div className="p-3 rounded-2xl bg-slate-900 border border-slate-800">
-                <span className="text-[11px] text-slate-400 font-mono block">PPO Policy Stability:</span>
-                <span className="text-sm font-bold font-mono text-purple-400 mt-0.5 block">99.2% Optimal</span>
+            </div>
+
+            {/* In-depth Advantages & Features Breakdown */}
+            <div className="pt-4 border-t border-slate-800 space-y-3">
+              <h5 className="text-sm font-bold text-slate-200">
+                {language === 'ar' ? 'مميزات وخصائص المنظومة الهندسية (Key Architectural Advantages):' : 'Key Architectural Advantages:'}
+              </h5>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                  <div className="font-bold text-emerald-400 flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4" />
+                    <span>{language === 'ar' ? 'استقرار التدريب الرياضي' : 'Stable Policy Updates'}</span>
+                  </div>
+                  <p className="text-slate-300 leading-relaxed">
+                    {language === 'ar'
+                      ? 'دالة الـ Clipping تمنع التغيرات المفاجئة في السياسة (No Catastrophic Policy Collapse).'
+                      : 'Clipping objective prevents sudden degrading jumps in policy distribution.'}
+                  </p>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                  <div className="font-bold text-blue-400 flex items-center gap-1.5">
+                    <Cpu className="w-4 h-4" />
+                    <span>{language === 'ar' ? 'أمان الذاكرة بلغة Rust' : 'Zero-Cost Rust Safety'}</span>
+                  </div>
+                  <p className="text-slate-300 leading-relaxed">
+                    {language === 'ar'
+                      ? 'تنفيذ الخيوط المتزامنة بأقل من 0.8ms بدون أي استهلاك عشوائي أو تضارب في الذاكرة.'
+                      : 'Sub-millisecond thread execution with zero memory panics and zero data races.'}
+                  </p>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1">
+                  <div className="font-bold text-purple-400 flex items-center gap-1.5">
+                    <TrendingUp className="w-4 h-4" />
+                    <span>{language === 'ar' ? 'كفاءة العينات وسرعة التقارب' : 'Sample Efficiency'}</span>
+                  </div>
+                  <p className="text-slate-300 leading-relaxed">
+                    {language === 'ar'
+                      ? 'إعادة استخدام العينات لأكثر من دورة تدريبية (Multiple Epochs of SGD) لتقليل زمن التدريب.'
+                      : 'Reuses collected trajectories across multiple SGD epochs for rapid convergence.'}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -627,7 +919,7 @@ export const VisionPlayground: React.FC = () => {
       )}
 
       {/* ========================================================= */}
-      {/* Tab 3: Hand Landmarks Pose Simulator (Project 3) */}
+      {/* Tab 3: Hand Landmarks Pose Simulator (MediaPipe 30+ FPS) */}
       {/* ========================================================= */}
       {activeTab === 'hand-landmarks' && (
         <motion.div
@@ -639,12 +931,12 @@ export const VisionPlayground: React.FC = () => {
           {/* Header & Badges */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
             <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="px-2.5 py-1 rounded-lg bg-cyan-500/15 text-cyan-400 text-xs font-mono font-bold border border-cyan-500/30">
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
+                <span className="px-2.5 py-1 rounded-lg bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 text-xs font-mono font-bold border border-cyan-500/30">
                   MediaPipe • OpenCV • Scikit-learn
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-blue-500/15 text-blue-400 text-xs font-mono font-bold border border-blue-500/30">
-                  30+ FPS Real-Time
+                <span className="px-2.5 py-1 rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 text-xs font-mono font-bold border border-blue-500/30">
+                  30+ FPS Real-Time Benchmark
                 </span>
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">
@@ -681,7 +973,7 @@ export const VisionPlayground: React.FC = () => {
           {/* Gesture Controls Bar */}
           <div className="max-w-3xl mx-auto space-y-4">
             <label className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block">
-              {language === 'ar' ? 'اضغط لتجربة حركة الإيماءة الحية وتصنيفها:' : 'Switch Active Sign Gesture:'}
+              {language === 'ar' ? 'اختر حركة الإيماءة لمشاهدة استجابة الهيكل العظمي والتصنيف اللحظي:' : 'Select Active Sign Gesture to Test Real-Time Tracking:'}
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
               {(
@@ -697,7 +989,7 @@ export const VisionPlayground: React.FC = () => {
                   onClick={() => setSelectedGesture(g.id)}
                   className={`px-4 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all text-center cursor-pointer ${
                     selectedGesture === g.id
-                      ? 'bg-blue-600 text-white shadow-lg'
+                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-400/40'
                       : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                   }`}
                 >

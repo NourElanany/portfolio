@@ -153,7 +153,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRecruiter, onOpenResume }) => 
           <div className="flex items-center justify-center lg:justify-start gap-2 pt-1 text-xs sm:text-sm font-semibold text-blue-400">
             <Zap className="w-4 h-4 text-blue-400 animate-bounce" />
             <a href="#cv-playground" className="hover:underline flex items-center gap-1">
-              <span>{language === 'ar' ? '⚡ جرب نماذج الرؤية والـ AI مباشرة في المتصفح' : '⚡ Test Live AI & Vision Models In-Browser'}</span>
+              <span>{language === 'ar' ? '⚡ نماذج محاكاة تفاعلية لمشاريعي المنفذة في المتصفح' : '⚡ Interactive Simulations of Implemented Projects'}</span>
               <span>↓</span>
             </a>
           </div>
