@@ -7,7 +7,8 @@ export const ExperienceSection: React.FC = () => {
   const { language } = useLanguage();
 
   return (
-    <section id="experience" className="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200 dark:border-slate-800 transition-colors">
+    <section id="experience" className="relative w-full py-16 sm:py-24 bg-slate-100/70 dark:bg-[#061021] border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Header */}
       <div className="text-center space-y-3 mb-12">
@@ -82,7 +83,7 @@ export const ExperienceSection: React.FC = () => {
           </div>
         ))}
       </div>
-
+      </div>
     </section>
   );
 };

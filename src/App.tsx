@@ -7,7 +7,6 @@ import { BackgroundWaves } from './components/BackgroundWaves';
 import { VisionShowcase } from './components/VisionShowcase';
 import { VisionPlayground } from './components/VisionPlayground';
 import { ProjectsSection } from './components/ProjectsSection';
-import { SkillRadarSection } from './components/SkillRadarSection';
 import { SkillsSection } from './components/SkillsSection';
 import { ExperienceSection } from './components/ExperienceSection';
 import { CertificationsSection } from './components/CertificationsSection';
@@ -39,7 +38,6 @@ export const App: React.FC = () => {
             <VisionShowcase />
             <VisionPlayground />
             <ProjectsSection />
-            <SkillRadarSection />
             <SkillsSection />
             <ExperienceSection />
             <CertificationsSection />

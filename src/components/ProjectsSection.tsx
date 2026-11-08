@@ -27,7 +27,8 @@ export const ProjectsSection: React.FC = () => {
   const otherProjects = filteredProjects.filter((p) => !p.isFeatured);
 
   return (
-    <section id="projects" className="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200 dark:border-slate-800 transition-colors">
+    <section id="projects" className="relative w-full py-16 sm:py-24 bg-white dark:bg-[#071626] border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Header */}
       <div className="text-center space-y-3 mb-10">
@@ -247,7 +248,7 @@ export const ProjectsSection: React.FC = () => {
           </div>
         )}
       </motion.div>
-
+      </div>
     </section>
   );
 };

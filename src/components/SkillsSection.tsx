@@ -75,7 +75,8 @@ export const SkillsSection: React.FC = () => {
   ];
 
   return (
-    <section id="skills" className="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200 dark:border-slate-800 transition-colors">
+    <section id="skills" className="relative w-full py-16 sm:py-24 bg-slate-50 dark:bg-[#0c1126] border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Header */}
       <div className="text-center space-y-3 mb-12">
@@ -132,7 +133,7 @@ export const SkillsSection: React.FC = () => {
           );
         })}
       </div>
-
+      </div>
     </section>
   );
 };

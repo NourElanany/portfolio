@@ -8,7 +8,8 @@ export const VisionShowcase: React.FC = () => {
   const { language } = useLanguage();
 
   return (
-    <section id="ai-specialty" className="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="vision-specialty" className="relative w-full py-16 sm:py-24 bg-slate-50 dark:bg-[#09152b] border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Specialty Highlight Banner */}
       <div className="relative rounded-3xl p-8 sm:p-12 bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:bg-gradient-to-br dark:from-[#0d2242] dark:via-[#091830] dark:to-[#061021] border border-blue-200 dark:border-sky-500/35 backdrop-blur-xl mb-12 shadow-xl dark:shadow-2xl overflow-hidden">
@@ -102,7 +103,7 @@ export const VisionShowcase: React.FC = () => {
           </motion.div>
         ))}
       </div>
-
+      </div>
     </section>
   );
 };

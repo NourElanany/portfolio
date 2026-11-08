@@ -19,7 +19,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenRecruiter, onOpenResume })
     { href: '#vision-specialty', label: language === 'ar' ? 'الرؤية الحاسوبية' : 'Computer Vision' },
     { href: '#cv-playground', label: language === 'ar' ? 'المعمل التفاعلي' : 'AI Sandbox' },
     { href: '#projects', label: language === 'ar' ? 'المشاريع' : 'Projects' },
-    { href: '#tech-radar', label: language === 'ar' ? 'مصفوفة المهارات' : 'Radar' },
+    { href: '#skills', label: language === 'ar' ? 'المهارات التقنية' : 'Skills' },
     { href: '#experience', label: language === 'ar' ? 'الخبرات' : 'Experience' },
     { href: '#certifications', label: language === 'ar' ? 'الشهادات' : 'Certifications' },
     { href: '#contact', label: language === 'ar' ? 'تواصل' : 'Contact' },
@@ -44,7 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenRecruiter, onOpenResume })
               {language === 'ar' ? personalData.name.shortAr : personalData.name.shortEn}
             </span>
             <span className="hidden sm:block text-xs text-blue-600 dark:text-blue-400 font-semibold tracking-wide">
-              {language === 'ar' ? 'مهندس ذكاء اصطناعي @ Navigate' : 'AI Engineer @ Navigate'}
+              {language === 'ar' ? 'مهندس ذكاء اصطناعي | AI Engineer' : 'AI Engineer | Recent Graduate'}
             </span>
           </div>
         </a>
