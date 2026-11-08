@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { personalData } from '../data/portfolioData';
-import { MessageCircle, Briefcase, Award, Sparkles, Eye, FileText, Zap, Cpu, GraduationCap } from 'lucide-react';
+import { MessageCircle, Award, Sparkles, FileText, Zap, Cpu, CheckCircle2 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
 import { motion } from 'framer-motion';
 
@@ -14,225 +14,203 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRecruiter, onOpenResume }) => 
   const { language } = useLanguage();
 
   return (
-    <section id="hero" className="relative w-full py-12 sm:py-20 lg:py-24">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+    <section id="hero" className="relative w-full py-10 sm:py-16 lg:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         
-        {/* Text Column (Span 7) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-7 space-y-6 text-center lg:text-start order-2 lg:order-1"
-        >
-          
-          {/* Status Badges */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-500/15 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-400 text-xs sm:text-sm font-bold shadow-xs">
-              <Cpu className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span>{language === 'ar' ? 'مهندس ذكاء اصطناعي (AI Engineer)' : 'Core: AI Engineer'}</span>
-            </span>
-
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200 dark:border-indigo-500/30 text-indigo-700 dark:text-indigo-300 text-xs sm:text-sm font-semibold shadow-xs">
-              <Eye className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              <span>{language === 'ar' ? 'Computer Vision (امتياز NTI 98%)' : 'Computer Vision (98% NTI)'}</span>
-            </span>
-
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-xs sm:text-sm font-semibold shadow-xs">
-              <GraduationCap className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              <span>{language === 'ar' ? 'خريج ذكاء اصطناعي — دفعة 2026' : 'AI Graduate — Class of 2026'}</span>
-            </span>
-          </div>
-
-          {/* Large, Bold, Impactful Name */}
-          <div className="space-y-3">
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 leading-tight">
-              {language === 'ar' ? (
-                <>
-                  <span>أنا </span>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-600 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-400">
-                    {personalData.name.ar}
-                  </span>
-                </>
-              ) : (
-                <>
-                  <span>I'm </span>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-600 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-400">
-                    {personalData.name.en}
-                  </span>
-                </>
-              )}
-            </h1>
-
-            <div className="text-lg sm:text-2xl font-bold text-slate-800 dark:text-slate-200 flex items-center justify-center lg:justify-start gap-2.5">
-              <Sparkles className="w-5 h-5 text-blue-500 dark:text-blue-400 shrink-0" />
-              <span>{personalData.role[language]}</span>
-            </div>
-            
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed max-w-2xl">
-              {personalData.subRole[language]}
-            </p>
-          </div>
-
-          {/* Bio */}
-          <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto lg:mx-0">
-            {personalData.bio[language]}
-          </p>
-
-          {/* Action Buttons & Social Links */}
-          <div className="pt-2 flex flex-wrap gap-3.5 justify-center lg:justify-start items-center">
-            
-            {/* Recruiter 30s Pitch Button */}
-            {onOpenRecruiter && (
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={onOpenRecruiter}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-sm sm:text-base transition-all shadow-lg hover:shadow-blue-500/25 cursor-pointer"
-              >
-                <Sparkles className="w-5 h-5 text-amber-300 animate-pulse" />
-                <span>{language === 'ar' ? 'ملخص التوظيف السريع (30s)' : '30s Recruiter Pitch'}</span>
-              </motion.button>
-            )}
-
-            {/* ATS CV Modal Button */}
-            {onOpenResume && (
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={onOpenResume}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl border-2 border-slate-300 dark:border-slate-700 hover:border-blue-500 bg-white dark:bg-slate-900/90 text-slate-800 dark:text-slate-100 font-bold text-sm sm:text-base transition-all shadow-xs cursor-pointer"
-              >
-                <FileText className="w-5 h-5 text-blue-500 dark:text-blue-400" />
-                <span>{language === 'ar' ? 'استعراض الـ CV المعتمد (ATS)' : 'View Verified CV (ATS)'}</span>
-              </motion.button>
-            )}
-
-            {/* WhatsApp Direct Chat */}
-            <motion.a
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              href={personalData.contacts.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm sm:text-base transition-colors shadow-md hover:shadow-emerald-500/25"
-            >
-              <MessageCircle className="w-5 h-5" />
-              <span>{language === 'ar' ? 'واتساب' : 'WhatsApp'}</span>
-            </motion.a>
-
-            {/* LinkedIn */}
-            <motion.a
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.95 }}
-              href={personalData.contacts.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3.5 rounded-2xl border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900/90 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500 transition-colors shadow-xs"
-              title="LinkedIn Profile"
-              aria-label="LinkedIn"
-            >
-              <LinkedinIcon className="w-5 h-5" />
-            </motion.a>
-
-            {/* GitHub */}
-            <motion.a
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.95 }}
-              href={personalData.contacts.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3.5 rounded-2xl border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900/90 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500 transition-colors shadow-xs"
-              title="GitHub Profile"
-              aria-label="GitHub"
-            >
-              <GithubIcon className="w-5 h-5" />
-            </motion.a>
-          </div>
-
-          {/* Quick jump to Live CV Sandbox */}
-          <div className="flex items-center justify-center lg:justify-start gap-2 pt-1 text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400">
-            <Zap className="w-4 h-4 text-blue-500 animate-bounce" />
-            <a href="#cv-playground" className="hover:underline flex items-center gap-1">
-              <span>{language === 'ar' ? '⚡ نماذج محاكاة تفاعلية لمشاريعي المنفذة في المتصفح' : '⚡ Interactive Simulations of Implemented Projects'}</span>
-              <span>↓</span>
-            </a>
-          </div>
-
-          {/* Stats Cards Grid with Larger Comfortable Numbers */}
-          <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-            {personalData.stats.map((stat, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: 0.1 + idx * 0.05 }}
-                className="relative p-4 rounded-2xl bg-white dark:bg-gradient-to-br dark:from-[#0c1833] dark:via-[#081226] dark:to-[#050c19] backdrop-blur-md border border-slate-200 dark:border-blue-500/25 shadow-sm hover:border-blue-500/50 transition-all text-center group"
-              >
-                <div className="text-xl sm:text-2xl font-extrabold text-blue-600 dark:text-blue-400 font-mono group-hover:scale-105 transition-transform">
-                  {stat.value}
-                </div>
-                <div className="text-xs font-semibold text-slate-600 dark:text-slate-400 mt-1">
-                  {stat.label[language]}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-        </motion.div>
-
-        {/* Real Profile Photo Column - Large & High Quality */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-5 flex justify-center order-1 lg:order-2"
-        >
+          {/* Text Column (Span 7) - Balanced, Breathable, Eye-Friendly */}
           <motion.div
-            animate={{ y: [0, -6, 0] }}
-            transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut' }}
-            className="relative w-80 sm:w-96 lg:w-[420px] transform-gpu"
-            style={{ willChange: 'transform' }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 space-y-5 text-center lg:text-start order-2 lg:order-1"
           >
-            {/* Glowing Backdrop Border */}
-            <div
-              className="absolute -inset-1 rounded-3xl opacity-30 dark:opacity-50 pointer-events-none transform-gpu"
-              style={{
-                background: 'linear-gradient(135deg, rgba(37,99,235,0.4), rgba(56,189,248,0.4), rgba(99,102,241,0.4))',
-                filter: 'blur(14px)',
-              }}
-            />
             
-            {/* Main Image Container */}
-            <div className="relative rounded-3xl overflow-hidden border-2 border-blue-500/30 dark:border-blue-500/40 bg-white dark:bg-slate-950 shadow-2xl">
-              <img
-                src="/images/profile.jpg"
-                alt={personalData.name[language]}
-                className="w-full h-auto object-cover object-center max-h-[480px]"
-              />
-              
-              {/* Bottom Card Identity Footer */}
-              <div className="p-4 sm:p-5 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                <div>
-                  <div className="font-extrabold text-base sm:text-lg text-slate-900 dark:text-slate-100">
-                    {language === 'ar' ? personalData.name.shortAr : personalData.name.shortEn}
-                  </div>
-                  <div className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 font-bold">
-                    {language === 'ar' ? 'مهندس ذكاء اصطناعي | AI Engineer' : 'AI Engineer | NLP, LLMs & CV'}
-                  </div>
-                </div>
+            {/* Single Balanced Status Badge - No Messy Wrapping */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-500/15 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-300 text-xs sm:text-sm font-bold shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+              <span>
+                {language === 'ar'
+                  ? 'مهندس ذكاء اصطناعي • خريج 2026 • امتياز NTI 98%'
+                  : 'AI Engineer • Class of 2026 • NTI 98% Distinction'}
+              </span>
+            </div>
 
-                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30 text-xs font-bold">
-                  <Award className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                  <span>2026</span>
-                </div>
+            {/* Clean, Elegant Name Header */}
+            <div className="space-y-2">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+                {language === 'ar' ? (
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-600 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-300">
+                    نور الدين أسامه العناني
+                  </span>
+                ) : (
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-600 dark:from-blue-400 dark:via-sky-300 dark:to-indigo-300">
+                    Noureldin Osama Elanany
+                  </span>
+                )}
+              </h1>
+
+              <div className="text-base sm:text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center justify-center lg:justify-start gap-2">
+                <Cpu className="w-4 h-4 text-blue-500 dark:text-blue-400 shrink-0" />
+                <span>
+                  {language === 'ar'
+                    ? 'مهندس ذكاء اصطناعي (AI Engineer) | LLMs, Vector RAG & CV'
+                    : 'AI Engineer | LLMs, Healthcare Vector RAG & Computer Vision'}
+                </span>
               </div>
             </div>
 
-          </motion.div>
-        </motion.div>
+            {/* Focused, Crisp Bio - Single Paragraph with Zero Repetition */}
+            <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              {language === 'ar'
+                ? 'خريج كلية الذكاء الاصطناعي بجامعة بنها (دفعة 2026) بتقدير ممتاز 98% في الرؤية الحاسوبية من معهد NTI، ومعتمد من NVIDIA. خبرة عملية في شركتي NOVEGATES و NamaSoft في بناء وتطوير خطوط أنابيب الـ RAG للقطاع الطبي، البحث الدلالي المتجهي (ChromaDB, FAISS)، وتصنيف ومعالجة النصوص بلغة بايثون.'
+                : 'Recent AI Graduate from Benha University (Class of 2026) with a 98% Distinction in Computer Vision from NTI and NVIDIA certified. Industry experience at NOVEGATES and NamaSoft building healthcare RAG workflows, dense vector retrieval (ChromaDB, FAISS), and high-performance Python AI applications.'}
+            </p>
 
-      </div>
+            {/* Action Buttons & Links - Beautiful Single Clean Flow */}
+            <div className="pt-2 flex flex-wrap gap-2.5 sm:gap-3 justify-center lg:justify-start items-center">
+              
+              {/* Primary CTA: ATS CV Button */}
+              {onOpenResume && (
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={onOpenResume}
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs sm:text-sm transition-all shadow-md cursor-pointer whitespace-nowrap shrink-0"
+                >
+                  <FileText className="w-4 h-4 text-blue-400 dark:text-blue-600 shrink-0" />
+                  <span>{language === 'ar' ? 'استعراض السيرة الذاتية (ATS CV)' : 'Verified ATS CV'}</span>
+                </motion.button>
+              )}
+
+              {/* Secondary CTA: Recruiter 30s Pitch */}
+              {onOpenRecruiter && (
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={onOpenRecruiter}
+                  className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/40 dark:hover:bg-blue-900/50 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-300 font-bold text-xs sm:text-sm transition-all cursor-pointer whitespace-nowrap shrink-0"
+                >
+                  <Sparkles className="w-4 h-4 text-amber-500 dark:text-amber-300 shrink-0" />
+                  <span>{language === 'ar' ? 'ملخص التوظيف (30s)' : '30s Pitch'}</span>
+                </motion.button>
+              )}
+
+              {/* WhatsApp Direct Chat */}
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                href={personalData.contacts.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm transition-colors shadow-xs whitespace-nowrap shrink-0"
+              >
+                <MessageCircle className="w-4 h-4 shrink-0" />
+                <span>{language === 'ar' ? 'واتساب' : 'WhatsApp'}</span>
+              </motion.a>
+
+              {/* Social Icons Inline */}
+              <div className="flex items-center gap-2 shrink-0">
+                <motion.a
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  href={personalData.contacts.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900/90 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500 transition-colors shadow-xs"
+                  title="LinkedIn Profile"
+                  aria-label="LinkedIn"
+                >
+                  <LinkedinIcon className="w-4 h-4" />
+                </motion.a>
+
+                <motion.a
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  href={personalData.contacts.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900/90 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500 transition-colors shadow-xs"
+                  title="GitHub Profile"
+                  aria-label="GitHub"
+                >
+                  <GithubIcon className="w-4 h-4" />
+                </motion.a>
+              </div>
+            </div>
+
+            {/* Fast Interactive Playground Link */}
+            <div className="flex items-center justify-center lg:justify-start gap-1.5 pt-1 text-xs font-semibold text-blue-600 dark:text-blue-400">
+              <Zap className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+              <a href="#cv-playground" className="hover:underline flex items-center gap-1">
+                <span>{language === 'ar' ? 'نماذج محاكاة تفاعلية حية لمشاريعي المنفذة في المتصفح' : 'Interactive Simulations of Implemented Projects'}</span>
+                <span>↓</span>
+              </a>
+            </div>
+
+            {/* Balanced, Proportional Stats Strip */}
+            <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+              {personalData.stats.map((stat, idx) => (
+                <div
+                  key={idx}
+                  className="p-3 sm:p-3.5 rounded-2xl bg-white/90 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200/80 dark:border-blue-500/20 text-center shadow-xs hover:border-blue-500/50 transition-all"
+                >
+                  <div className="text-lg sm:text-xl font-extrabold text-blue-600 dark:text-blue-400 font-mono">
+                    {stat.value}
+                  </div>
+                  <div className="text-[11px] sm:text-xs font-medium text-slate-600 dark:text-slate-400 mt-0.5 leading-tight">
+                    {stat.label[language]}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </motion.div>
+
+          {/* Profile Photo Column - Sleek Floating Portrait (No Clunky Duplicate Text) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 flex justify-center order-1 lg:order-2"
+          >
+            <div className="relative w-72 sm:w-80 lg:w-[360px] transform-gpu">
+              
+              {/* Soft Ambient Glow Behind Photo */}
+              <div
+                className="absolute -inset-1.5 rounded-3xl opacity-30 dark:opacity-40 pointer-events-none transform-gpu"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(37,99,235,0.35), rgba(56,189,248,0.35), rgba(99,102,241,0.35))',
+                  filter: 'blur(16px)',
+                }}
+              />
+              
+              {/* Main Photo Card - Pure, Clean, Elegant */}
+              <div className="relative rounded-3xl overflow-hidden border-2 border-blue-500/25 dark:border-blue-500/35 bg-white dark:bg-slate-950 shadow-xl">
+                <img
+                  src="/images/profile.jpg"
+                  alt={personalData.name[language]}
+                  className="w-full h-auto aspect-[4/5] object-cover object-top"
+                />
+
+                {/* Floating Status Pill over the Photo */}
+                <div className="absolute bottom-3 inset-x-3 flex items-center justify-between px-3.5 py-2 rounded-2xl bg-slate-950/85 backdrop-blur-md border border-slate-800 text-white shadow-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-xs font-bold text-slate-200">
+                      {language === 'ar' ? 'جاهز للانضمام والعمل' : 'Available for AI Roles'}
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-mono font-bold text-blue-400">
+                    2026
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </motion.div>
+
+        </div>
       </div>
     </section>
   );
