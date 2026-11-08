@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { personalData, allProjectsList, experienceList, certificationsList } from '../data/portfolioData';
 import type { ProjectItem, ExperienceItem, CertificationItem } from '../data/portfolioData';
-import { X, Printer, Mail, Phone, MapPin } from 'lucide-react';
+import { X, Printer, Mail, Phone, MapPin, Download } from 'lucide-react';
 import { LinkedinIcon, GithubIcon } from './SocialIcons';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -49,14 +49,26 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               </h3>
             </div>
 
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2">
+              <a
+                href="/Noureldin_Elanany_CV.pdf"
+                download="Noureldin_Elanany_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold transition-all border border-slate-300 dark:border-slate-700 cursor-pointer"
+                title="Download Official PDF"
+              >
+                <Download className="w-3.5 h-3.5 text-blue-500" />
+                <span>{language === 'ar' ? 'تحميل PDF' : 'Download PDF'}</span>
+              </a>
+
               <button
                 onClick={handlePrint}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-md cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-md cursor-pointer"
                 title="Print or Save as PDF"
               >
-                <Printer className="w-4 h-4" />
-                <span>{language === 'ar' ? 'طباعة / حفظ كـ PDF' : 'Print / Save PDF'}</span>
+                <Printer className="w-3.5 h-3.5" />
+                <span>{language === 'ar' ? 'طباعة' : 'Print'}</span>
               </button>
 
               <button
