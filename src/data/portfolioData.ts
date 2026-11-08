@@ -29,6 +29,8 @@ export interface CertificationItem {
   title: string;
   issuer: string;
   badgeText?: string;
+  image?: string;
+  credentialId?: string;
 }
 
 export interface AIPillar {
@@ -544,37 +546,41 @@ export const certificationsList: CertificationItem[] = [
     id: 'nvidia-llm',
     title: 'Rapid Application Development with Large Language Models (LLMs)',
     issuer: 'NVIDIA',
-    badgeText: 'Aug 2025',
-  },
-  {
-    id: 'nvidia-dl',
-    title: 'Getting Started with Deep Learning',
-    issuer: 'NVIDIA',
-    badgeText: 'Aug 2025',
-  },
-  {
-    id: 'nvidia-prompt',
-    title: 'Building LLM Applications with Prompt Engineering',
-    issuer: 'NVIDIA',
-    badgeText: 'Jan 2025',
+    badgeText: 'Aug 23, 2025',
+    credentialId: 'szVIDKH8Qty0uNZQ-XoS1w',
+    image: '/images/certificates/nvidia-llm.png',
   },
   {
     id: 'nti-cv-cert',
-    title: 'Computer Vision Training (Evaluation: 98% Excellent)',
-    issuer: 'National Telecommunication Institute (NTI)',
+    title: 'Computer Vision Training (Score: 98% Excellent)',
+    issuer: 'National Telecommunication Institute (NTI) & ITIDA',
     badgeText: 'Jul–Aug 2025',
+    credentialId: 'Student ID: 230351 • 120 Hours',
+    image: '/images/certificates/nti-cv.png',
   },
   {
-    id: 'udemy-ds',
-    title: 'Python Data Science Fundamentals: Getting Started',
-    issuer: 'Udemy',
-    badgeText: 'Aug 2025',
+    id: 'genai-achievement',
+    title: 'Generative AI & LLMs Applied Engineering (90 Hours)',
+    issuer: 'Certificate of Achievement',
+    badgeText: 'LangChain4j, Milvus, Zilliz',
+    credentialId: '3 Production RAG Projects',
+    image: '/images/certificates/genai-achievement.png',
   },
   {
-    id: 'udemy-python',
+    id: 'udemy-python-az',
     title: 'The Python Programming A-Z Definitive Diploma',
-    issuer: 'Udemy',
-    badgeText: 'Feb 2024',
+    issuer: 'Udemy • SDE Arts',
+    badgeText: 'Feb 9, 2025',
+    credentialId: 'UC-b1d5e03e-68ce-4939-ae7f-3b976c3ebf00',
+    image: '/images/certificates/udemy-python-az.png',
+  },
+  {
+    id: 'udemy-fundamentals',
+    title: 'Python Development and Python Programming Fundamentals',
+    issuer: 'Udemy • MTF Institute',
+    badgeText: 'Aug 28, 2025',
+    credentialId: 'UC-3d38dcf0-860e-4d1b-9cb7-d599c09af47b',
+    image: '/images/certificates/udemy-fundamentals.png',
   },
 ];
 
