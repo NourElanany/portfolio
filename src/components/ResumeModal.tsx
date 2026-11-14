@@ -201,6 +201,10 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                   <a href={personalData.contacts.github} target="_blank" rel="noreferrer" className="hover:underline text-neutral-900">
                     github.com/NourElanany
                   </a>
+                  <span className="sep">|</span>
+                  <a href="https://nourelanany.github.io/portfolio" target="_blank" rel="noreferrer" className="hover:underline text-neutral-900">
+                    nourelanany.github.io/portfolio
+                  </a>
                 </div>
               </header>
 
@@ -251,7 +255,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                   {/* NOVEGATES */}
                   <div className="item">
                     <div className="item-header flex justify-between items-baseline font-bold text-xs text-neutral-950">
-                      <span className="item-title">Data Collector & AI Pipelines Member — <span className="font-semibold text-neutral-800 item-company">NOVEGATES</span></span>
+                      <span className="item-title">AI Data & Pipelines Specialist — <span className="font-semibold text-neutral-800 item-company">NOVEGATES</span></span>
                       <span className="font-normal text-neutral-600 text-xs item-date">Jun 2026 – Oct 2026</span>
                     </div>
                     <ul className="list-disc list-inside mt-1 space-y-0.5 text-xs text-neutral-800 leading-relaxed">
@@ -299,7 +303,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                   <div className="item">
                     <div className="item-header flex justify-between items-baseline font-bold text-xs text-neutral-950">
                       <span className="item-title">WebMD AI Pipeline: ML, BiLSTM NLP & Medical RAG</span>
-                      <span className="font-normal text-neutral-600 text-2xs item-date">GitHub Repository</span>
+                      <span className="font-semibold text-blue-600 dark:text-blue-400 text-2xs item-date">End-to-End Healthcare AI</span>
                     </div>
                     <div className="item-stack text-2xs text-neutral-600 font-mono">Python, scikit-learn, BiLSTM, ChromaDB, OpenRouter API, Streamlit</div>
                     <ul className="list-disc list-inside mt-0.5 space-y-0.5 text-xs text-neutral-800 leading-relaxed">
@@ -337,10 +341,10 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                   {/* Project 4 */}
                   <div className="item">
                     <div className="item-header flex justify-between items-baseline font-bold text-xs text-neutral-950">
-                      <span className="item-title">WebMD Medical Semantic RAG Application</span>
-                      <span className="font-normal text-neutral-600 text-2xs item-date">Zero Hallucination</span>
+                      <span className="item-title">Clinical Drug-Review Semantic Search & Zero-Hallucination RAG</span>
+                      <span className="font-semibold text-blue-600 dark:text-blue-400 text-2xs item-date">Zero Hallucination</span>
                     </div>
-                    <div className="item-stack text-2xs text-neutral-600 font-mono">Python, Gradio, Sentence Transformers, FAISS, Prompt Engineering</div>
+                    <div className="item-stack text-2xs text-neutral-600 font-mono">Python, Gradio, Sentence Transformers, FAISS, Prompt Engineering | github.com/NourElanany</div>
                     <ul className="list-disc list-inside mt-0.5 space-y-0.5 text-xs text-neutral-800 leading-relaxed">
                       <li>Developed an interactive Gradio application indexing healthcare reviews; engineered semantic chunking, metadata-aware vector embeddings, and top-k retrieval using FAISS.</li>
                       <li>Eliminated clinical hallucinations by constraining response generation strictly to verified retrieved drug review passages.</li>

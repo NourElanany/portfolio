@@ -414,8 +414,8 @@ export const experienceList: ExperienceItem[] = [
   {
     id: 'novegates',
     role: {
-      ar: 'جامع بيانات ضمن فريق الهندسة (Data Collector, Engineering Team)',
-      en: 'Data Collector, Engineering Team',
+      ar: 'أخصائي بيانات وخطوط أنابيب الذكاء الاصطناعي (AI Data & Pipelines Specialist)',
+      en: 'AI Data & Pipelines Specialist',
     },
     company: {
       ar: 'NOVEGATES',
